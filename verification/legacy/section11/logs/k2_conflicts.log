@@ -1,0 +1,27 @@
+instances 26633 classes 4220 conflicts 6
+instances by arc geometry: {'chained': 5847, 'disjoint': 14873, 'common head': 3101, 'common tail': 2812}
+CLASS geometry {'common head'} | start coincides with key points (0,) | sizes [5, 9, 11] | instances 8 wins 7
+CLASS geometry {'chained'} | start coincides with key points (0,) | sizes [6, 10] | instances 4 wins 1
+CLASS geometry {'chained'} | start coincides with key points (0,) | sizes [5, 7, 11] | instances 10 wins 9
+CLASS geometry {'chained'} | start coincides with key points (0,) | sizes [5, 7, 9, 11, 13] | instances 12 wins 9
+CLASS geometry {'chained'} | start coincides with key points (0,) | sizes [5, 7, 9] | instances 5 wins 3
+CLASS geometry {'common head'} | start coincides with key points (0,) | sizes [8, 10] | instances 4 wins 1
+
+--- class {'common head'} deficit vector (-1, 0, 0, 0, 0) ...
+    WIN   n=5 edges=[(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)] arcs=[(4, 3), (1, 3)] start=0
+    LOSS  n=9 edges=[(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (1, 3), (1, 5), (1, 6), (1, 7), (2, 3), (2, 4), (2, 6), (4, 6), (4, 8)] arcs=[(3, 5), (6, 5)] start=2
+--- class {'chained'} deficit vector (0, 0, 0, 0, 0) ...
+    WIN   n=6 edges=[(0, 2), (1, 2), (1, 4), (2, 5), (3, 4), (4, 5)] arcs=[(0, 3), (3, 1)] start=5
+    LOSS  n=10 edges=[(0, 6), (0, 7), (0, 8), (0, 9), (1, 6), (1, 7), (1, 9), (2, 6), (2, 8), (2, 9), (3, 6), (3, 8), (3, 9), (4, 6), (4, 7), (4, 9), (5, 6), (5, 7), (5, 9)] arcs=[(1, 3), (3, 4)] start=0
+--- class {'chained'} deficit vector (-1, 0, 0, 0, 0) ...
+    WIN   n=5 edges=[(0, 2), (0, 3), (0, 4), (1, 2), (1, 3), (1, 4)] arcs=[(2, 4), (3, 2)] start=0
+    LOSS  n=5 edges=[(0, 2), (0, 4), (1, 2), (1, 3), (1, 4)] arcs=[(2, 3), (4, 2)] start=0
+--- class {'chained'} deficit vector (-1, 0, 0, 0, 0) ...
+    WIN   n=5 edges=[(0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4)] arcs=[(1, 2), (3, 1)] start=0
+    LOSS  n=7 edges=[(0, 1), (0, 3), (0, 4), (0, 5), (0, 6), (1, 6), (2, 5), (4, 5), (4, 6)] arcs=[(4, 3), (1, 4)] start=6
+--- class {'chained'} deficit vector (-1, 0, 0, 0, 0) ...
+    WIN   n=7 edges=[(0, 1), (0, 3), (1, 2), (1, 5), (2, 4), (2, 6), (3, 5), (5, 6)] arcs=[(4, 1), (1, 6)] start=0
+    LOSS  n=5 edges=[(0, 3), (1, 3), (1, 4), (2, 3), (2, 4)] arcs=[(1, 2), (2, 0)] start=4
+--- class {'common head'} deficit vector (0, 0, 0, 0, 0) ...
+    WIN   n=8 edges=[(0, 5), (0, 6), (1, 5), (1, 6), (2, 6), (2, 7), (3, 5), (4, 6), (4, 7)] arcs=[(1, 4), (0, 4)] start=3
+    LOSS  n=8 edges=[(0, 5), (0, 6), (0, 7), (1, 5), (1, 6), (1, 7), (2, 5), (2, 7), (3, 5), (3, 6), (4, 5), (4, 6), (4, 7)] arcs=[(4, 0), (1, 0)] start=2

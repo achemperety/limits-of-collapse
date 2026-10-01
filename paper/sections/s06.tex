@@ -1,0 +1,301 @@
+\section{Spectral collapse: the matching potential and where it breaks}\label{sec:matching}
+
+For undirected vertex geography the exponential resolvent of \S\ref{sec:spectral} equals a ratio of two matching polynomials of the input graph, and its order at zero is computable by maximum matching. This gives a spectral proof of the Fraenkel--Scheinerman--Ullman theorem and isolates the structure responsible for the collapse; \S\ref{ssec:directed} extends it to directed geography and characterizes exactly where it survives.
+
+\subsection{A transfer lemma}
+\begin{lemma}[transfer]\label{lem:transfer}
+Consider a family of finite impartial normal-play games. Suppose each position $q$ carries two nonzero rational functions $A(q),B(q)\in\Qz$ such that, for every position $q$ with options $q_1,\dots,q_k$,
+\[
+\frac{A(q)}{B(q)}=z-\sum_{i=1}^k\frac{B(q_i)}{A(q_i)}.
+\]
+Then $B(q)/A(q)$ is the root resolvent of the game tree at $q$. Consequently $q$ is an N-position if and only if $\ord_0B(q)-\ord_0A(q)=+1$.
+\end{lemma}
+\begin{proof}
+Both families satisfy the recursion \eqref{eq:schur} with the same value $1/z$ at terminal positions ($k=0$). They agree by induction on height, and \cref{thm:resolvent-outcome} identifies the outcome.
+\end{proof}
+
+\begin{remark*}[the lemma is not a structure theorem]
+Without restrictions on $A$ and $B$ every family satisfies \cref{lem:transfer}: take $A(q)$ and $B(q)$ to be the characteristic polynomials of the game tree at $q$ and of that tree minus its root. Then $\ord_0B-\ord_0A$ is computable in polynomial time exactly when outcomes are. Content comes only from a restriction on the form of $A$ and $B$: matching polynomials of the input graph in \S\ref{ssec:uvg}, and local weighted matching potentials in \S\ref{ssec:directed}.
+\end{remark*}
+
+\subsection{Undirected vertex geography}\label{ssec:uvg}
+In undirected vertex geography (UVG) a token sits on a vertex $v$ of a graph $H$; the player to move slides it to a neighbour $w$ and $v$ is deleted; a player who cannot move loses. The game tree from $(G,u)$ is Godsil's path tree $T(G,u)$, whose nodes are the simple paths of $G$ that start at $u$. The matching polynomial is $\mu(H,z)=\sum_k(-1)^km_k(H)z^{|H|-2k}$, where $m_k(H)$ counts matchings with $k$ edges. Sorting matchings by whether and how they cover $v$ gives the vertex recurrence
+\begin{equation}\label{eq:vertex-recurrence}
+\mu(H,z)=z\,\mu(H-v,z)-\sum_{w\sim_Hv}\mu(H-v-w,z).
+\end{equation}
+
+\begin{theorem}[matching collapse]\label{thm:matching-collapse}
+For a finite graph $G$ and vertex $u$, let $R$ be the root resolvent of the UVG game tree at $(G,u)$. Then
+\[
+R(z)=\frac{\mu(G-u,z)}{\mu(G,z)},\qquad \ord_{z=0}R=2\bigl(\nu(G)-\nu(G-u)\bigr)-1.
+\]
+So the player to move wins UVG at $(G,u)$ if and only if $\nu(G-u)=\nu(G)-1$, that is, $u$ is covered by every maximum matching of $G$ \textup{(}Fraenkel--Scheinerman--Ullman \cite{FSU}\textup{)}. Equivalently, $e_u$ lies in the image of the Tutte matrix of $G$ over $\QQ(x_e)$, which a random substitution tests with high probability \cite{Lovasz}.
+\end{theorem}
+
+\begin{proof}
+For the position $(H,v)$ take $A=\mu(H)$ and $B=\mu(H-v)$. The options of $(H,v)$ are $(H-v,w)$ for the neighbours $w$ of $v$, so the right side of the transfer identity is $z-\sum_w\mu(H-v-w)/\mu(H-v)$, which equals $\mu(H)/\mu(H-v)$ by \eqref{eq:vertex-recurrence}; \cref{lem:transfer} gives $R=\mu(G-u)/\mu(G)$. The lowest-order term of $\mu(H)$ is $\pm(\text{number of maximum matchings})\,z^{|H|-2\nu(H)}$, so $\ord_0\mu(H)=|H|-2\nu(H)$, and the formula for $\ord_0R$ follows; \cref{thm:resolvent-outcome} turns it into the outcome.
+For the Tutte statement, let $Q$ be the Tutte matrix: for each edge $e=vw$ with $v$ before $w$ it has $x_e$ in position $(v,w)$ and $-x_e$ in position $(w,v)$. $Q$ is skew-symmetric of rank $2\nu(G)$ over $\QQ(x_e)$ \cite{Tutte,Lovasz}. If some kernel vector is nonzero at $u$, then row $u$ and column $u$ are combinations of the others, and deleting both keeps the rank. If every kernel vector vanishes at $u$, deleting column $u$ lowers the rank; skew-symmetric ranks are even, so deleting row $u$ as well lowers it by exactly $2$. Hence $\nu(G-u)=\nu(G)-1$ exactly when $e_u\perp\ker Q$, that is, $e_u\in\operatorname{Im}Q$.
+\end{proof}
+
+\begin{remark*}
+\begin{enumerate}[label=(\arabic*)]
+\item The identity $R=\mu(G-u)/\mu(G)$ is Godsil's path-tree theorem \cite{Godsil81,GodsilBook}, whose proof is essentially the induction above. Reading the path tree as the UVG game tree and the order at zero as the outcome gives a spectral derivation of the FSU theorem; we have not found this derivation in the literature. That the multiplicity of the root $0$ of $\mu$ is the deficiency is Godsil's observation; the multiplicities of the other roots have a Gallai--Edmonds theory of their own \cite{Godsil95,KuChen}.
+\item The collapse is a valuation phenomenon. The coefficients of $\mu(G,z)$ are $\sharpP$-hard to compute (for even $|G|$ the constant coefficient counts perfect matchings up to sign \cite{Valiant}); only the order of vanishing at $0$ is tractable, and the outcome needs nothing more.
+\item By Heilmann--Lieb \cite{HeilmannLieb}, $\mu$ is real-rooted and the roots of $\mu(G-u)$ interlace those of $\mu(G)$; the outcome is the sign of the interlacing defect at the single point $z=0$. The multivariate form of the same theorem (real stability in vertex weights) is the engine of \S\ref{sec:realstab}.
+\end{enumerate}
+\end{remark*}
+
+\subsection{Where spectral collapse fails}\label{ssec:fails}
+The matching potential exists because deleting the token's vertex in UVG matches deleting a vertex in the matching recurrence. Most small changes break this match, and the resulting games are $\PSPACE$-complete, so none of them has a polynomial-time evaluation of any kind unless $\Pclass=\PSPACE$. Edge geography on bipartite graphs is the exception: it stays polynomial through a different algebraic criterion, over $\mathrm{GF}(2)$.
+
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}L{0.24}L{0.2}>{\raggedright\arraybackslash}X L{0.19}@{}}
+\toprule
+Variant & Game tree & Complexity & Source\\ \midrule
+UVG, outcome & path tree & polynomial (\cref{thm:matching-collapse}) & \cite{FSU}\\
+Directed (generalized) geography & directed path tree & $\PSPACE$-complete, even planar bipartite of maximum degree $3$ & \cite{LichtensteinSipser}\\
+Undirected edge geography & edge-simple walks & $\PSPACE$-complete & \cite{FSU}\\
+\quad on bipartite graphs & edge-simple walks & polynomial, by linear algebra over $\mathrm{GF}(2)$ & \cite{FSU}\\
+UVG, mis\`ere play & path tree, terminal rule reversed & $\PSPACE$-complete & \cite{RenaultSchmidt}\\
+UVG, Grundy value & path tree & $\PSPACE$-hard at maximum degree $4$ (planar bipartite); polynomial at maximum degree $3$ & \cite{BFT}\\
+Sum of two UVG positions & interleaved path trees & $\PSPACE$-complete & \cite{BFT}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The last two rows are the sharpest. The valuation $\ord_0$ records outcomes but not Grundy values, and it is not additive under disjunctive sums: a tractable spectral invariant can be strictly weaker than the compositional invariant of the same game. \S\ref{ssec:directed} refines the directed row: when every strong component is symmetric, a weighted version of $\mu$ survives and decides outcomes in polynomial time, and nowhere else.
+
+\subsection{Quantum evaluation}
+The zero-energy eigenvector of \cref{thm:resolvent-outcome} can be probed by a quantum walk on the tree. That is the Farhi--Goldstone--Gutmann algorithm, which evaluates a NAND tree with $L$ leaves in time about $\sqrt L$ in the Hamiltonian-oracle model; discrete-query algorithms reach $O(\sqrt L)$ for balanced trees \cite{ACRSZ}. By \cref{thm:query} this is optimal when the leaves are an oracle. The bound says nothing about succinctly described arenas, where a polynomial-time quantum algorithm would place $\PSPACE$ in $\BQP$.
+
+\subsection{Directed resolvent collapse}\label{ssec:directed}
+In directed vertex geography (DVG) on a digraph $D$ the token moves along an out-arc $v\to w$ to an unvisited vertex $w$, and $v$ is deleted. Positions are pairs $(W,v)$ with $W$ the unvisited set, $v\in W$, and the options of $(W,v)$ are $(W-v,w)$ for out-neighbours $w\in W$. A position is \emph{reachable} if some play from some start $(V(D),s)$ reaches it. The game tree is the directed path tree, and \cref{thm:resolvent-outcome} applies to it verbatim; write $R(W,v)$ for its root resolvent.
+
+\begin{theorem}[unweighted potentials see no orientation]\label{thm:unweighted}
+Let $\mathcal D$ be a class of digraphs closed under induced subdigraphs, and let $F$ assign to each $D\in\mathcal D$ an element $F(D)$ of a field $\mathbb K\supseteq\Qz$ with $F(\emptyset)\ne0$ and
+\[
+F(D)=z\,F(D-v)-\sum_{w\in\nplus_D(v)}F(D-v-w)\qquad\text{for every }D\in\mathcal D\text{ and every }v\in V(D).
+\]
+Then every digraph in $\mathcal D$ is symmetric, and $F(D)=F(\emptyset)\,\mu(D,z)$, with $\mu$ the matching polynomial of the underlying graph.
+\end{theorem}
+\begin{proof}
+For a single vertex the recurrence gives $F(\{x\})=zF(\emptyset)$. Suppose some $D\in\mathcal D$ has an arc $u\to v$ without $v\to u$, so that $D[\{u,v\}]\in\mathcal D$. The recurrence at $u$ gives $F(D[\{u,v\}])=(z^2-1)F(\emptyset)$, while at $v$, which has no out-neighbour there, it gives $z^2F(\emptyset)$, a contradiction. So every arc is symmetric, out-neighbourhoods are neighbourhoods, and $F/F(\emptyset)$ obeys \eqref{eq:vertex-recurrence} with the same initial value.
+\end{proof}
+
+\Cref{thm:unweighted} applies to every hereditary class with a one-way arc, acyclic digraphs included, where DVG takes linear time, so it does not separate easy classes from hard ones. It says that a recurrence with the bare weight $z$ at every vertex cannot see orientation, and that one-way arcs must enter a potential through vertex weights. \Cref{thm:directed-collapse} shows how.
+
+\begin{remark}[transposition-invariant data]\label{rem:transposition}
+Reversing every arc transposes the adjacency matrix and negates the skew-symmetric adjacency matrix of an oriented graph. So characteristic polynomials, ranks of principal submatrices, Pfaffians up to sign and Kasteleyn-type counts agree on $D$ and its reversal. DVG outcomes do not: on the out-star $u\to a$, $u\to b$ the player to move at $u$ wins, and on its reversal that player loses. Data invariant under transposition cannot decide DVG, and a Kasteleyn orientation appears below only as a device for signing matchings.
+\end{remark}
+
+\begin{definition*}[SCC-symmetry]
+A digraph is \emph{SCC-symmetric} if every arc lying on a directed cycle has its reverse arc. An arc $u\to v$ lies on a directed cycle exactly when $v$ reaches $u$, that is, when $u$ and $v$ share a strong component. So the definition says that every strong component induces a symmetric digraph and the asymmetric arcs are exactly the arcs between components. The class contains every DAG, every undirected graph, and every DAG of undirected graphs joined by one-way arcs.
+\end{definition*}
+
+\begin{lemma}[entry lemma]\label{lem:entry}
+In DVG on any digraph, when the token enters a strong component at a vertex $w$, no vertex reachable from $w$ has been visited. So the subgame from that moment is DVG on the vertices reachable from $w$, started at $w$. Write $\Rdown(w)$ for its root resolvent, the \emph{fresh-entry resolvent} of $w$; it equals $R(V,w)$.
+\end{lemma}
+\begin{proof}
+The visited vertices lie on a directed path ending at the vertex $x$ from which the token entered, with $x\to w$ and $x$ outside the component of $w$. If a visited vertex $y$ were reachable from $w$, the path from $y$ to $x$, the arc $x\to w$ and a path from $w$ to $y$ would form a directed cycle through $x\to w$, and $x,w$ would share a component. At the start nothing has been visited.
+\end{proof}
+
+\begin{definition*}[local weighted matching potential]
+Let $D$ be a digraph and $\mathbb K\supseteq\Qz$ a field. A \emph{local weighted matching potential} for $D$ over $\mathbb K$ is a graph $U$ on $V(D)$ with vertex weights $a\colon V(D)\to\mathbb K$ such that for every reachable position $(W,v)$ of DVG on $D$
+\[
+\mu_a(U[W])\neq0\qquad\text{and}\qquad R(W,v)=\frac{\mu_a(U[W-v])}{\mu_a(U[W])},
+\]
+where $\mu_a(H)=\sum_{M}(-1)^{|M|}\prod_{x\notin V(M)}a_x$, the sum running over the matchings $M$ of $H$. The graph $U$ and the weights are fixed for $D$ and do not depend on the position; one vertex-deletion recurrence with weights fixed in advance produces every resolvent, which \cref{lem:transfer} alone does not provide. Unless said otherwise, $\mathbb K=\Qz$.
+\end{definition*}
+
+\begin{theorem}[directed resolvent collapse]\label{thm:directed-collapse}
+Let $D$ be SCC-symmetric and let $U$ be its symmetric part, the graph of the pairs joined in both directions. For a vertex $x$ in the strong component $C(x)$ define the exit self-energy and the weight
+\[
+\eta_x(z)=\sum_{y\in\nplus(x),\,y\notin C(x)}\Rdown(y),\qquad a_x(z)=z-\eta_x(z).
+\]
+Then $(U,a)$ is a local weighted matching potential for $D$ over $\Qz$. For a reachable position $(W,v)$ with $v$ in the component $C$, and with $G(C)=U[C]$, the ratio depends only on $W\cap C$:
+\[
+R(W,v)=\frac{\mu_a\bigl(G(C)[W\cap C-v]\bigr)}{\mu_a\bigl(G(C)[W\cap C]\bigr)}.
+\]
+The self-energies are computed component by component, in reverse topological order of the condensation.
+\end{theorem}
+
+\begin{proof}
+$U$ has no edges between components, so $\mu_a(U[S])$ is the product of the factors $\mu_a(G(C)[S\cap C])$ over the components, and every factor except that of $C$ cancels in the ratio (they are nonzero by \cref{prop:no-cancel}). By \cref{lem:entry} every exit target of a vertex of $C$ is unvisited while the token is in $C$, so the options of a reachable position $(W,v)$ are the positions $(W-v,w)$ for neighbours $w$ of $v$ in $G(C)[W\cap C]$, together with fresh entries into later components at the exit targets $y$, whose resolvents are $\Rdown(y)$. The recursion \eqref{eq:schur} therefore reads $1/R(W,v)=z-\eta(v)-\sum_wR(W-v,w)$. Sorting matchings by whether and how they cover $v$ gives the weighted vertex recurrence $\mu_a(H)=a_v\mu_a(H-v)-\sum_w\mu_a(H-v-w)$ over neighbours $w$ of $v$. Dividing by $\mu_a(H-v)$ shows that the claimed ratio satisfies the same recursion, with the same value $1/a_v$ when $v$ has no neighbour in $W\cap C$. Induction on $|W\cap C|$ gives equality.
+\end{proof}
+
+\begin{proposition}[valuation without cancellation]\label{prop:no-cancel}
+Let $X_{\Pw}\subseteq V(C)$ be the set of vertices with an exit to a P-position, that is, with some exit target $y$ at which $\Rdown(y)$ has a pole. For $S\subseteq V(C)$ let $G(C)[S]^{+}$ be $G(C)[S]$ with a new pendant leaf attached to each vertex of $S\cap X_{\Pw}$. Then $\mu_a(G(C)[S])\neq0$ and
+\[
+\ord_{z=0}\mu_a\bigl(G(C)[S]\bigr)=|S|-2\nu\bigl(G(C)[S]^{+}\bigr).
+\]
+\end{proposition}
+\begin{proof}
+By \cref{thm:resolvent-outcome} each $\Rdown(y)$ has either a simple pole at $0$ with positive residue or a simple zero with negative derivative. So $a_x=-r_x/z+O(1)$ with $r_x>0$ for $x\in X_{\Pw}$, and $a_x=c_xz+O(z^2)$ with $c_x\ge1$ for $x\notin X_{\Pw}$. The term of a matching $M$ with unmatched set $Y$ then has order $|Y\setminus X_{\Pw}|-|Y\cap X_{\Pw}|=|S|-2\kappa(M)$, where $\kappa(M)=|M|+|Y\cap X_{\Pw}|$, and its leading coefficient has sign $(-1)^{\kappa(M)}$. All terms of minimal order share the sign $(-1)^{\kappa^{*}}$, with $\kappa^{*}$ the maximum of $\kappa$, so they cannot cancel. Finally $\kappa^{*}=\nu(G(C)[S]^{+})$, because a matching of the augmented graph is a matching of $G(C)[S]$ plus leaf edges at some unmatched vertices of $X_{\Pw}$.
+\end{proof}
+
+\begin{corollary}[outcomes in polynomial time]\label{cor:dvg-poly}
+The player to move at a reachable position $(W,v)$ with $v$ in $C$ wins if and only if $v$ is covered by every maximum matching of $G(C)[W\cap C]^{+}$. So the explicit potential is $\mu_a$, with valuation $\Lambda(S)=|S|-2\nu(G(C)[S]^{+})$. Processing the components in reverse topological order decides DVG on SCC-symmetric digraphs with one Gallai--Edmonds decomposition per component: each entry vertex $w$ is classified by whether every maximum matching of $G(C)^{+}$ covers it, and that outcome decides whether $w$'s in-neighbours upstream belong to $X_{\Pw}$.
+\end{corollary}
+\begin{proof}
+Put $S=W\cap C$. By \cref{thm:directed-collapse,prop:no-cancel}, $\ord_0R(W,v)=\Lambda(S-v)-\Lambda(S)=2(\nu(G(C)[S]^{+})-\nu(G(C)[S]^{+}-v))-1$, because the leaf of $v$ becomes isolated. \Cref{thm:resolvent-outcome} turns the sign into the outcome.
+\end{proof}
+
+\begin{proof}[Elementary proof of the outcome statement]
+By \cref{lem:entry} an exit leads to a fresh position whose outcome is fixed in advance. An exit to an N-position is a losing move, and deleting losing moves changes no outcome; an exit to a P-position wins at once, exactly like a move to a pendant leaf. So from any reachable position inside $C$ the game is UVG on $G(C)[W\cap C]^{+}$, and \cref{thm:matching-collapse} applies. The spectral proof gives more: the exact resolvent of every position and the weights $r_x,c_x$ that enter the leading coefficient of $\mu_a$ (\S\ref{ssec:pfaffian}).
+\end{proof}
+
+\begin{proposition}[where the potential fails, small cases]\label{prop:fails}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item No directed cycle $C_k$, $k\ge3$, has a local weighted matching potential over any field $\mathbb K\supseteq\Qz$.
+\item The three digraphs on three vertices that are strongly connected but not symmetric have none, over any field.
+\item Among the $218$ digraphs on four vertices, up to isomorphism, exactly the $104$ SCC-symmetric ones have a potential, over $\Qzbar$ \textup{(}\cref{thm:exact5}\textup{)}.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) From a start $s$ the play on $C_k$ runs around the cycle and stops one vertex short of $s$, so the reachable positions are the pairs $(I,v)$ with $I$ a cyclic interval of length $\ell\le k$ that begins at $v$, and the game from $(I,v)$ is a directed path with $\ell$ vertices, with resolvent $\mu(P_{\ell-1})/\mu(P_\ell)$. Let $(U,a)$ be a potential. Since $I-v$ is the interval of length $\ell-1$ that begins at the successor of $v$, the defining identity telescopes to $\mu_a(U[I])=\mu(P_\ell)$ for every cyclic interval of length $\ell$. For $\ell=1$ this gives $a\equiv z$, so $\mu_a$ is the ordinary matching polynomial. For $\ell=2$ it gives $z^2-1$ for every pair of consecutive vertices, so $U$ contains the $k$ edges of the cycle. For $\ell=k$ it gives $\mu(U)=\mu(P_k)$, whose coefficient of $z^{k-2}$ is $-(k-1)$, while in $\mu(U)$ that coefficient is minus the number of edges, at least $k$.
+(2) One of the three is $C_3$. The others, with arcs $0\rightleftarrows1$, $0\rightleftarrows2$, $1\to2$ and with arcs $0\rightleftarrows1$, $1\to2\to0$, have a vertex $s$ with arcs to both ends of a one-way arc $x\to y$ ($s=0,x=1,y=2$ and $s=1,x=2,y=0$). In both, every vertex ends a Hamiltonian path, so every singleton position is reachable and forces $a\equiv z$. The positions $(\{x,y\},x)$ and $(\{x,y\},y)$ are reachable from $s$, with resolvents $z/(z^2-1)$ and $1/z$, while a potential assigns both the value $z/(z^2-[xy\in U])$.
+(3) is the exact computation of \cref{thm:exact5}.
+\end{proof}
+
+\begin{theorem}[formerly Conjecture 6.10]\label{thm:conj610}
+A digraph has a local weighted matching potential over $\Qz$ if and only if it is SCC-symmetric. The same holds over $\Rz$ and over the field $\Puis$ of real Puiseux series convergent at $\infty$ \textup{(}\S\ref{ssec:real-setting}\textup{)}.
+\end{theorem}
+\begin{proof}
+``If'' is \cref{thm:directed-collapse}. ``Only if'' is \cref{thm:main-real}: a local weighted matching potential with weights in $\Puis$ is a real-stable potential (\cref{ex:real-stable}), and a digraph with a real-stable potential is SCC-symmetric.
+\end{proof}
+
+With \cref{thm:unweighted} this gives the two-level picture: with the bare weight $z$ a vertex recurrence sees no orientation, and with real vertex weights it sees exactly the orientation of arcs between strong components. Over $\Qzbar$ the statement is false: the directed triangle together with four isolated vertices has a potential with algebraic weights (\cref{thm:complex-counterexample,cor:complex-false}), so the hypothesis that the weights are real cannot be dropped.
+
+\begin{corollary}[edge geography with bipartite components]\label{cor:edge-geo}
+In edge geography on a mixed graph, undirected edges and arcs are each usable once: the token moves along an unused edge in either direction or along an unused arc in its direction, and a player who cannot move loses. Suppose every arc joins two different connected components of the undirected part and the arcs make no cycle among these components. Then the strong components, with each edge counted in both directions, are exactly the components of the undirected part. From a position with the token in the component $C$, the outcome is that of undirected edge geography on the unused edges of $C$ plus one pendant edge at each vertex of $C$ with an arc to a P-position of a later component. If every component is bipartite, outcomes are computable in polynomial time.
+\end{corollary}
+\begin{proof}
+When the token enters a component along an arc, no edge of that component or of any component reachable from it has been used (the argument of \cref{lem:entry} applied to components). So an arc into a later component leads to a position whose outcome depends only on its head. Arcs to N-positions are losing moves and can be deleted; an arc from $x$ to a P-position wins at once, like a pendant edge at $x$ (several such arcs at $x$ act like one, since using any of them ends the play in $C$). Arcs never return to $C$, so the game inside $C$ is undirected edge geography on the unused edges of $C$ plus these pendant edges. Pendant edges keep a graph bipartite, and FSU \cite{FSU} solve undirected edge geography on bipartite graphs in polynomial time by linear algebra over $\mathrm{GF}(2)$. Processing the components in reverse topological order classifies every head.
+\end{proof}
+
+Without bipartiteness each component is an instance of undirected edge geography, which is $\PSPACE$-complete \cite{FSU}, and the reduction only transfers hardness.
+
+\begin{remark*}
+\begin{enumerate}[label=(\arabic*)]
+\item For a DAG every component is one vertex and \cref{cor:dvg-poly} is backward induction; for an undirected graph there are no exits, $a\equiv z$, and \cref{thm:matching-collapse} returns. \Cref{thm:directed-collapse} glues these two collapses along the condensation.
+\item The self-energy $\eta_x$ is the cavity field of the Schur-complement method: each later component acts on $C$ only through one rational function at each exit target. The number of positions stays exponential inside large components, so the collapse is not a counting of positions.
+\item Unless $\Pclass=\PSPACE$, hard instances of DVG need a one-way arc inside a strong component, which is exactly where \cref{thm:conj610} places the failure of the potential. Such arcs do not imply hardness: DVG on a directed cycle is trivial yet has no potential, and \S\ref{sec:oneway} decides all digraphs whose one-way arcs share a tail in each component. The absence of a potential is not a hardness criterion.
+\item DVG also takes linear time on digraphs of bounded treewidth \cite{Bodlaender} (for edge geography Bodlaender needs bounded degree as well). That class contains the directed cycles, so the algorithm does not come from a local weighted matching potential; \S\ref{sec:treewidth} explains what a width-bounded object can and cannot carry.
+\item We have not found \cref{thm:directed-collapse,cor:dvg-poly,cor:edge-geo} or \cref{thm:conj610} in the literature, including the 1993 geography papers \cite{Bodlaender,FraenkelSimonson,FSU} and Fraenkel's bibliography \cite{FraenkelBib}; since \cref{cor:dvg-poly} has a short elementary proof, an earlier occurrence of the outcome statement would not be surprising.
+\end{enumerate}
+\end{remark*}
+
+\subsection{The Pfaffian layer}\label{ssec:pfaffian}
+The valuation of the matching potential is polynomial for every graph, but its leading coefficient already counts maximum matchings. Kasteleyn's Pfaffian method computes that coefficient on planar graphs of bounded deficiency, and it is $\sharpP$-hard without that bound. Write $d=|G|-2\nu(G)$ for the deficiency, $\mm(G)$ for the number of maximum matchings and $\operatorname{pm}(G)$ for the number of perfect matchings.
+
+\begin{proposition}[leading coefficient and residue]\label{prop:residue}
+The lowest term of $\mu(G,z)$ is $(-1)^{\nu(G)}\mm(G)z^d$. If $(G,u)$ is a P-position of UVG, then the resolvent $R=\mu(G-u)/\mu(G)$ has the residue
+\[
+\Res_{z=0}R(z)=\frac{\mm(G-u)}{\mm(G)}=\Pr\bigl[u\notin V(M)\bigr],
+\]
+where $M$ is a uniformly random maximum matching of $G$.
+Every maximum matching $M$ that misses $u$ is a winning strategy for the second player: answer each move to $w$ by moving to the $M$-partner of $w$. The residue is therefore the density of matching strategies among maximum matchings.
+\end{proposition}
+\begin{proof}
+The lowest term of $\mu(G,z)$ comes from the maximum matchings. At a P-position $\nu(G-u)=\nu(G)$, so $\mu(G-u)$ has lowest term $(-1)^{\nu(G)}\mm(G-u)z^{d-1}$, and the ratio of lowest terms is the residue. The maximum matchings of $G-u$ are exactly the maximum matchings of $G$ that miss $u$. For the strategy, suppose the opponent moves from $u$ to $w$. Then $w$ is covered by $M$, since otherwise adding $uw$ would enlarge $M$. After the answer $w\to M(w)$, the matching $M$ minus the edge $wM(w)$ is a maximum matching of $G-u-w$ that misses the token vertex: a larger one plus $uw$ would beat $\nu(G)$. The opponent again moves from a vertex missed by a maximum matching, and induction on $|G|$ finishes.
+\end{proof}
+
+\begin{theorem}[the Kasteleyn frontier]\label{thm:kasteleyn}
+Let $G$ have deficiency $d$.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item The valuation $\ord_0\mu(G,z)=d$ is computable in polynomial time for every graph, and it decides every outcome.
+\item Every maximum matching misses exactly $d$ vertices, so $\mm(G)=\sum\operatorname{pm}(G-S)$ over $d$-element sets $S$. For planar $G$ each $G-S$ is planar and $\operatorname{pm}(G-S)$ is the absolute value of the Pfaffian of a Kasteleyn orientation \cite{TemperleyFisher,Kasteleyn}. So on planar graphs $\mm(G)$, and every residue of \cref{prop:residue}, takes $\binom{|G|}{d}$ Pfaffians: polynomial time for bounded deficiency.
+\item Computing $\mm(G)$ is $\sharpP$-complete in general \cite{Valiant}, and it stays $\sharpP$-complete on planar bipartite graphs of bounded degree: Vadhan \cite{Vadhan} proves $\sharpP$-completeness there for matchings ``and extremal variants'', which include maximum matchings; this is also the ground on which Mikl\'os and Kr\'esz withdrew an independent proof \cite{MiklosKresz}. Residues are $\sharpP$-hard on the same class, because an oracle for them yields $\mm(G)$ through the telescoping identity below.
+\item Computing the whole polynomial $\mu(G,z)$ is $\sharpP$-hard even for planar bipartite graphs of bounded degree: the sum of the absolute values of its coefficients is the number of matchings \cite{Jerrum,Vadhan}.
+\end{enumerate}
+\[
+\mm(G)=\frac{\operatorname{pm}(G_d)}{\prod_{i=1}^{d}\Res_{z=0}\dfrac{\mu(G_{i-1}-u_i,z)}{\mu(G_{i-1},z)}},\qquad G_0=G,\quad G_i=G_{i-1}-u_i.
+\]
+\end{theorem}
+\begin{proof}[Proof of item \textup{(3)}]
+Choose each $u_i$ missed by some maximum matching of $G_{i-1}$; one maximum-matching computation finds it. Then $\nu$ is unchanged, the deficiency drops by one, and $(G_{i-1},u_i)$ is a P-position whose residue is $\mm(G_i)/\mm(G_{i-1})$ by \cref{prop:residue}. The product telescopes; the last graph has a perfect matching, so $\mm$ equals $\operatorname{pm}$ there, and it is planar, so its $\operatorname{pm}$ is one Pfaffian. The other items were proved above or are the cited results.
+\end{proof}
+
+The same frontier governs the weighted potential $\mu_a$ of \cref{thm:directed-collapse} on planar components: its leading coefficient is a weighted count of maximum matchings of $G(C)[S]^{+}$, with weights $r_x$ on leaf edges and $c_x$ on unmatched vertices, which are themselves residues and slopes of downstream resolvents. The potential has three layers: its valuation decides the game on every graph; its leading coefficient counts matching strategies, computable by Pfaffians on planar graphs of bounded deficiency and $\sharpP$-hard on planar bipartite graphs; and the full polynomial is $\sharpP$-hard even on planar bipartite graphs of bounded degree.
+
+\subsection{Compositional invariants and the torsion obstruction}\label{ssec:torsion}
+An invariant that respects sums and decides outcomes must separate every pair of games that some sum tells apart, so it must carry the Grundy value for impartial games and the Conway value for partizan ones. If it takes values in an abelian group and detects P-positions as zero, it is killed by $2$, and the Grundy value sits in the $2$-torsion of the group. Let $\mathfrak C$ be a class of finite games closed under disjunctive sum and negation, with outcome $o(G)$. Games are equal, $G=H$, when $o(G+X)=o(H+X)$ for every $X\in\mathfrak C$; equivalently $G-H$ is a P-position \cite{Siegel}. For impartial games $G=H$ exactly when the Grundy values $g(G),g(H)$ agree.
+
+\begin{theorem}[compositionality forces equality]\label{thm:compositional}
+Let $\varphi\colon\mathfrak C\to\Omega$ satisfy $\varphi(G+H)=\Psi(\varphi(G),\varphi(H))$ and $o(G)=f(\varphi(G))$ for some maps $\Psi,f$. Then $\varphi(G)=\varphi(H)$ implies $G=H$. For impartial games $\varphi$ determines the Grundy value.
+\end{theorem}
+\begin{proof}
+If $\varphi(G)=\varphi(H)$ then $o(G+X)=f(\Psi(\varphi(G),\varphi(X)))=o(H+X)$ for every $X$.
+\end{proof}
+
+\begin{theorem}[torsion obstruction]\label{thm:torsion}
+Let $\mathfrak C$ consist of impartial games and let $\varphi\colon\mathfrak C\to A$ be additive into an abelian group with the zero test: $G$ is a P-position iff $\varphi(G)=0$. Then $2\varphi(G)=0$ for every $G$, and $\varphi(G)=\varphi(H)$ iff $g(G)=g(H)$. So $\mathfrak C$ realizes at most $|A[2]|$ Grundy values, where $A[2]$ is the subgroup of elements of order at most $2$. In particular:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item no integer-valued additive invariant, such as the degree of a divisor, has the zero test once $*1\in\mathfrak C$;
+\item even with an arbitrary outcome test, an integer-valued additive invariant separates at most two Grundy values, which is impossible once $*1,*2\in\mathfrak C$;
+\item if $A$ is $\operatorname{Pic}^0$ of a finite graph or of a metric graph of genus $g$, then $|A[2]|\le 2^g$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+$G+G$ is a P-position, so $2\varphi(G)=\varphi(G+G)=0$. Then $\varphi(G)-\varphi(H)=\varphi(G)+\varphi(H)=\varphi(G+H)$ vanishes exactly when $G+H$ is a P-position, that is, when $g(G)=g(H)$; this injects Grundy values into $A[2]$, and (1) follows because $\ZZ$ has no element of order $2$.
+For (2) let $L\le\ZZ$ be generated by the values $2\varphi(G)$. Adding a game $G+G$ never changes an outcome, so if $\varphi(H_1)\equiv\varphi(H_2)\pmod L$, adding suitable nonnegative multiples of such games to each makes the values equal without changing outcomes; hence the outcome depends only on $\varphi\bmod L$. The reduced invariant is additive, outcome-determining and killed by $2$, so by \cref{thm:compositional} it injects Grundy values into $(\ZZ/L)[2]$, which has at most two elements (if $L=0$ then $\varphi\equiv0$ cannot separate $0$ from $*1$). The games $0,*1,*2,*3$ need four.
+For (3), $\operatorname{Pic}^0$ of a finite graph is the discriminant group of its lattice of integral flows, a lattice of rank $g$, so it is generated by $g$ elements \cite{BHN}; $\operatorname{Pic}^0$ of a metric graph is a $g$-dimensional real torus \cite{MikhalkinZharkov}. In both cases $|A[2]|\le 2^g$.
+\end{proof}
+
+Wild outcome tests can do more: an additive map into $\RR/\ZZ$ with rationally independent values on $*1,*2,*4,\dots$ carries any number of Grundy bits if the test reads off parities of coefficients. Linear equivalence and rank are zero tests, so item (3) is the bound that applies to divisors.
+
+\begin{example}[the torsion bound is attained]\label{ex:bouquet}
+Let $B_k$ be the bouquet of $k$ digons: a vertex $o$ joined to each of $p_1,\dots,p_k$ by two parallel edges, of genus $k$. Firing $p_i$ moves two chips to $o$, so the principal divisors are spanned by $2(p_i-o)$ and $\operatorname{Pic}^0(B_k)\cong(\ZZ/2)^k$ is generated by the classes of $p_i-o$. For an impartial game $G$ with Grundy value below $2^k$ write its binary digits $b_1,\dots,b_k$ and put $\Dv(G)=\sum_ib_i(p_i-o)$, so $g(G)=\sum_ib_i2^{i-1}$. The bits of $g(G)\oplus g(H)$ are $b+b'-2bb'$, so $\Dv(G+H)\sim\Dv(G)+\Dv(H)$. A divisor of degree $0$ has rank $0$ if it is equivalent to $0$ and rank $-1$ otherwise, so $G$ is a P-position exactly when $\Dv(G)\sim0$, that is, $r(\Dv(G))=0$. Genus $k$ thus carries exactly $2^k$ Grundy values and item (3) is sharp. On the metric rose of $k$ circles of length $2$, with $p_i$ antipodal to $o$, the classes of $p_i-o$ generate a subgroup $(\ZZ/2)^k$ of the torus $\operatorname{Pic}^0$: on one circle a piecewise-linear function with integer slopes whose divisor is supported on $\{o,p\}$ has slope $s$ on both arcs oriented from $o$ to $p$, so its divisor is $2s(o-p)$.
+\end{example}
+
+\begin{corollary}[rank is not compositional]\label{cor:rank-not}
+In \cref{ex:bouquet} with $k\ge2$, $r(\Dv(*1))=r(\Dv(*2))=-1$, yet $r(\Dv(*1)+\Dv(*1))=0$ while $r(\Dv(*1)+\Dv(*2))=-1$, so the rank of a sum is not a function of the ranks of its summands. Rank is only superadditive: if $r(D_1),r(D_2)\ge0$, any effective divisor of degree $r(D_1)+r(D_2)$ splits into parts of degrees $r(D_1)$ and $r(D_2)$ that $D_1$ and $D_2$ absorb, so $r(D_1+D_2)\ge r(D_1)+r(D_2)$.
+\end{corollary}
+
+Sums are linear in the Jacobian; the mex is not. The divisor of $G+H$ is the sum of the divisors, but $\Dv(G)$ encodes a mex taken over the whole game tree of $G$.
+
+\subsection{Where the new invariants turn hard}\label{ssec:hard}
+
+\begin{theorem}[hardness transfer]\label{thm:hardness}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Fix graphs $\Gamma_n$ of size polynomial in $n$, computable from $1^n$ in polynomial time. Let $\mathfrak C_n$ consist of the UVG positions with at most $n$ vertices, the nim heaps $*m$ with $m\le n$, and the sums $G+*m$. Suppose $\Dv$ maps $\mathfrak C_n$ to divisors on $\Gamma_n$ in polynomial time, with $\Dv(G+*m)\sim\Dv(G)+\Dv(*m)$, and each game in $\mathfrak C_n$ is a P-position exactly when its divisor is equivalent to $0$. Then $\Pclass=\PSPACE$.
+\item Suppose a compositional, outcome-determining invariant has values of polynomial size, polynomial-time maps $\Psi$ and $f$, and polynomial-time evaluation on single UVG positions. Then it decides sums of two UVG positions in polynomial time, and $\Pclass=\PSPACE$.
+\item The same holds on Morris's family of short partizan games. In particular Conway's canonical form cannot have values of polynomial size together with a polynomial-time composition map on that family unless $\Pclass=\PSPACE$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) $\Dv\sim0$ exactly when $\Dv$ lies in the integer column span of the Laplacian of $\Gamma_n$, which a Hermite normal form decides \cite{KannanBachem}. The Grundy value of a UVG position $G$ is at most the degree of its token vertex, hence at most $n-1$, and it is the unique $m\le n$ with $G+*m$ a P-position, that is, with $\Dv(G)+\Dv(*m)\sim0$. So Grundy values of UVG positions would be computable in polynomial time, and they are $\PSPACE$-hard to compute \cite{BFT}. (2) Evaluate on both summands, combine with $\Psi$ and apply $f$; sums of two UVG positions are $\PSPACE$-complete \cite{BFT}. (3) The same argument with Morris's theorem \cite{Morris}.
+\end{proof}
+
+\begin{proposition}[rank is a two-round game]\label{prop:rank-game}
+By definition $r(\Dv)\ge k$ exactly when $\Dv-E$ is equivalent to an effective divisor for every effective $E$ of degree $k$: an adversary removes $k$ chips, then the player must win the dollar game. Winnability is decidable in polynomial time through $q$-reduced divisors \cite{BakerNorine,BakerShokrieh}, so deciding $r(\Dv)\ge k$ is in $\coNP$, and computing $r(\Dv)$ is $\NP$-hard \cite{KissToth}. A polynomial-time many-one reduction from a $\PSPACE$-complete game to the question $r(\Dv)\ge k$ would give $\PSPACE=\NP$, and a polynomial-time Turing reduction to the rank function would give $\PSPACE\subseteq\Pclass^{\NP}$.
+\end{proposition}
+\begin{proof}
+A witness that $r(\Dv)<k$ is one effective $E$ of degree $k$ with $\Dv-E$ unwinnable, checked in polynomial time. A many-one reduction places $\PSPACE$ in $\coNP$; $\PSPACE$ is closed under complement, so it lies in $\NP$ as well. The value $r(\Dv)$ is found by binary search with polynomially many $\coNP$ queries.
+\end{proof}
+
+\noindent\emph{The directed frontier.} DVG is polynomial on SCC-symmetric digraphs (\cref{cor:dvg-poly}), on digraphs whose one-way arcs share a tail in each strong component (\cref{cor:star-dvg}) and on bounded treewidth \cite{Bodlaender}; it is $\PSPACE$-complete in general, even on planar bipartite digraphs of maximum degree $3$ \cite{LichtensteinSipser}. Mixed edge geography is polynomial when its arcs run acyclically between bipartite components of the undirected part (\cref{cor:edge-geo}). Partizan vertex geography is $\PSPACE$-complete even on bipartite digraphs of bounded degree, and impartial geography with two tokens on specified start vertices is $\PSPACE$-complete even on DAGs, where one token takes linear time \cite{FraenkelSimonson}.
+
+\begin{center}
+\small
+\begin{longtable}{@{}L{0.24}L{0.19}L{0.26}L{0.21}@{}}
+\toprule
+Invariant & Tractable & Intractable & Source\\ \midrule\endhead
+Valuation of $\mu$ (UVG outcomes) & every graph & none & \cref{thm:matching-collapse}\\
+Valuation of $\mu_a$ (DVG outcomes) & SCC-symmetric digraphs & general digraphs: $\PSPACE$-complete, even planar bipartite of maximum degree $3$ & \cref{cor:dvg-poly}; \cite{LichtensteinSipser}\\
+Local weighted matching potential & exists exactly on SCC-symmetric digraphs (real weights) & over $\Qzbar$: on strictly more digraphs; characterization open & \cref{thm:directed-collapse,thm:conj610,thm:complex-counterexample}, \cref{prob:complex}\\
+Real-stable potentials (matching, Hermitian determinantal) & exactly SCC-symmetric digraphs & never with a one-way arc on a cycle & \cref{thm:main-real}\\
+DVG by dynamic programming & bounded treewidth, linear time & general hardness as above & \cite{Bodlaender}\\
+Mixed edge geography & arcs acyclic between bipartite undirected components & general components: $\PSPACE$-complete & \cref{cor:edge-geo}; \cite{FSU}\\
+Transposition-invariant data & none & cannot decide DVG & \cref{rem:transposition}\\
+Leading coefficient of $\mu$; residues & planar, bounded deficiency (Pfaffians) & $\sharpP$-hard on planar bipartite graphs & \cref{thm:kasteleyn}; \cite{Vadhan}\\
+Full matching polynomial & bounded treewidth & $\sharpP$-hard on planar bipartite graphs of bounded degree & \cite{Jerrum,Vadhan}\\
+Linear equivalence, dollar game ($r\ge0$) & every graph & none & \cite{BakerShokrieh}\\
+Divisor rank, $r\ge k$ & fixed $k$ & $\NP$-hard to compute; decision in $\coNP$ & \cref{prop:rank-game}; \cite{KissToth}\\
+Additive divisor invariant with a zero test & computable from the Grundy value (\cref{ex:bouquet}) & $\PSPACE$-hard for UVG positions & \cref{thm:torsion,thm:hardness}\\
+Compositional invariant with polynomial-size values & sums of nim heaps & sums of two UVG positions; Morris sums & \cref{thm:hardness}\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+None of these invariants helps for the class of all arenas, where \cref{thm:alternation} applies. On structured classes algebra does remove the exponential cost: matchings and the acyclic order absorb the alternation of directed geography, Pfaffians count strategies up to bounded deficiency, and tropical divisors linearize sums but not the mex.

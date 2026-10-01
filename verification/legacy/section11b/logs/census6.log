@@ -1,0 +1,25 @@
+0 1 0
+1000 179 1
+2000 395 3
+3000 591 5
+4000 819 6
+5000 1055 8
+6000 1335 10
+7000 1563 12
+8000 1857 15
+9000 2229 17
+with a set potential: 2291 of 9113 18 s
+   component size 3, pruned core size 3, (1, 1, 1): 1991
+   component size 4, pruned core size 3, (1, 1, 1): 37
+   component size 4, pruned core size 4, (1, 1, 1, 1): 207
+   component size 4, pruned core size 4, (1, 1, 2): 25
+   component size 5, pruned core size 3, (1, 1, 1): 1
+   component size 5, pruned core size 4, (1, 1, 1, 1): 2
+   component size 5, pruned core size 4, (1, 1, 2): 25
+   component size 5, pruned core size 5, (1, 1, 1, 1, 1): 9
+   component size 5, pruned core size 5, (1, 1, 1, 2): 1
+   component size 6, pruned core size 3, (1, 1, 1): 1
+   component size 6, pruned core size 4, (1, 1, 1, 1): 1
+   component size 6, pruned core size 6, (1, 1, 1, 1, 1, 1): 1
+   component size 6, pruned core size 6, (1, 2, 1, 2): 1
+   component size 6, pruned core size 6, (2, 2, 2): 1

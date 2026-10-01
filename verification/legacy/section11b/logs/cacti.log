@@ -1,0 +1,8 @@
+bowtie                               n= 5  predicted: True | perturbed: False | all eta = 0: False
+flower of 3 triangles                n= 7  predicted: True | perturbed: False | all eta = 0: False
+chain of 3 triangles                 n= 7  predicted: True | perturbed: False | all eta = 0: False
+flower (4,4), period 2               n= 7  predicted: True | perturbed: False | all eta = 0: False
+flower (3,4)                         n= 6  predicted: True | perturbed: False | all eta = 0: False
+chain of three 4-cycles              n=10  predicted: True | perturbed: False | all eta = 0: False
+5-cycle with two 5-cycles attached   n=13  predicted: True | perturbed: False | all eta = 0: False
+flower of 4 triangles                n= 9  predicted: True | perturbed: False | all eta = 0: False

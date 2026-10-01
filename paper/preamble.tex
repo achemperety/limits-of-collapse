@@ -1,0 +1,90 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[expansion=false]{microtype}
+\usepackage{enumitem}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usetikzlibrary{positioning,arrows.meta,shapes.misc}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=green!40!black,urlcolor=blue!55!black]{hyperref}
+\usepackage[capitalise,nameinlink]{cleveref}
+
+\setlist{itemsep=2pt,topsep=4pt}
+\setlength{\emergencystretch}{2.5em}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1\linewidth}}
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+
+% ------------------------------------------------------------------ theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{claim}[theorem]{Claim}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Open Problem}
+\newtheorem*{definition*}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
+\numberwithin{equation}{section}
+\crefname{problem}{Open Problem}{Open Problems}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{claim}{Claim}{Claims}
+
+% ------------------------------------------------------------------ macros
+\newcommand{\code}[1]{{\ttfamily\nolinkurl{#1}}}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_\do\-}\makeatother
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\Qz}{\QQ(z)}
+\newcommand{\Rz}{\RR(z)}
+\newcommand{\Qzbar}{\overline{\QQ(z)}}
+\newcommand{\Puis}{\mathcal{P}_{\RR}}
+\newcommand{\val}{\mathcal{V}}            % the value
+\newcommand{\pay}{\mathcal{U}}            % the payoff
+\newcommand{\SG}{\mathcal{G}}             % the state graph
+\newcommand{\arena}{\mathcal{A}}          % an arena
+\newcommand{\Mpot}{\mathcal{M}}           % set-potential values
+\newcommand{\cont}{\mathcal{K}}           % continuants
+\newcommand{\game}{\mathfrak{G}}          % the game G(H;A)
+\newcommand{\arcs}{\mathsf{A}}            % a set of one-way arcs
+\newcommand{\mm}{\mathfrak{m}}            % number of maximum matchings
+\newcommand{\Dv}{\mathsf{D}}              % divisor map
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\back}{\operatorname{back}}
+\newcommand{\tr}{\operatorname{tr}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\rk}{\operatorname{rk}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Rdown}{R^{\downarrow}}
+\newcommand{\nplus}{N^{+}}
+\newcommand{\cls}[1]{\mathsf{#1}}
+\newcommand{\PSPACE}{\cls{PSPACE}}
+\newcommand{\EXP}{\cls{EXP}}
+\newcommand{\EXPTIME}{\cls{EXPTIME}}
+\newcommand{\NP}{\cls{NP}}
+\newcommand{\coNP}{\cls{coNP}}
+\newcommand{\BPP}{\cls{BPP}}
+\newcommand{\BQP}{\cls{BQP}}
+\newcommand{\Pclass}{\cls{P}}
+\newcommand{\NC}{\cls{NC}}
+\newcommand{\CH}{\cls{CH}}
+\newcommand{\MA}{\cls{MA}}
+\newcommand{\IP}{\cls{IP}}
+\newcommand{\sharpP}{\#\cls{P}}
+\newcommand{\Nw}{\mathrm{N}}   % N-position
+\newcommand{\Pw}{\mathrm{P}}   % P-position
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\one}{\mathbf{1}}

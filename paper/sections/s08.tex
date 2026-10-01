@@ -1,0 +1,68 @@
+\section{The exact boundary}\label{sec:boundary}
+
+In full generality no decidable criterion on the rules captures the exact boundary (\cref{thm:sigma2}). Inside syntactic classes the boundary is the one \S\ref{sec:algebraic} draws.
+
+\subsection{Collapse is equivalent to locally computable optimal play}
+\begin{theorem}\label{thm:strategies}
+For a family of succinct arenas with polynomial horizon, closed under moving the start to any position reachable from it, the following are equivalent:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $\val$ is computable in polynomial time;
+\item both players have optimal strategies computable in polynomial time from the position.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1$\Rightarrow$2) At a position evaluate $\val$ at both options, which are instances of the family by closure, and move to the better one; with finite horizon this is optimal by backward induction. (2$\Rightarrow$1) Play the two strategies against each other from $\sigma_0$. Max's strategy guarantees at least $\val(\sigma_0)$ and Min's at most $\val(\sigma_0)$, so the play ends with payoff exactly $\val(\sigma_0)$; it has polynomial length and each move costs polynomial time.
+\end{proof}
+
+\noindent\emph{Unbounded horizon.} Direction (2$\Rightarrow$1) weakens to (2$\Rightarrow\val\in\PSPACE$): the simulated play is deterministic, so a counter up to $2^N$ detects a cycle in polynomial space. Zero-player arenas have trivial strategies and are $\PSPACE$-complete, so (2$\Rightarrow$1) fails unless $\Pclass=\PSPACE$. Direction (1$\Rightarrow$2) needs more than $\val$, because a player on a $+1$ position must also make progress; that is the ranking of \cref{thm:local}.
+
+\begin{corollary}\label{cor:chess}
+For an $\EXPTIME$-complete family such as generalized chess, at least one player has no polynomial-time optimal strategy unless $\EXP=\PSPACE$.
+\end{corollary}
+
+\subsection{No decidable exact criterion}
+A \emph{uniform family} is given by a clocked polynomial-time generator $\mathfrak M$ that maps $(1^n,y)$, $|y|=n$, to a succinct arena and a start position. Its value function $\val[\mathfrak M]$ sends $y$ to the value of that arena at that start. Call $\mathfrak M$ \emph{collapsible} if $\val[\mathfrak M]$ is computable in polynomial time.
+
+\begin{theorem}\label{thm:sigma2}
+The set of collapsible generators is $\Sigma^0_2$-complete, in particular undecidable. For generators of clocked arenas with polynomial horizon it is $\Pi^0_1$-hard if $\Pclass\ne\PSPACE$, and it contains every such generator if $\Pclass=\PSPACE$.
+\end{theorem}
+\begin{proof}
+Upper bound: $\mathfrak M$ is collapsible if and only if some clocked polynomial-time machine $\mathfrak M'$ agrees with $\val[\mathfrak M]$ at every input $y$; the inner condition is decidable for each $y$, because each arena is finite, so the statement is $\Sigma^0_2$.
+Hardness: we reduce $\mathrm{FIN}=\{e:W_e\text{ finite}\}$, which is $\Sigma^0_2$-complete. Fix an effective enumeration $(\mathfrak N_i)$ of clocked polynomial-time machines (every polynomial-time language is decided by some $\mathfrak N_i$), and a language $L\in\EXPTIME$ on which every $\mathfrak N_i$ errs at all but finitely many input lengths: on the $i$-th string of length $n$, for $i\le\log n$, simulate $\mathfrak N_i$ for $2^n$ steps and answer the opposite (strings with $i>\log n$ are rejected). Let $y\mapsto\arena(y)$ be the reduction of $L$ to $\val$ from \cref{thm:alternation}, with the alternating machine clocked so that $\val(\arena(y))=\pm1$. Given $e$, the generator $\mathfrak M(e)$ on input $(1^n,y)$ runs the enumeration of $W_e$ for $n$ steps; if a new element appears at step $n$ it outputs $\arena(y)$, and otherwise a trivial arena of value $+1$. If $W_e$ is finite, $\val[\mathfrak M(e)]$ is constant at all large lengths, so $\mathfrak M(e)$ is collapsible. If $W_e$ is infinite, $\val[\mathfrak M(e)]$ encodes $L$ at infinitely many lengths, and a polynomial-time algorithm for it would decide $L$ correctly at those lengths, contrary to the choice of $L$.
+For polynomial horizon take $L$ $\PSPACE$-complete and reduce the complement of the halting problem: $\mathfrak M(H)$ on $(1^n,y)$ outputs $\arena(y)$ if the machine $H$ halts within $n$ steps on the empty input and a trivial arena otherwise. If $H$ never halts, $\val[\mathfrak M(H)]$ is constant; if it halts, $\val[\mathfrak M(H)]$ agrees with $L$ at all large lengths and is not polynomial-time unless $\Pclass=\PSPACE$. If $\Pclass=\PSPACE$, every generator with polynomial horizon is collapsible.
+\end{proof}
+
+No decidable property of generators characterizes collapsibility, and \cref{thm:sigma2} places the question at the $\Sigma^0_2$ level of the arithmetical hierarchy, like the index sets of complexity classes studied by H\'ajek \cite{Hajek} and Kozen \cite{Kozen}. Exact boundaries are therefore stated inside syntactic classes: polymorphism clones for constraint languages, rank for hypergraphs, exchange structure for matroidal winning families, width along the prefix, and, for directed geography, SCC-symmetry (\cref{thm:conj610}) and common tails (\S\ref{sec:oneway}).
+
+\subsection{The phase table}\label{ssec:phase}
+Alternation, horizon and width along the order of play govern the complexity of $\val$. A block of real choice is a maximal stretch of play in which only one player has real choices, the other making dummy moves.
+
+\begin{center}
+\small
+\begin{longtable}{@{}L{0.36}L{0.32}L{0.25}@{}}
+\toprule
+Regime & Complexity of $\val$ & Polynomial-time $\Phi$?\\ \midrule\endhead
+No real choices, polynomial horizon & $\Pclass$-complete & yes\\
+No real choices, unbounded horizon & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+$k$ blocks of real choice, polynomial horizon & $\Sigma_k^{\Pclass}$-complete if Max chooses first, $\Pi_k^{\Pclass}$-complete if Min does & iff $\Pclass=\NP$\\
+Unbounded alternation, polynomial horizon & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+Unbounded alternation, unbounded horizon & $\EXPTIME$-complete & no (deterministic, unconditional); randomized and quantum open\\
+Landscape (oracle) model, $h=\omega(\log N)$ & $2^h$ deterministic, $\Theta(2^{0.7537h})$ randomized, $\Theta(2^{h/2})$ quantum queries & no, unconditionally, in the query model\\
+Explicit state graph & $\Pclass$-complete, linear time & yes; in $\NC$ only if $\NC=\Pclass$\\
+Constant pathwidth, unbounded alternation & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+Treewidth $k$, $\ell$ alternations & $\ell$-fold exponential in $k$, times $\poly(n)$ & yes for fixed $k,\ell$; tower tight under ETH\\
+Quantified constraints, finite language & in $\Pi_2^{\Pclass}$ or $\PSPACE$-complete & case by case (\S\ref{ssec:qcsp})\\
+Maker--Breaker, rank at most $3$ & polynomial & yes\\
+Maker--Breaker, $4$-uniform & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+Directed geography, SCC-symmetric & polynomial (\cref{cor:dvg-poly}) & yes\\
+Directed geography, one-way arcs with a common tail per component & polynomial (\cref{cor:star-dvg}) & yes\\
+Directed geography, planar bipartite, maximum degree $3$ & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+Partizan vertex geography, bounded degree & $\PSPACE$-complete & iff $\Pclass=\PSPACE$\\
+Undirected vertex geography & polynomial (\cref{thm:matching-collapse}) & yes\\
+Nim and Wythoff with binary heap sizes & polynomial \cite{Bouton,Wythoff} & yes\\
+Shannon switching game on graphs & polynomial \cite{Lehman,EdmondsPartition} & yes\\
+Undirected edge geography, bipartite & polynomial \cite{FSU} & yes\\
+Mixed edge geography, arcs acyclic between bipartite components & polynomial (\cref{cor:edge-geo}) & yes\\
+\bottomrule
+\end{longtable}
+\end{center}

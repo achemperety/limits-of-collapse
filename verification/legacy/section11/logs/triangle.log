@@ -1,0 +1,4 @@
+m_k = p * mu(P_k)(z) for k = 0..3: True
+frozen identities: True
+resultant is a constant multiple of the sextic: True | resultant = a^6*Z^2 - 4*a^6 + 12*a^4 + 4*a^3*Z - 12*a^2 + 8
+sextic = (z a^3 + 2)^2 + 4 (1 - a^2)^3: True

@@ -1,0 +1,10 @@
+tested 1000 11 s
+tested 2000 27 s
+tested 3000 38 s
+tested 4000 60 s
+tested 5000 96 s
+tested 6000 109 s
+tested 7000 133 s
+tested 8000 207 s
+tested 9000 229 s
+m 5 f 3 C independent: orbits tested 9168 with a frozen potential 0 244 s

@@ -1,0 +1,213 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[expansion=false]{microtype}
+\usepackage{enumitem,booktabs,longtable,array}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=green!40!black,urlcolor=blue!55!black]{hyperref}
+% References to the revised paper, resolved from its .aux file by make_refs.py
+\input{paper_refs}
+\newcommand{\pref}[1]{\csname pref@#1\endcsname}
+\newcommand{\pnum}[1]{\csname pnum@#1\endcsname}
+\newcommand{\Qz}{\mathbb{Q}(z)}
+\newcommand{\Rz}{\mathbb{R}(z)}
+\newcommand{\Qzbar}{\overline{\mathbb{Q}(z)}}
+\newcommand{\Puis}{\mathcal{P}_{\mathbb{R}}}
+\newcommand{\PSPACE}{\mathsf{PSPACE}}
+\newcommand{\Pclass}{\mathsf{P}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\sev}[1]{\textsc{[#1]}}
+\newcommand{\fix}{\par\noindent\emph{Resolution.}\ }
+\newcommand{\where}[1]{\par\noindent\emph{Location.}\ #1\par\noindent}
+\setlist{itemsep=3pt,topsep=4pt}
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+\setlength{\emergencystretch}{2.5em}
+
+\title{Referee report (Phase I) and response map}
+\subjclass[2020]{91A46, 68Q17, 05C70, 32A60}
+\date{September 30, 2026}
+
+\begin{document}
+\begin{abstract}
+Report on \emph{Alternation, Invariants, and the Limits of Collapse} (treatise, \S\S1--9, byline @Ruslan Baiandin), its addendum \emph{Matching potentials and one-way arcs} (\S\S10--11, September 29, 2026) and the verification package \texttt{dvg\_addendum\_verification-3}. Part~I lists logical vulnerabilities, Part~II missed research opportunities, Part~III formalization deficits; every item names its location in the submitted text and its resolution in the revised paper (numbers refer to the revised \texttt{siamart} version). Part~IV records the outcome of the mandated research problems. Severity: \sev{critical} changes a main claim, \sev{major} invalidates a proof or statement as written, \sev{minor} is a local defect.
+\end{abstract}
+\maketitle
+
+\section*{Summary and recommendation}
+
+The submission assembles classical limits of minimax evaluation and adds a genuine new layer: an exact resolvent formula for the value, its collapse to matching polynomials for undirected geography, the directed resolvent collapse on SCC-symmetric digraphs, and in the addendum a substantial body of results on one-way arcs and set potentials. Most proofs I checked are correct. The weaknesses are of three kinds. First, several statements are broader than their proofs (the band statement for the rescued triangle, the treewidth dichotomy, the ``free values'' obstacle of \S11.7). Second, the organizing conjecture is ambiguous in its field: the definition in \S6.5 fixes $\Qz$, the addendum silently extends the question to $\Qzbar$, and the addendum's open problem~2 suggests that the complex form is true. It is false. Third, notation, numbering and computational certification fall short of publication standard. \textbf{Recommendation: major revision.} The revised paper accompanying this report resolves every item below; its status table and \pref{app:concordance} give the details.
+
+\section*{Part I. Hidden logical vulnerabilities}
+
+\begin{enumerate}[label=\textbf{I.\arabic*},leftmargin=*,widest=I.22]
+
+\item \sev{critical} \emph{The field in Conjecture~6.10, and the truth of its complex form.}
+\where{Definition in \S6.5 (weights in $\Qz$); addendum Theorem~10.8 (``weights anywhere in the algebraic closure''); addendum open problem~2 (``A counterexample would have to realise a complex frozen environment by genuine vertices\dots''); Proposition~10.10 and Theorem~11.5.}
+The conjecture is stated for $\Qz$, but the addendum treats $\Qzbar$ as the natural setting and reads the absence of small counterexamples as evidence. Over $\Qzbar$ the statement is false: the directed $m$-cycle with $m+1$ isolated vertices has a potential whose cycle weights are $0$ and whose environment weights are the roots of an explicit polynomial $Y_m$; the smallest instance has seven vertices.
+\fix \pref{thm:conj610} now names its fields ($\Qz$, $\Rz$, $\Puis$) and is proved (\pref{thm:main-real}); \pref{lem:field-independence} shows that ``some field containing $\Qz$'' and $\Qzbar$ are the same question; \pref{thm:complex-counterexample} and \pref{cor:complex-false} disprove the complex form; \pref{prop:Ym-arithmetic} computes the arithmetic of the weights; the remaining complex question is \pref{prob:complex}.
+
+\item \sev{major} \emph{Nonvanishing is missing from the definition of a potential.}
+\where{Definition (local weighted matching potential), \S6.5.}
+The definition requires $R(W,v)=\mu_a(U[W-v])/\mu_a(U[W])$ but not $\mu_a(U[W])\neq0$. The addendum (``the defining identity says $M(W)\neq0$'') and every Gr\"obner computation (saturation by all $\mu_a(U[W])$) assume it, so the treatise and the addendum work with different definitions.
+\fix The definition in \S\pnum{ssec:directed} requires $\mu_a(U[W])\neq0$ at every reachable position; \pref{lem:field-independence} encodes it by the Rabinowitsch variable.
+
+\item \sev{major} \emph{The band statement of Theorem~11.4 is proved for one graph $U$ only.}
+\where{Theorem~11.4 (``for real $z$ outside $\{0,\pm1,\pm\sqrt2\}$, a real frozen potential exists if and only if $|z|<2$'') and the sentence ``The band edge is sharp'' after Theorem~11.18.}
+The proof solves the frozen identities for the six edges between the triangle and two frozen vertices. Nothing is shown for other environments, although the text uses the statement as if it did.
+\fix \pref{prop:triangle-band} proves, by Br\"and\'en's criterion applied to the path data alone, that at every real $z$ with $|z|>2$ no frozen potential of the directed triangle with real weights exists, for any environment and any $U$; existence inside the band is \pref{thm:triangle-solved}.
+
+\item \sev{major} \emph{The ``free values'' obstacle of \S11.7 is not an obstacle.}
+\where{\S11.7, ``What is missing for general environments'': ``For $m\ge5$ there are $2^m-m(m-1)-2$ free values, and we have no argument that controls them.''}
+This is the step that kept Conjecture~10.9$'$ open. Real stability controls every coefficient of the generating polynomial to first order at $z=\infty$ from its values on cyclic intervals.
+\fix \pref{lem:tameness}; with \pref{lem:first-order} and \pref{lem:vanishing} it gives \pref{thm:main-real}, hence \pref{thm:conj610} and \pref{thm:frozen-real} (formerly Conjecture~10.9$'$) for real weights. \pref{rem:locality} records the correction.
+
+\item \sev{major} \emph{Overlapping path kinds in Lemma~11.9.}
+\where{Lemma~11.9 (symmetric branches act as exits), proof of the converse.}
+The kinds overlap: a path $\beta\cdot h$ with $\alpha$ empty is of kinds~1 and~2, and the single vertex $h$ of kinds~0 and~1. The concluding sentence ``a vertex set met by paths of two different kinds \dots\ the kinds are~2 and~3'' is false for the definitions given.
+\fix \pref{lem:branches} defines four disjoint kinds by the vertex set and the start, proves the product formula for each, and treats the only mixed case (kinds 2 and 3) explicitly.
+
+\item \sev{major} \emph{The $\Sigma^0_2$-hardness proof uses an ineffective enumeration.}
+\where{Theorem~8.3, hardness.}
+The diagonal language is built from ``an effective enumeration of polynomial-time machines'', which does not exist; one needs clocked machines, which cover every polynomial-time language.
+\fix \pref{thm:sigma2} uses an enumeration of clocked polynomial-time machines.
+
+\item \sev{major} \emph{Algebraic constants in the real-number argument.}
+\where{Theorem~4.5.}
+The result of Allender, B\"urgisser, Kjeldgaard-Pedersen and Miltersen places the Boolean part of \emph{constant-free} polynomial-time real computation in $\Pclass^{\mathrm{PosSLP}}$. The theorem is stated for machines with algebraic constants, which needs the elimination of algebraic constants.
+\fix \pref{thm:bss} cites Chapuis--Koiran for that step.
+
+\item \sev{major} \emph{Overstated hardness input in Theorem~6.18(1).}
+\where{Theorem~6.18(1): ``Distinguishing Grundy values 1 and 2 of UVG positions is PSPACE-hard (Burke--Ferland--Teng 2021).''}
+This specific form could not be matched to the cited statement. The proof needs only that Grundy values are hard to compute.
+\fix \pref{thm:hardness}: the Grundy value is recovered as the unique $m\le n$ with $\mathsf D(G)+\mathsf D(*m)\sim0$, and $\PSPACE$-hardness of computing Grundy values is cited.
+
+\item \sev{major} \emph{Informal treewidth dichotomy.}
+\where{Addendum, end of ``Potentials versus treewidth dynamic programming'': ``Any algebraic object computed by a width-bounded dynamic program for DVG faces the same choice: it carries valuations, or it carries exponentially large exact data.''}
+Nothing in the text covers objects indexed by other states, or represented other than by explicit rational functions.
+\fix \S\pnum{sec:treewidth}: \pref{thm:intrinsic-degree} (degree $\ge2^{m}-1$ for every exact multiplicative potential, however indexed), \pref{lem:canonical} (the recursion closes on canonical subgames), \pref{prop:memory} ($2^{m}$ distinct resolvents at one vertex at treewidth~$3$), \pref{thm:component-circuits} (linear-size circuits when components are small), \pref{prob:tw-circuits}.
+
+\item \sev{minor} \emph{Missing hypothesis check in Lemma~11.14(2).}
+The lemma applies Theorem~11.1 to $\Gamma(K'+u_iH_i;A')$ without checking that the arcs of $A'$ join non-adjacent vertices of the enlarged graph. They do, because the arcs avoid $u_i$ and every added edge contains it.
+\fix \pref{lem:p-tails} states and proves this, for $p$ tails.
+
+\item \sev{minor} \emph{The exclusion of graphs inside the symmetric part in Theorem~10.8.}
+It is attributed to ``Theorems 10.1 and 10.2 \dots\ over any field''. Theorem~10.1 needs normal weights and does not apply; Theorem~10.2 alone suffices, applied to the tail of a one-way arc.
+\fix Proof of \pref{thm:exact5}.
+
+\item \sev{minor} \emph{The constant-self-energy remark after Theorem~11.18.}
+It asserts the extension to $\eta\equiv e$ by ``shifting $z$'' and then claims Conjecture~10.9$'$ on odd cycles for this class, which also needs Theorem~11.10.
+\fix Folded into \pref{thm:meanfield} with the substitution $y=z-e$; the conjecture itself is now \pref{thm:frozen-real}.
+
+\item \sev{minor} \emph{Sign-coherence of the potential of Theorem~6.6 is asserted without proof} (Theorem~10.5). It holds because the weights $z-\eta$ have degree~$1$, so the potential is normal.
+\fix \pref{cor:sign-coherent}.
+
+\item \sev{minor} \emph{Non-rigorous test points.} Proposition~6.9(3) rests on Gr\"obner bases ``at two test points''; a solution with a pole or a vanishing denominator at a test point is lost by specialization.
+\fix \pref{thm:exact5} works over $\Qz$ with saturation; the two-point filter is used in the revision only as a pre-filter followed by the exact test (\pref{prop:c3-minimal}).
+
+\item \sev{minor} \emph{Wrong labels and names.} The results table of the addendum cites ``(Conj 10.15)'' for Conjecture~10.9$'$; 10.7$''$ is a Proposition in the table and a Theorem in \S11.2; its proof is described as ``strongly Rayleigh at three real points'', but it uses Br\"and\'en's Rayleigh-difference criterion for real-stable polynomials, while ``strongly Rayleigh'' means real stable with nonnegative coefficients.
+\fix \pref{cor:c4}; \pref{app:concordance}.
+
+\item \sev{minor} \emph{Bookkeeping.} The verification table of \S11.4 lists ``Predictions of \S11.3 on 5 to 10 vertices: 20 digraphs''; \texttt{predictions.py} confirms 17, and the other 3 are in \texttt{families\_check.py}.
+\fix \pref{app:verification} lists each claim with its script.
+
+\item \sev{minor} \emph{Vadhan.} ``We did not have Vadhan's full text, so for maximum matchings we use only the planar bipartite case'' is inappropriate in a paper and leaves the bounded-degree case unclear.
+\fix \S\pnum{ssec:pfaffian} states Vadhan's theorem (matchings and extremal variants, planar bipartite, bounded degree) and the Mikl\'os--Kr\'esz withdrawal.
+
+\item \sev{minor} \emph{Quantum attributions} (\S3.1 table, \S6.4). The $O(\sqrt N)$ bound for balanced formulas is Ambainis--Childs--Reichardt--\v{S}palek--Zhang; $N^{1/2+o(1)}$ for arbitrary formulas is Childs--Cleve--Jordan--Yonge-Mallo and ACR\v{S}Z; Reichardt proves tightness of the general adversary bound.
+\fix \pref{thm:query} and the quantum paragraph of \S\pnum{sec:matching}.
+
+\item \sev{minor} \emph{Zhuk--Martin and Zhuk.} ``Some EGP languages are in P'' and ``a $\Pi_2^{\Pclass}$-complete language on six elements'' are stated without precise pointers. The robust statement is that the three-element classification exhibits EGP languages that are not $\PSPACE$-complete.
+\fix \S\pnum{ssec:qcsp}.
+
+\item \sev{minor} \emph{Alternation and ranking formalities.} Alternation was imposed at all positions, terminals included, where the operators are irrelevant; and in Theorem~2.1(3) the rank $\mathrm{rk}_{+}$, defined only on $\Phi^{-1}(+1)$, is applied to every option of a Min position without noting that these options lie in $\Phi^{-1}(+1)$ by condition~(2).
+\fix \S\pnum{ssec:arenas} and \pref{thm:local}.
+
+\item \sev{minor} \emph{Space bound.} Membership of connected components of succinct state graphs was proved via Savitch ($\mathsf{DSPACE}(N^2)$); Reingold gives $\mathsf{DSPACE}(N)$.
+\fix \pref{prop:components}.
+
+\item \sev{minor} \emph{Corollary~6.8 is stated with one maximum-matching computation per vertex}; one Gallai--Edmonds decomposition per component suffices.
+\fix \pref{cor:dvg-poly}.
+\end{enumerate}
+
+\section*{Part II. Missed research opportunities}
+
+\begin{enumerate}[label=\textbf{II.\arabic*},leftmargin=*,widest=II.8]
+\item \emph{A first-order Br\"and\'en argument.} The addendum's real-weight results (Theorems 10.3, 10.5, 10.7$'$, 10.7$''$) all extract information from Rayleigh differences at a few points, one cycle length at a time. Applied to the whole generating polynomial to first order at $z=\infty$, the same criterion settles every digraph.
+\fix \pref{thm:main-real}, with \pref{lem:asymptotics}, \pref{lem:tameness}, \pref{lem:first-order} and \pref{lem:vanishing}.
+
+\item \emph{Generality of the real obstruction.} Nothing in the argument uses matchings beyond the Heilmann--Lieb theorem. The obstruction therefore covers edge-weighted matching potentials, frozen environments and Hermitian determinantal potentials (Borcea--Br\"and\'en), turning the ``reservoir engineering'' analogy of the addendum into a theorem about lossless systems.
+\fix \pref{def:real-stable}, \pref{ex:real-stable}, \pref{cor:characterization}, \pref{rem:scope}(2).
+
+\item \emph{The sharp band for all environments.} See I.3; \pref{prop:triangle-band}.
+
+\item \emph{Pruned cores (\S11.3): a continuant criterion for all blow-ups.} The addendum classifies one blown-up vertex and balanced blow-ups separately and attributes the set potentials of $C_4(1,2,1,2)$, $C_4(1,3,1,3)$, $C_4(2,3,2,3)$ and $C_6(1,2,1,2,1,2)$ to a ``hidden symmetry''. The game tree from a start in a blow-up is spherically symmetric, so every product $\Gamma(P)$ is a ratio of backward continuants that depends only on the start class and the length.
+\fix \pref{thm:blowup-criterion} reduces set potentials on every blow-up to finitely many continuant identities; the twin identity \pref{lem:twin} is the hidden symmetry; \pref{cor:two-periodic} proves the ``if'' half of Conjecture~11.27(1) for all two-periodic blow-ups. The ``only if'' half is checked on $331$ size vectors (\pref{conj:blowups}).
+
+\item \emph{The two-tail phase (\S11.6): $p$ tails and matching-type terminals.} Lemma~11.14 is the case $p=2$ of a general reduction: a play crosses at most $p$ times, and a $p$-tail game is undirected geography with $p$ terminals whose values are $(p-1)$-tail games.
+\fix \pref{lem:p-tails}; \pref{prob:two-tails}; the barrier examples are now regression tests (\pref{prop:barrier} and \pref{prop:ge-barrier}).
+
+\item \emph{Treewidth: precise barriers and a construction.} See I.9. Besides the barriers, component-state circuits give \pref{cor:small-components}: DVG is decidable in time $2^{k}\poly(n)$ with $k$ the size of the largest non-symmetric strong component.
+
+\item \emph{The complex question has a finite answer.} The addendum's frozen rescues (Theorems 11.4--11.5) and its open problem~2 lead directly to a genuine counterexample once the cycle weights are set to $0$: every identity then prescribes one elementary symmetric function of the environment weights (Vieta), and the starts at the environment vertices collapse to a single condition.
+\fix \pref{thm:complex-counterexample}, \pref{prop:sinks}, \pref{prop:Ym-arithmetic} and \pref{prop:c3-minimal}, \pref{rem:monodromy}.
+\end{enumerate}
+
+\section*{Part III. Formalization deficits}
+
+\begin{enumerate}[label=\textbf{III.\arabic*},leftmargin=*,widest=III.8]
+\item \emph{Notation collisions.} Symbols carry several meanings, often within one section:
+\begin{center}\small
+\begin{longtable}{@{}p{1.3cm}p{8.4cm}p{4.6cm}@{}}
+\toprule
+Symbol & Meanings in the submission & Revision\\ \midrule\endhead
+$V$ & value; vertex set & $\mathcal V$ for the value\\
+$U$ & payoff; the graph of a potential & $\mathcal U$ for the payoff\\
+$M$ & state graph; matchings; potential values $M(S)$ & $\mathcal G$, $M$, $\mathcal M$\\
+$m$ & cycle length; frozen potential values $m(W)$; $m^*(G)$ & $\mathcal M_F$, $\mathfrak m(G)$\\
+$\Gamma$ & constraint language; path products; the game $\Gamma(H;A)$; graphs $\Gamma_n$ & $\Gamma(P)$ only for products; $\mathfrak G(H;\mathsf A)$\\
+$K$ & current graph; continuant; field & $K$; $\mathcal K$; $\mathbb K$\\
+$D$ & digraph; divisor map; a machine; $D_i$ in a proof & $\mathsf D$ for divisors\\
+$\rho$ & fresh root resolvent; Green's function & $R^{\downarrow}$; $\rho(S,s)$\\
+$\lambda$ & first-order coefficient $\lambda(P)$; $\lambda=m(\emptyset)$ & $\ell(P)$; $\lambda$\\
+$e$ & self-energy constant; $z^{-1}$-coefficients; elementary symmetric functions; truncated exponential & $e$, $e_v$, $e_j(a_F)$, $\exp_m$\\
+$\kappa$ & first-order combination; canonical subgame (new) & $\kappa(S)$; $\operatorname{cs}(W,v)$\\
+\bottomrule
+\end{longtable}
+\end{center}
+\fix Notation table \pref{app:notation}. Local uses of $\tau,\sigma,T,C,X$ inside single proofs are kept and declared there.
+
+\item \emph{Numbering.} Primes and letters (10.3$'$, 10.7$'$, 10.7$''$, 10.9$'$, 10.11$'$, 11.1$'$, Lemmas 10.A--C), a gap (no 11.7), and theorem-level items that are corollaries of later results.
+\fix Consecutive numbering per section in both classes; \pref{app:concordance} maps every old number.
+
+\item \emph{Undefined or informal notions.} ``Real weights'' (is $\Puis$ allowed?), ``Puiseux series'' (which field, which convergence?), ``admissible self-energies'', ``pruned core'', ``occurs'' in Conjecture~11.27(2), and ``degree'' of an algebraic function (depends on the embedding).
+\fix \S\pnum{ssec:real-setting}, \S\pnum{ssec:fields-setting} (degree for each embedding), \pref{def:frozen}, \pref{lem:branches} (pruned core), \pref{conj:blowups}(2).
+
+\item \emph{Bibliography.} The addendum cites Br\"and\'en's criterion, Heilmann--Lieb, Metelmann--Clerk and P\'olya--Schur informally or not at all; the treatise cites Chapuis--Koiran and Reingold nowhere although it needs them.
+\fix A complete bibliography with all keys used.
+
+\item \emph{Certification of computations.} Evaluation at $z=37/11$ is justified as ``not an algebraic integer, so never an eigenvalue''; that argument certifies refutations of identities only, not the absence of solutions of a polynomial system. Several rows of the verification tables report counts without the script that produces them.
+\fix \pref{app:verification} separates proofs from computer-assisted results and names a script for every row; the archive adds tests that compare every new formula with brute force.
+
+\item \emph{Missing response document.} The treatise's acknowledgment refers to a ``Response to review'' that is not included. This report, with the concordance, serves as the response for this round.
+
+\item \emph{Status labelling.} The addendum's results table lists Theorem~10.9 (shape of a counterexample) as established ``by proof'' for real weights, although for real weights it is vacuous once \pref{thm:conj610} holds.
+\fix \pref{prop:shape} restates it over arbitrary fields, where it has content.
+\end{enumerate}
+
+\section*{Part IV. Outcome of the mandated research problems}
+
+\begin{center}\small
+\begin{longtable}{@{}p{5.2cm}p{9.3cm}@{}}
+\toprule
+Problem & Outcome\\ \midrule\endhead
+Conjecture 6.10 over $\Qz$, $\Rz$, $\Puis$ & \textbf{Proved}: \pref{thm:conj610} and \pref{thm:main-real}.\\
+Conjecture 10.9$'$ (frozen environments), real weights & \textbf{Proved} for every strongly connected non-symmetric digraph and every real self-energy vanishing at infinity: \pref{thm:frozen-real}.\\
+Conjecture 6.10 over $\Qzbar$ (complex weights) & \textbf{False}: \pref{thm:complex-counterexample} and \pref{cor:complex-false}; the weights have monodromy $S_{m+1}$ for $3\le m\le6$ and are unramified at $\infty$ (\pref{prop:Ym-arithmetic}), so no dihedral-monodromy argument can exclude genuine realizations (\pref{rem:monodromy}). Open over $\Qzbar$: strongly connected digraphs (\pref{prob:complex}).\\
+Treewidth bridge (``path-dependent bag potential'') & The resolvent recursion closes on canonical subgames (\pref{lem:canonical}); explicit rational potentials have degree $\ge2^{m}-1$ however indexed (\pref{thm:intrinsic-degree}); exact resolvents are not bag-local even at treewidth~$3$ (\pref{prop:memory}); circuits over component states have linear size for small components (\pref{thm:component-circuits}). Polynomial-size circuits at bounded treewidth: \pref{prob:tw-circuits}.\\
+Star-tail rule & \pref{thm:common-tail} (implemented as \texttt{star\_tail.star\_rule}, tested against exhaustive search).\\
+Cacti taxonomy & \pref{thm:cacti} and \pref{cor:uniform-cacti}; blow-ups: \pref{thm:blowup-criterion} and \pref{cor:two-periodic}.\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\end{document}

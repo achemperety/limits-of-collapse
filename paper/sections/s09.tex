@@ -1,0 +1,187 @@
+\section{Real stability forces reciprocity: the proof of Theorem 6.10}\label{sec:realstab}
+
+This section proves that a potential whose generating polynomial is real stable, for instance a local weighted matching potential with real weights, exists only on SCC-symmetric digraphs. The argument uses three facts: the Heilmann--Lieb theorem, which makes the generating polynomial of a real matching potential real stable; Br\"and\'en's criterion, which makes its Rayleigh differences nonnegative on all of $\RR^n$; and the expansion of resolvents at $z=\infty$, in which a one-way arc on a directed cycle leaves a first-order trace that no real-stable polynomial can carry.
+
+\subsection{Setting}\label{ssec:real-setting}
+Let $\Puis$ be the field of real Puiseux series in $z^{-1}$ that converge for all sufficiently large real $z$: series $f=\sum_{q\ge q_0,\,q\in\frac1N\ZZ}c_qz^{-q}$ with real coefficients and some $N\ge1$. It contains $\Rz$ (Laurent expansion at $\infty$) and the real algebraic functions that are real for large real $z$. A nonzero $f\in\Puis$ has a leading term $c\,z^{-q}$ with $c\neq0$; we write $f=O(z^{-q})$ if $f=0$ or its leading exponent is at least $q$, and $f=o(z^{-q})$ if the leading exponent is larger than $q$. Every $f\in\Puis$ has a real value $f(z)$ for all large real $z$, and $f(z)\neq0$ for all large $z$ when $f\ne0$.
+
+A polynomial $P\in\RR[h_1,\dots,h_n]$ is \emph{real stable} if $P\equiv0$ or $P(h)\neq0$ whenever $\Im h_i>0$ for all $i$. Specializing a variable to a real number, differentiating, scaling the variables by a positive number, translating them by a real vector and dividing by a nonzero real number preserve real stability (the first by Hurwitz's theorem). For a multi-affine $P$ and $i\ne j$ let
+\[
+\Delta_{ij}P=\partial_iP\,\partial_jP-P\,\partial_i\partial_jP,
+\]
+a polynomial in the variables other than $h_i,h_j$ (the \emph{Rayleigh difference}).
+
+\begin{lemma}[Br\"and\'en's criterion, necessity \cite{Branden}]\label{lem:branden}
+If $P$ is multi-affine and real stable, then $\Delta_{ij}P(x)\ge0$ for all $i\ne j$ and all $x\in\RR^n$.
+\end{lemma}
+\begin{proof}
+Specialize the variables other than $h_i,h_j$ to the real coordinates of $x$. The result $a+bh_i+ch_j+dh_ih_j$ is real stable or zero, and $\Delta_{ij}P(x)=bc-ad$. Suppose $bc-ad<0$. If $d\neq0$, the zero set is $h_j=(-bh_i-a)/(dh_i+c)$, a real M\"obius transformation of determinant $ad-bc>0$, which maps the upper half-plane into itself; a point $h_i$ of the upper half-plane gives a zero with both coordinates there. If $d=0$ then $b,c\ne0$ with $b/c<0$, and $h_j=-(a+bh_i)/c$ has $\Im h_j=-(b/c)\Im h_i>0$. Both contradict real stability. (Br\"and\'en proves the converse as well.)
+\end{proof}
+
+\begin{theorem}[Heilmann--Lieb \cite{HeilmannLieb}]\label{thm:hl}
+For a finite graph $U$ with nonnegative edge weights $w$, the multivariate matching polynomial
+\[
+\mu_{y,w}(U)=\sum_M(-1)^{|M|}\prod_{e\in M}w_e\prod_{x\notin V(M)}y_x
+\]
+is real stable in the vertex variables $y$.
+\end{theorem}
+\noindent(Heilmann and Lieb show that $\sum_M\prod_{e\in M}w_e\prod_{x\notin V(M)}x_x$ has no zero with all $\operatorname{Re}x_x>0$; the substitution $x=iy$ and complex conjugation give the stated form.)
+
+\subsection{Real-stable potentials}
+Throughout, $D$ is a digraph with vertex set $V$ and $\eta\colon V\to\Puis$ is a family of \emph{self-energies} with $\eta_v=O(z^{-1})$; plain DVG has $\eta\equiv0$. The game $(D,\eta)$ has the positions and moves of DVG and the root resolvents
+\[
+\frac1{R(W,v)}=z-\eta_v-\sum_{w\in\nplus(v)\cap(W-v)}R(W-v,w).
+\]
+For a directed path $P=(t_0,\dots,t_k)$ of $D$ write $\Gamma(P)=\prod_{i}R(V\setminus\{t_0,\dots,t_{i-1}\},t_i)$ for the product of resolvents along the play $P$ started at $(V,t_0)$, and $\back(P)$ for the number of arcs $t_j\to t_i$ with $i<j$. A set $X\subseteq V$ is a \emph{path set} if it is the vertex set of a directed path.
+
+\begin{definition}[real-stable potential]\label{def:real-stable}
+A \emph{real-stable potential} for $(D,\eta)$ is a map $\Mpot\colon2^V\to\Puis$ such that
+\begin{enumerate}[label=\textup{(P\arabic*)}]
+\item at every reachable position $(W,v)$: $\Mpot(W)\neq0$ and $\Mpot(W-v)=R(W,v)\,\Mpot(W)$;
+\item for all sufficiently large real $z$ the following polynomial is real stable:
+\[
+P_z(h)=\sum_{X\subseteq V}\Mpot(V\setminus X)(z)\,h^X.
+\]
+\end{enumerate}
+\end{definition}
+
+\begin{example}[real-stable potentials]\label{ex:real-stable}
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Matching potentials with real weights.} Let $U$ be a graph on $V$ with nonnegative real edge weights $w$ and vertex weights $a\in\Puis^V$, and $\Mpot(S)=\mu_{a,w}(U[S])$. Because $\mu$ is multi-affine in the vertex weights and $\partial_{y_x}\mu_{y,w}(U)=\mu_{y,w}(U-x)$, $P_z(h)=\mu_{a(z)+h,w}(U)$, which is real stable by \cref{thm:hl}. With unit edge weights this is the local weighted matching potential of \S\ref{ssec:directed}.
+\item \emph{Frozen environments.} With $U$ on $V\sqcup F$ and $\Mpot(S)=\mu_{a,w}(U[S\cup F])$, $P_z(h)=\mu_{(a_V+h,\,a_F),w}(U)$ is a specialization of a real stable polynomial.
+\item \emph{Hermitian determinantal potentials.} Let $A(z)$ be a matrix indexed by $V\sqcup F$ whose entries have real and imaginary parts in $\Puis$ and which is Hermitian for all large real $z$, and put $\Mpot(S)=\det A(z)[S\cup F]$. Expanding the determinant along the diagonal gives $P_z(h)=\det\bigl(A(z)+\sum_{v\in V}h_vE_{vv}\bigr)$, where $E_{vv}$ is a diagonal matrix unit. A polynomial $\det(B+\sum_ih_iA_i)$ with $B$ Hermitian and every $A_i$ positive semidefinite is real stable or identically zero \cite[Prop.~2.4]{BorceaBranden}: if $\sum_iA_i$ is positive definite, then for $\Im h>0$ and $x\neq0$ the number $x^{*}(B+\sum_ih_iA_i)x$ has positive imaginary part, and the general case follows by replacing $A_i$ with $A_i+\varepsilon I$ and letting $\varepsilon\to0$ (Hurwitz). Since $P_z(0)=\Mpot(V)(z)\neq0$, $P_z$ is real stable. By Cramer's rule, \textup{(P1)} says that every resolvent is a diagonal entry of the inverse of a principal submatrix, $R(W,v)=\bigl(A[W\cup F]^{-1}\bigr)_{vv}$: the potential is the Green's function of a Hermitian (lossless) system.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[real-stable potentials force SCC-symmetry]\label{thm:main-real}
+If $(D,\eta)$ has a real-stable potential, then every arc of $D$ that lies on a directed cycle has its reverse arc; that is, $D$ is SCC-symmetric.
+\end{theorem}
+
+\begin{corollary}\label{cor:characterization}
+For a digraph $D$ the following are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $D$ is SCC-symmetric;
+\item $D$ has a local weighted matching potential over $\Qz$;
+\item $D$ has a local weighted matching potential over $\Puis$ \textup{(}in particular over $\Rz$\textup{)}, even with nonnegative real edge weights;
+\item $D$ has a real-stable potential.
+\end{enumerate}
+No digraph that is not SCC-symmetric has a Hermitian determinantal potential \textup{(}\cref{ex:real-stable}\textup{(c))}.
+\end{corollary}
+\begin{proof}
+(i)$\Rightarrow$(ii) is \cref{thm:directed-collapse}; (ii)$\Rightarrow$(iii) is trivial; (iii)$\Rightarrow$(iv) is \cref{ex:real-stable}(a); (iv)$\Rightarrow$(i) is \cref{thm:main-real}. The last sentence is \cref{ex:real-stable}(c) with \cref{thm:main-real}.
+\end{proof}
+
+\subsection{Four lemmas}
+
+\begin{lemma}[resolvents at infinity]\label{lem:asymptotics}
+Let $e_v$ be the coefficient of $z^{-1}$ in $\eta_v$. For every position, $R(W,v)=z^{-1}+\bigl(d^{+}_W(v)+e_v\bigr)z^{-3}+o(z^{-3})$, where $d^{+}_W(v)=|\nplus(v)\cap(W-v)|$. Consequently, for a directed path $P$,
+\[
+z^{|V(P)|}\,\Gamma(P)=1+\ell(P)\,z^{-2}+o(z^{-2}),\qquad \ell(P)=\sum_{t\in V(P)}\bigl(d^{+}(t)+e_t\bigr)-\back(P).
+\]
+\end{lemma}
+\begin{proof}
+By induction on $|W|$ every child resolvent is $z^{-1}+O(z^{-3})$, and $\eta_v=e_vz^{-1}+o(z^{-1})$, so $1/R(W,v)=z-(d^{+}_W(v)+e_v)z^{-1}+o(z^{-1})$, which inverts to the claim. (Self-energies in $\Puis$ may contain exponents between $1$ and $2$, so the error terms cannot be improved to $O(z^{-4})$ and $O(z^{-3})$ in general; for $\eta\equiv0$ they can, see \S\ref{ssec:fields-setting}.) In the product, the $i$-th factor has $d^{+}_{W_i}(t_i)$ equal to $d^{+}(t_i)$ minus the number of out-neighbours of $t_i$ among $t_0,\dots,t_{i-1}$; summing gives $\ell(P)$.
+\end{proof}
+
+Let $Z$ be a directed cycle $q_0\to q_1\to\dots\to q_{m-1}\to q_0$ with vertex set $T$, $m\ge3$. A \emph{cyclic interval} of $Z$ is a set of consecutive vertices of $Z$, including $\emptyset$ and $T$.
+
+\begin{lemma}[tameness]\label{lem:tameness}
+Let $\gamma_X\in\Puis$ for $X\subseteq T$, and suppose that for every sufficiently large real $z$ the polynomial $G_z(v)=\sum_{X}\gamma_X(z)v^X$ is real stable. If $\gamma_I=1+O(z^{-2})$ for every cyclic interval $I$ of $Z$, then $\gamma_X=1+O(z^{-2})$ for every $X\subseteq T$.
+\end{lemma}
+
+\begin{proof}
+Fix $r\in T$ and let $J=T\setminus\{r\}$, linearly ordered along $Z$ starting after $r$. A subset of $J$ that is contiguous in this order is a cyclic interval of $Z$. For $Y\subseteq J$ let $\operatorname{hull}(Y)$ be the smallest contiguous subset containing $Y$ and $\operatorname{gap}(Y)=|\operatorname{hull}(Y)\setminus Y|$. We prove $\gamma_Y=1+O(z^{-2})$ for all $Y\subseteq J$ by induction on $(\operatorname{gap}(Y),|Y|)$ in lexicographic order; every $X\ne T$ lies in some such $J$, and $T$ is an interval.
+If $\operatorname{gap}(Y)=0$, $Y$ is a cyclic interval. Otherwise let $p<q$ be the first and last elements of $Y$, choose $g\in\operatorname{hull}(Y)\setminus Y$ (so $p<g<q$), and put $S=Y\setminus\{p,q\}$. The seven sets $S$, $S+p$, $S+q$, $S+g$, $S+p+g$, $S+q+g$ and $Y+g$ are subsets of $J$ that precede $Y$ in the order: $Y+g$ has one gap fewer; $S$, $S+p=Y-q$ and $S+q=Y-p$ are smaller and have no more gaps than $Y$; and $S+g$, $Y-q+g$, $Y-p+g$ have strictly fewer gaps, because moving an endpoint of $Y$ onto $g$ shortens the hull by more than it adds. By induction their coefficients are $1+O(z^{-2})$.
+Now $\partial^S G_z$ is real stable, and so is its restriction $f(v_p,v_q,v_g)$ to the variables $v_p,v_q,v_g$ with all others set to $0$; its coefficients are $\gamma_{S\cup Y'}$ for $Y'\subseteq\{p,q,g\}$. Write $\gamma_Y=1-\delta$. By \cref{lem:branden}, for every real $t$,
+\begin{multline*}
+\Delta_{pq}f(t)=\bigl(\gamma_{S+p}+\gamma_{S+p+g}t\bigr)\bigl(\gamma_{S+q}+\gamma_{S+q+g}t\bigr)-\bigl(\gamma_S+\gamma_{S+g}t\bigr)\bigl(\gamma_Y+\gamma_{Y+g}t\bigr)\\
+=\mathsf a+\mathsf bt+\mathsf ct^2\ge0,
+\end{multline*}
+with $\mathsf a=\delta(1+O(z^{-2}))+O(z^{-2})$, $\mathsf b=\delta(1+O(z^{-2}))+O(z^{-2})$ and $\mathsf c=O(z^{-2})$. A real quadratic that is nonnegative on $\RR$ has $\mathsf c\ge0$, $\mathsf a\ge0$ and $\mathsf b^2\le4\mathsf a\mathsf c$. If $\delta$ were not $O(z^{-2})$, its leading exponent would be some $q<2$, and then $\mathsf b^2$ would have leading exponent $2q$ while $4\mathsf a\mathsf c=O(z^{-q-2})$ with $q+2>2q$; so $\mathsf b^2>4\mathsf a\mathsf c$ for large $z$, a contradiction. Hence $\delta=O(z^{-2})$.
+\end{proof}
+
+\begin{lemma}[first-order factorization]\label{lem:first-order}
+Let $T$ be finite, $x\ne y\in T$, $R=T\setminus\{x,y\}$, and let $G_z(v)=\sum_{X\subseteq T}\gamma_Xv^X$ with $\gamma_X=1+\ell_Xz^{-2}+o(z^{-2})$ for real numbers $\ell_X$. Then for every $v\in\RR^R$,
+\[
+\Delta_{xy}G_z(v)=z^{-2}\,Q(v)F(v)+o(z^{-2}),\qquad Q(v)=\prod_{r\in R}(1+v_r),\quad F(v)=\sum_{S\subseteq R}\kappa(S)v^S,
+\]
+where $\kappa(S)=\ell_{S+x}+\ell_{S+y}-\ell_{S+x+y}-\ell_S$.
+\end{lemma}
+\begin{proof}
+Write $G_z=\prod_{t\in T}(1+v_t)+z^{-2}E_z$ with $E_z=\sum_X(\ell_X+o(1))v^X$, and decompose any multi-affine $G$ as $G_0+v_xG_x+v_yG_y+v_xv_yG_{xy}$ with $G_0,G_x,G_y,G_{xy}$ free of $v_x,v_y$; then $\Delta_{xy}G=G_xG_y-G_0G_{xy}$. For the product all four parts equal $Q$, so
+\begin{multline*}
+\Delta_{xy}\bigl(\textstyle\prod(1+v_t)+\varepsilon E\bigr)=(Q+\varepsilon E_x)(Q+\varepsilon E_y)-(Q+\varepsilon E_0)(Q+\varepsilon E_{xy})\\
+=\varepsilon\,Q\,(E_x+E_y-E_{xy}-E_0)+\varepsilon^2(E_xE_y-E_0E_{xy}).
+\end{multline*}
+With $\varepsilon=z^{-2}$ the coefficient of $v^S$ in $E_x+E_y-E_{xy}-E_0$ is $\kappa(S)+o(1)$.
+\end{proof}
+
+\begin{lemma}[vanishing]\label{lem:vanishing}
+Let $Q=\prod_{r\in R}(1+v_r)$ and let $F$ be multi-affine in $v_R$. If $Q(v)F(v)\ge0$ for all $v\in\RR^R$, then $F=cQ$ for a constant $c\ge0$.
+\end{lemma}
+\begin{proof}
+Induction on $|R|$; for $R=\emptyset$, $F$ is a constant $c=QF\ge0$. Take $r\in R$ and write $F=F^0+v_rF^1$ and $Q=(1+v_r)Q'$ with $F^0,F^1,Q'$ free of $v_r$. At a point $u$ of the other coordinates with $Q'(u)\ne0$, the quadratic $v_r\mapsto(1+v_r)(F^0(u)+v_rF^1(u))Q'(u)$ is nonnegative and vanishes at $v_r=-1$, so it cannot change sign there, and $F^0(u)=F^1(u)$. Such points are dense, so $F^0=F^1$ and $F=(1+v_r)F^1$. Then $Q'F^1\ge0$ off the hyperplane $v_r=-1$, hence everywhere, and induction gives $F^1=cQ'$.
+\end{proof}
+
+\subsection{Proof of \texorpdfstring{\cref{thm:main-real}}{Theorem 9.5}}
+Let $\Mpot$ be a real-stable potential and suppose that an arc $x\to y$ lies on a directed cycle while $y\to x$ is not an arc. Choose a directed path $y=q_0\to q_1\to\dots\to q_k=x$; then $k\ge2$, and together with $x\to y$ it forms a directed cycle $Z$ with vertex set $T=\{q_0,\dots,q_k\}$. Every cyclic interval of $Z$ is the vertex set of a sub-path of $Z$, hence a path set.
+
+For $X\subseteq V$ put $c(X)=\Mpot(V\setminus X)/\Mpot(V)\in\Puis$. If $X=V(P)$ for a directed path $P$ started at $(V,t_0)$, every position of the play $P$ is reachable, and telescoping \textup{(P1)} along it gives $c(X)=\Gamma(P)$; in particular $\Gamma(P)$ depends only on $V(P)$. For large $z$ the polynomial $P_z(h)/\Mpot(V)(z)=\sum_Xc(X)(z)h^X$ is real stable by \textup{(P2)}; setting $h_u=0$ for $u\notin T$ and rescaling $h=zv$ shows that
+\[
+G_z(v)=\sum_{X\subseteq T}\gamma_Xv^X,\qquad \gamma_X=z^{|X|}c(X),
+\]
+is real stable. By \cref{lem:asymptotics}, $\gamma_X=1+\ell(P)z^{-2}+o(z^{-2})$ whenever $X=V(P)$; in particular $\gamma_I=1+O(z^{-2})$ on the cyclic intervals of $Z$. By \cref{lem:tameness}, $\gamma_X=1+O(z^{-2})$ for every $X\subseteq T$, so $\gamma_X=1+\ell_Xz^{-2}+o(z^{-2})$ with $\ell_X\in\RR$ (and $\ell_X=\ell(P)$ for path sets).
+
+Apply \cref{lem:first-order} to the pair $(x,y)$ with $R=\{q_1,\dots,q_{k-1}\}$. The eight sets entering $\kappa(\emptyset)$ and $\kappa(R)$ are path sets: $\emptyset$, $\{x\}$, $\{y\}$, $\{x,y\}$ (the arc $x\to y$), $R$, $R+y$, $R+x$ and $T$ (the sub-paths $(q_1,\dots,q_{k-1})$, $(q_0,\dots,q_{k-1})$, $(q_1,\dots,q_k)$ and $(q_0,\dots,q_k)$). In each combination the sums $\sum(d^{+}(t)+e_t)$ cancel, so only back-arc counts remain:
+\begin{align*}
+\kappa(\emptyset)&=\back(x,y)=[\,y\to x\,]=0,\\
+\kappa(R)&=\back(q_0,\dots,q_k)-\back(q_1,\dots,q_k)\\
+&\qquad-\back(q_0,\dots,q_{k-1})+\back(q_1,\dots,q_{k-1})\\
+&=[\,q_k\to q_0\,]=[\,x\to y\,]=1,
+\end{align*}
+because an arc between $q_0$ and $R$, or between $R$ and $q_k$, is counted equally often with each sign, and the only remaining pair is $\{q_0,q_k\}$, whose arc $q_k\to q_0$ points backward along $(q_0,\dots,q_k)$. Hence $F(0)=\kappa(\emptyset)=0$ while the coefficient of $v^R$ in $F$ is $1$, so $F$ is not a constant multiple of $Q$. By \cref{lem:vanishing} there is $v^{*}\in\RR^R$ with $Q(v^{*})F(v^{*})<0$, and by \cref{lem:first-order} $\Delta_{xy}G_z(v^{*})<0$ for all large $z$. This contradicts \cref{lem:branden}. \qed
+
+\begin{remark}[what the proof uses]\label{rem:locality}
+Only the play on one directed cycle through the one-way arc enters, together with the starts on that cycle. Nothing is assumed about $U$, about the rest of $D$, about the sign or degree of the weights, or about a set potential; the ``free'' coefficients $\gamma_X$ on sets that are not path sets, which \S11.7 of the earlier draft identified as the obstacle, are controlled by \cref{lem:tameness}. The quantities $\kappa(R)=1$ and $\kappa(\emptyset)=0$ are the two claims in the proof of \cref{cor:sign-coherent}; what was missing there is \cref{lem:first-order,lem:vanishing}, which turn them into a contradiction without any sign assumption, by evaluating the Rayleigh difference at real points where $Q(v)F(v)<0$.
+\end{remark}
+
+\subsection{Frozen environments}
+Let $C$ be a digraph with self-energies $\eta$ as above; in the reduction of \cref{prop:restriction}, $\eta_x$ is the sum of the fresh-entry resolvents of the exits of $x$, which is $O(z^{-1})$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ is a graph $U$ on $V(C)\sqcup F$ with vertex weights $a$ (and edge weights $w\ge0$) such that $\Mpot_F(W)=\mu_{a,w}(U[W\cup F])$ satisfies \textup{(P1)} for the game $(C,\eta)$.
+
+\begin{theorem}[formerly Conjecture 10.9$'$]\label{thm:frozen-real}
+If $(C,\eta)$ has a frozen potential with weights in $\Puis$, for any finite environment, then $C$ is SCC-symmetric. In particular no strongly connected, non-symmetric digraph, with any real self-energies vanishing at infinity, has a real frozen potential.
+\end{theorem}
+\begin{proof}
+$\Mpot_F$ is a real-stable potential for $(C,\eta)$ by \cref{ex:real-stable}(b); apply \cref{thm:main-real}.
+\end{proof}
+
+\begin{proposition}[restriction to a component]\label{prop:restriction}
+Let $(U,a)$ be a local weighted matching potential for $D$ over a field $\mathbb K\supseteq\Qz$, and $C$ a strong component. Then $(U,a)$ is a frozen potential for $(D[C],\eta)$ with environment $V\setminus C$, where $\eta_x=\sum\Rdown(y)$ over the exits $y$ of $x$.
+\end{proposition}
+\begin{proof}
+In a play that starts in $C$ no vertex outside $C$ is visited while the token stays in $C$, because it cannot leave $C$ and return. So the unvisited set has the form $S\cup(V\setminus C)$ with $S\subseteq C$, and by \cref{lem:entry} every exit leads to a fresh subgame; hence $R(S\cup(V\setminus C),v)$ is the resolvent of the game $(D[C],\eta)$ at $(S,v)$.
+\end{proof}
+
+\Cref{prop:restriction} is the reduction by which the earlier draft derived Theorem~6.10 from the frozen statement; \cref{thm:main-real} makes it unnecessary for real weights. Over $\Qzbar$ it runs the other way: \S\ref{sec:complex} finds a counterexample by realizing a complex frozen environment with genuine vertices.
+
+\subsection{Sharpness and scope}
+
+\begin{proposition}[the band is sharp for the triangle, for every environment]\label{prop:triangle-band}
+Let $C_3$ be the directed triangle $0\to1\to2\to0$ with $\eta=0$, and let $z$ be real with $|z|>2$. Then no real stable multi-affine polynomial $G(v)=\sum_{X\subseteq\{0,1,2\}}\gamma_Xv^X$ has $\gamma_X=z^{|X|}\Gamma(P)(z)$ for the path data of $C_3$. Consequently, at every real $z$ with $|z|>2$ there is no frozen potential of $C_3$ with real weights, for any environment and any graph $U$. For real $z$ with $0<|z|<2$ and $z\notin\{\pm1,\pm\sqrt2\}$ a real frozen potential exists \textup{(}\cref{thm:triangle-solved}\textup{)}.
+\end{proposition}
+\begin{proof}
+Every subset of $\{0,1,2\}$ is a path set, with $\gamma_\emptyset=1$, $\gamma_{\{i\}}=g_1=(s+1)/s$, $\gamma_{\{i,j\}}=\gamma_{\{0,1,2\}}=g_2=(s+2)/s$, where $s=z^2-2$ (\cref{thm:triangle-solved}). For the pair $(x,y)=(2,0)$ and $v_1=t$,
+\[
+\Delta_{20}G(t)=(g_1+g_2t)^2-(1+g_1t)(g_2+g_2t)=\frac{1+(s+2)(t+t^2)}{s^2},
+\]
+and at $t=-\frac12$ this equals $(4-z^2)/(4(z^2-2)^2)<0$. By \cref{lem:branden} $G$ is not real stable. A real frozen potential at $z$ would make $G$ real stable (\cref{ex:real-stable}(b), with the path data evaluated at $z$).
+\end{proof}
+
+\begin{remark}\label{rem:scope}
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Reality is essential.} Over $\Qzbar$ frozen environments rescue every directed cycle (\cref{thm:every-cycle}), and genuine vertices realize them: the directed $m$-cycle with $m+1$ isolated vertices has a potential over $\Qzbar$ (\cref{thm:complex-counterexample}), so \cref{thm:conj610} fails for complex weights. In both cases some environment weights are non-real at every large real $z$ (\cref{thm:every-cycle}(4), \cref{prop:Ym-arithmetic}(2)), in agreement with \cref{thm:frozen-real,thm:main-real}.
+\item \emph{Lossless means reciprocal.} By \cref{ex:real-stable}(c) and \cref{thm:main-real}, the diagonal Green's functions $\bigl(A[W\cup F]^{-1}\bigr)_{vv}$ of a Hermitian matrix, however large its hidden part $F$, never reproduce the resolvents of a digraph with a one-way arc on a directed cycle. In physical language, one-way transport cannot be engineered from reciprocal couplings without loss or gain; the complex weights of \S\ref{sec:complex} play the role of the non-Hermitian elements of reservoir engineering \cite{MetelmannClerk}. The earlier draft stated this only as an analogy.
+\item \emph{Earlier partial results.} For weights in $\Puis$, \cref{thm:main-real} contains the normal and sign-coherent cases (\cref{thm:normal,cor:sign-coherent}), the unilateral case (\cref{cor:unilateral}), directed triangles (\cref{cor:triangles}), isolated directed $4$-cycles (\cref{cor:c4}), and directed cycles with symmetric environments (\cref{thm:meanfield}). \Cref{thm:normal,thm:no-phantom,thm:cocycle,thm:locality} hold over arbitrary fields and remain relevant over $\Qzbar$; \cref{prop:path-lemma}, \cref{lem:frozen-path,thm:meanfield} give pointwise or structural information that \cref{thm:main-real} does not.
+\item \emph{No effective threshold.} The proof excludes real-stable completions with coefficients in $\Puis$, which is an asymptotic statement. An effective version, with uniform constants in the induction of \cref{lem:tameness} and a compactness argument in \cref{lem:vanishing}, would give for each non-SCC-symmetric $D$ an explicit $z_D$ such that the path data of $D$ admit no real-stable completion at any real $z>z_D$; we have not written it out. For the directed triangle $z_D=2$ (\cref{prop:triangle-band}). An explicit bound for general cycles is \cref{prob:band}.
+\end{enumerate}
+\end{remark}

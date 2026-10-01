@@ -1,0 +1,48 @@
+\section{Status and open problems}\label{sec:open}
+
+The two conjectures that organized the earlier drafts are settled: \cref{thm:conj610} (formerly Conjecture~6.10) and \cref{thm:frozen-real} (formerly Conjecture~10.9$'$) hold for real weights and fail for complex ones (\cref{cor:complex-false}; \cref{thm:every-cycle}). Open Problem~7 of the first draft is settled for one arc and for common tails (\cref{cor:one-arc,thm:common-tail}) and reduced for $p$ tails to undirected phases (\cref{lem:p-tails}). The treewidth question is answered by three barriers and a circuit construction (\S\ref{sec:treewidth}). What remains:
+
+\begin{problem}[Maker--Maker games of rank $3$]\label{prob:makermaker}
+Are Maker--Maker games on hypergraphs of rank $3$ polynomial or $\PSPACE$-complete? Galliot lists this case as open \cite{Galliot25}.
+\end{problem}
+
+\begin{problem}[below $\Pi_2^{\Pclass}$]\label{prob:qcsp}
+Classify $\mathrm{QCSP}(\Gamma)$ below $\Pi_2^{\Pclass}$ for every finite $\Gamma$. The examples of Zhuk and Martin show that $\mathsf{DP}$ and $\Theta_2^{\Pclass}$ must appear in the answer \cite{ZhukMartin}.
+\end{problem}
+
+\begin{problem}[Grundy values and two tokens]\label{prob:grundy}
+Are Grundy values of undirected vertex geography fixed-parameter tractable in treewidth, and is two-token undirected geography on cubic graphs polynomial? (Open Questions~7 and~8 of \cite{BFT}.) Is there a natural partizan ruleset whose single instances are polynomial but whose sums of two instances are $\PSPACE$-hard? (Open Question~9 of \cite{BFT}.)
+\end{problem}
+
+\begin{problem}[real-number evaluation]\label{prob:ch}
+Separate $\PSPACE$ from the counting hierarchy. By \cref{thm:bss} this would rule out polynomial-time real-number evaluation of $\val$ with algebraic constants.
+\end{problem}
+
+\begin{problem}[two tails]\label{prob:two-tails}
+Is directed vertex geography polynomial, or fixed-parameter tractable in the number of distinct tails of one-way arcs per strong component, already when every strong component has two tails? By \cref{lem:p-tails} the question is undirected geography with two matching-type terminals, and by \cref{prop:barrier,prop:ge-barrier} no rule that reads only the matching structure at the key points decides it. For fixed $k\ge2$ arcs per component, is DVG polynomial, fixed-parameter tractable in $k$, or $\PSPACE$-complete?
+\end{problem}
+
+\begin{problem}[counting maximum matchings]\label{prob:fpt-deficiency}
+On planar graphs of deficiency $d$, maximum matchings, and hence the residues of \cref{prop:residue}, can be counted in time $n^{O(d)}$ (\cref{thm:kasteleyn}). Is the count fixed-parameter tractable in $d$?
+\end{problem}
+
+\begin{problem}[collapsibility at polynomial horizon]\label{prob:sigma2}
+For generators with polynomial horizon, is the set of collapsible generators $\Sigma^0_2$-complete when $\Pclass\neq\PSPACE$? The proof of \cref{thm:sigma2} needs a language that is hard at almost every input length, which $\Pclass\neq\PSPACE$ alone does not provide.
+\end{problem}
+
+\begin{problem}[the band]\label{prob:band}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For a digraph $D$ that is not SCC-symmetric, give an explicit $z_D$ such that the path data of $D$ admit no real-stable completion at any real $z>z_D$; \cref{prop:triangle-band} gives $z_D=2$ for the directed triangle. Is $z_D=2$ for every directed cycle?
+\item Determine the real locus of the family of \cref{thm:every-cycle} inside $|z|<2$; numerically it is all of $(-2,2)$ for $m=3$, a subinterval for $m=4,5$, and apparently empty for $m\ge6$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[exact resolvents at bounded width]\label{prob:tw-circuits}
+Does every digraph of treewidth at most $k$ have an arithmetic circuit of size $f(k)\poly(n)$ that computes $R(V,s)$ for all $s$? By \cref{thm:intrinsic-degree} such a circuit cannot output explicit rational functions of polynomial size, and by \cref{prop:memory} it cannot tabulate resolvents by bag-local states; the comb $Q_m$ is the first test case. Is the number of canonical subgames of the closed ladder cubic in $m$?
+\end{problem}
+
+\begin{problem}[set and valuation potentials]\label{prob:setpot}
+Which digraphs carry set potentials, and which carry valuation potentials? \Cref{thm:cocycle} gives a necessary condition, \cref{lem:set-components,lem:branches} reduce set potentials to pruned cores, and \cref{conj:blowups} predicts the pruned cores that occur. On five vertices only $79$ of the $8{,}055$ non-SCC-symmetric digraphs carry a set potential.
+\end{problem}
+
+Together with \cref{prob:complex} (complex potentials, in particular on strongly connected digraphs) and \cref{conj:minimal-env,conj:blowups}, these are the open questions on the boundaries drawn in this paper.

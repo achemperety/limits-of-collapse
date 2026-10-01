@@ -1,0 +1,124 @@
+\section{One-way arcs inside a strong component}\label{sec:oneway}
+
+\Cref{thm:conj610} says where potentials exist; it says nothing about complexity, since directed cycles have no potential and trivial outcomes. This section asks how far matching data decide DVG when strong components carry one-way arcs. The answer depends on the tails of the arcs: arcs with a common tail are decided by a closed matching rule, with any number of arcs (\cref{thm:common-tail}); for every other geometry of two arcs, matching data at the key vertices do not suffice (\cref{prop:barrier}); and with $p$ tails a play crosses at most $p$ times (\cref{lem:p-tails}).
+
+\subsection{Reduction to one component}\label{ssec:oneway-reduction}
+By \cref{lem:entry} and the elementary proof of \cref{cor:dvg-poly}, a strong component $C$ is played from a fresh entry vertex. Exits to N-positions are losing moves and are deleted; exits to P-positions win at once and become one pendant leaf at their tail. So the game inside $C$ is $\game(H;\arcs)$: $H$ is the graph of the symmetric pairs of $C$ plus these pendant leaves, $\arcs$ is the set of one-way arcs of $C$ (each $u\to w$ with $u,w$ non-adjacent in $H$), and the token moves along edges of $H$, or along an arc of $\arcs$ whose head is unvisited. At a position with current graph $K$ (the subgraph of $H$ induced by the unvisited vertices) and token on $s$, an arc is \emph{live} if both ends are unvisited. DVG from a position $(W,v)$ is DVG on $D[W]$ started at $v$, so a rule for fresh starts decides every position. Write $\nu$ for the matching number; a vertex is \emph{essential} in a graph if every maximum matching covers it and \emph{inessential} otherwise, and by \cref{thm:matching-collapse} the player to move in undirected vertex geography wins exactly from essential vertices.
+
+\begin{definition}\label{def:key-local}
+At a position of $\game(H;\arcs)$ with current graph $K$ and token on $s$, the \emph{key points} are $s$ and the ends of the live arcs. The \emph{key-local data} are the coincidence pattern of the key points, the deficiencies $\nu(K)-\nu(K-X)$ for all sets $X$ of key points, and the adjacency in $K$ among the key points. The \emph{GE-local data} add, for every set $X$ of key points, the Gallai--Edmonds class ($\mathsf D$, $\mathsf A$ or $\mathsf C$) in $K-X$ of every key point outside $X$; here $\mathsf D(L)$ is the set of vertices missed by some maximum matching of $L$, $\mathsf A(L)$ the set of vertices outside $\mathsf D(L)$ with a neighbour in $\mathsf D(L)$, and $\mathsf C(L)$ the rest \cite{LovaszPlummer}.
+\end{definition}
+
+\subsection{Arcs with a common tail}
+
+Let every arc of $\arcs$ leave the same vertex $u$. At a position in which $u$ is unvisited, let $W'$ be the set of live heads other than the token $s$, and let $K+uW'$ be $K$ with the edges $uw$, $w\in W'$, added. Call $K$ \emph{split} if $\nu(K+uW')=\nu(K)$, that is, if no maximum matching of $K$ misses $u$ and a live head, and \emph{joined} otherwise. Since all new edges share the vertex $u$,
+\begin{equation}\label{eq:star-nu}
+\nu(K+uW')=\max\Bigl(\nu(K),\ \max_{w\in W'}\nu(K-u-w)+1\Bigr).
+\end{equation}
+
+\begin{theorem}[arcs with a common tail]\label{thm:common-tail}
+In the position just described the player to move wins if and only if
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $s=u$, and $u$ is essential in $K+uW'$; or
+\item $s\neq u$ is essential in $K$, and $K-s$ is split or $u$ is inessential in $K$; or
+\item $s\neq u$ is inessential in $K$, $K$ is joined, and $\nu(K-s-u)<\nu(K)$.
+\end{enumerate}
+If $u$ has been visited, no arc is live and \cref{thm:matching-collapse} applies.
+\end{theorem}
+
+Two responder strategies drive the proof. Let the token be on $x$ in the current graph $K$, with the player to move called the mover.
+
+\begin{enumerate}[label=(T\arabic*$'$),start=2]
+\item If a maximum matching $M$ of $K$ misses both $x\neq u$ and $u$, the other player wins by answering each move to $t$ with $M(t)$. The mover stands only on $x$ and on vertices covered by $M$, never on $u$, so never uses an arc; and a move to a vertex missed by $M$ would close an $M$-augmenting path starting at $x$.
+\item If $K$ is split and a maximum matching $M$ of $K$ misses $x$, the same answers win. $M$ is maximum in $K+uW'$, and every move, including a crossing $u\to w$, is an edge of $K+uW'$, so the augmenting-path argument applies. A split graph stays split when heads are visited.
+\end{enumerate}
+
+\begin{proof}[Proof of \cref{thm:common-tail}]
+Induction on $|V(K)|$.
+
+\emph{Item 1.} Every move from $u$ kills all arcs. Each option, a neighbour of $u$ in $K$ or a live head, is followed by undirected geography on $K-u=(K+uW')-u$, so \cref{thm:matching-collapse} for $K+uW'$ at $u$ gives the claim.
+
+\emph{Item 2: $s$ essential in $K$.} If $K-s$ is split, move to a neighbour $t$ inessential in $K-s$ (it exists by \cref{thm:matching-collapse}). For $t=u$, a maximum matching of $K-s$ missing $u$ is maximum in $(K-s)+uW'$, so $u$ is inessential there and item 1 makes the opponent lose; otherwise (T3$'$) applies to $K-s$ with $x=t$. If $u$ is inessential in $K$, then $s$ is essential in $K-u$, and \cref{thm:matching-collapse} gives a neighbour $t\neq u$ of $s$ inessential in $K-s-u$; since $\nu(K-s-u)=\nu(K-s)$, some maximum matching of $K-s$ misses both $t$ and $u$, and after the move to $t$, (T2$'$) applies.
+
+Otherwise $K-s$ is joined and $u$ is essential in $K$, and every move loses. Call a live head $w$ \emph{joinable} if some maximum matching $N$ of $K-s$ misses $u$ and $w$; then $s$ is not adjacent to $w$, since $N+sw$ would be a maximum matching of $K$ missing $u$. A move to $u$ loses by item 1, because $\nu((K-s)+uW')=\nu(K)>\nu(K-s-u)$. Let $t$ be any other neighbour and $K'=K-s$. Since $t$ is not a joinable head, $K'$ stays joined after $t$ is visited. If $t$ is inessential in $K'$, the move loses by item 3 for $K'$: no maximum matching of $K'$ misses $t$ and $u$, since adding $st$ would give a maximum matching of $K$ missing $u$. If $t$ is essential in $K'$, the move loses by item 2 for $K'$, because $u$ is inessential in the joined graph $K'$.
+
+\emph{Item 3: $s$ inessential in $K$.} If $K$ is split, (T3$'$) applies with a maximum matching missing $s$, and the mover loses. If some maximum matching misses $s$ and $u$, (T2$'$) applies and the mover loses. Otherwise $K$ is joined, so some maximum matching misses $u$ and a live head $w$, and $\nu(K-s-u)=\nu(K)-1$. Then $\nu(K-s-u-w)=\nu(K)-1=\nu(K-u-w)-1$, so $s$ is essential in $L=K-u-w$, and \cref{thm:matching-collapse} gives a neighbour $t\notin\{u,w\}$ of $s$ inessential in $L-s$. Move to $t$. In $K'=K-s$ the vertex $t$ is essential, because $s$ is inessential in $K$; the graph $K'-t$ is joined, because a maximum matching of $L-s-t$ has $\nu(K)-1=\nu(K'-t)$ edges and misses $u$ and $w$; and $u$ is essential in $K'$, because $\nu(K'-u)=\nu(K)-1<\nu(K')$. By item 2 for $K'$ the opponent loses.
+\end{proof}
+
+With a single arc $u\to w$ the rule reads as follows; this settles the case $k=1$ of Open Problem~7 of the earlier draft.
+
+\begin{corollary}[one one-way arc]\label{cor:one-arc}
+Let $u,w$ be non-adjacent vertices of a graph $H$ and $s\in V(H)$. In $\game(H;u\to w)$ started at $s$ the player to move wins if and only if: $s=w$ and $s$ is essential in $H$; or $s=u$ and $u$ is essential in $H+uw$; or $s\notin\{u,w\}$ is essential in $H$ and $\nu(H-s-u-w)<\nu(H-s)$ or $u$ is inessential in $H$; or $s\notin\{u,w\}$ is inessential in $H$, $\nu(H-u-w)=\nu(H)$ and $\nu(H-s-u)<\nu(H)$.
+\end{corollary}
+\begin{proof}
+For $s=w$ the set $W'$ is empty, so $K$ and $K-s$ are split and items 2--3 reduce to ``$s$ essential''. For $s\neq w$, $W'=\{w\}$, and by \eqref{eq:star-nu} a graph $L\ni u,w$ is split exactly when $\nu(L-u-w)<\nu(L)$.
+\end{proof}
+
+\begin{corollary}[common tails are polynomial]\label{cor:star-dvg}
+Directed vertex geography is decidable in polynomial time on digraphs in which, inside every strong component, all one-way arcs share a tail, with any number of arcs per component. Processing the components in reverse topological order, every position is decided by at most six maximum-matching computations, and the proof supplies optimal moves.
+\end{corollary}
+\begin{proof}
+By \S\ref{ssec:oneway-reduction} and \cref{thm:common-tail}; the rule uses $\nu(K)$, $\nu(K-s)$, $\nu(K-u)$, $\nu(K-s-u)$ and $\nu(K'+uW')$ for $K'\in\{K,K-s\}$, the last two through \eqref{eq:star-nu}. The package implements the rule as \code{star_tail.star_rule} and checks it against exhaustive search (\cref{app:verification}).
+\end{proof}
+
+\subsection{Two arcs: the barrier}
+
+\begin{proposition}[two or more arcs: what survives]\label{prop:two-arcs}
+Let $K^{+}$ be the current graph plus the edges $u_iw_i$ of all live one-way arcs. If $s$ is inessential in $K$ and $\nu(K^{+})=\nu(K)$, the mover loses; if $s$ is essential in $K$ and $\nu((K-s)^{+})=\nu(K-s)$, the mover wins; if a maximum matching of $K$ misses $s$ and every live tail, the mover loses. Outside these regimes the deficiencies of key-point deletions do not decide: on the bipartite graph $K$ with vertices $0,\dots,9$ and edges $0\text{--}8$, $0\text{--}9$, $1\text{--}8$, $1\text{--}9$, $2\text{--}6$, $2\text{--}7$, $2\text{--}8$, $3\text{--}7$, $3\text{--}8$, $4\text{--}6$, $4\text{--}8$, $5\text{--}6$, $5\text{--}7$, $5\text{--}9$ and the arcs $1\to4$, $2\to0$, the numbers $\nu(K-X)$ agree for the starts $s=5$ and $s=3$ over all $31$ nonempty $X\subseteq\{s,1,4,2,0\}$, yet the first player wins from $5$ and loses from $3$.
+\end{proposition}
+\begin{proof}
+The three regimes are (T3$'$), the move of item 2 of \cref{thm:common-tail}, and (T2$'$), whose proofs use only that $M$ is maximum in $K^{+}$, respectively that the mover never stands on a tail. The example is an exhaustive computation.
+\end{proof}
+
+\begin{proposition}[the barrier for the other geometries]\label{prop:barrier}
+For each geometry of two one-way arcs other than a common tail (chained: $u_1\to w_1=u_2\to w_2$; common head; disjoint) there are two positions with identical key-local data and opposite outcomes:
+\begin{itemize}
+\item \emph{Chained.} The first player wins on the graph with vertices $0,\dots,5$, edges $0\text{--}2$, $1\text{--}2$, $1\text{--}4$, $2\text{--}5$, $3\text{--}4$, $4\text{--}5$, arcs $0\to3\to1$ and start $5$. The first player loses on the graph with vertices $0,\dots,9$, edges $0\text{--}6$, $0\text{--}7$, $0\text{--}8$, $0\text{--}9$, $1\text{--}6$, $1\text{--}7$, $1\text{--}9$, $2\text{--}6$, $2\text{--}8$, $2\text{--}9$, $3\text{--}6$, $3\text{--}8$, $3\text{--}9$, $4\text{--}6$, $4\text{--}7$, $4\text{--}9$, $5\text{--}6$, $5\text{--}7$, $5\text{--}9$, arcs $1\to3\to4$ and start $0$.
+\item \emph{Common head.} The first player wins on the graph with vertices $0,\dots,7$, edges $0\text{--}5$, $0\text{--}6$, $1\text{--}5$, $1\text{--}6$, $2\text{--}6$, $2\text{--}7$, $3\text{--}5$, $4\text{--}6$, $4\text{--}7$, arcs $1\to4$, $0\to4$ and start $3$. The first player loses on the graph with vertices $0,\dots,7$, edges $0\text{--}5$, $0\text{--}6$, $0\text{--}7$, $1\text{--}5$, $1\text{--}6$, $1\text{--}7$, $2\text{--}5$, $2\text{--}7$, $3\text{--}5$, $3\text{--}6$, $4\text{--}5$, $4\text{--}6$, $4\text{--}7$, arcs $4\to0$, $1\to0$ and start $2$.
+\item \emph{Disjoint.} The graph and arcs of \cref{prop:two-arcs}, with starts $5$ (first player wins) and $3$ (first player loses).
+\end{itemize}
+\end{proposition}
+\begin{proof}
+Direct computation of both outcomes and of the key-local data (\code{star_tail.key_local_data}, \code{tests/test_star_tail.py}).
+\end{proof}
+
+\begin{corollary}[dichotomy for two arcs]\label{cor:dichotomy}
+Key-local data decide every position of $\game(H;\{a_1,a_2\})$, for all graphs $H$, if and only if $a_1$ and $a_2$ share a tail.
+\end{corollary}
+\begin{proof}
+For a common tail the rule of \cref{thm:common-tail} uses only key-local quantities, by \eqref{eq:star-nu}. The other geometries are \cref{prop:barrier}.
+\end{proof}
+
+A common tail is special because all its arcs can be used only while the token stands on $u$, so the arc system acts at one moment, and at that moment the game is undirected geography on $K+uW'$. With a common head, a chain or disjoint arcs, one play can use arcs at two different moments, and whether the first player can arrange a favourable second crossing depends on the play in between. A sampled search over $26{,}633$ starts with two arcs, classified by key-local data into $4{,}220$ classes, found conflicting classes only for chained and co-headed arcs (none for a common tail), and a five-vertex chained conflict already exists: on $K_{2,3}$ with parts $\{0,1\}$ and $\{2,3,4\}$ and arcs $3\to2\to4$ the first player wins from $0$, while after deleting the edge $0\text{--}3$ and reversing the chain to $4\to2\to3$ the first player loses from $0$, with the same matching numbers for every key-point deletion.
+
+\subsection{Several tails}
+
+\begin{lemma}[$p$ tails]\label{lem:p-tails}
+Let the arcs of $\arcs$ have exactly $p$ distinct tails $u_1,\dots,u_p$, and let $\arcs_i$ be the set of arcs leaving $u_i$.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Every play uses at most one arc of each $\arcs_i$, hence at most $p$ arcs.
+\item Let the token stand on $u_i$ in the current graph $K'$, let $H_i$ be the set of live heads of $\arcs_i$, and let $\arcs'$ be the set of live arcs of the other tails whose head is not $u_i$. This position has the outcome of the position $(K'+u_iH_i,u_i)$ of $\game(K'+u_iH_i;\arcs')$, which has $p-1$ tails.
+\item Until the token first stands on a tail the play is undirected vertex geography on $K$. Consequently a $p$-tail game is undirected vertex geography with $p$ terminals $u_1,\dots,u_p$, where entering $u_i$ ends the play with the value of a $(p-1)$-tail game on the remaining graph; for $p=2$ that value is given by \cref{thm:common-tail}.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+An arc of $\arcs_i$ is used only by a move from $u_i$, and a play leaves $u_i$ at most once, which is (1). For (2), the moves from $u_i$ go to its neighbours in $K'$ and to the heads in $H_i$, which are exactly its neighbours in $K'+u_iH_i$. After any such move $u_i$ is visited, so the added edges, every arc of $\arcs_i$ and every arc with head $u_i$ are dead, and from then on both games are $\game(K'-u_i;\arcs')$ with the same live arcs; the two game trees coincide. The arcs of $\arcs'$ avoid $u_i$, and every added edge contains $u_i$, so they still join non-adjacent vertices of $K'+u_iH_i$, as the definition of $\game$ requires; and they have at most $p-1$ tails, none equal to $u_i$. For (3), no arc leaves a vertex that is not a tail.
+\end{proof}
+
+For $p=2$ every position at or after the first crossing is decided by at most six maximum-matching computations, and the difficulty is confined to the undirected phase before it. Gallai--Edmonds data at the key points do not decide that phase.
+
+\begin{proposition}[Gallai--Edmonds data do not decide two tails]\label{prop:ge-barrier}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item GE-local data separate the two positions of each pair in \cref{prop:barrier}.
+\item GE-local data do not decide two-tail positions. Let $G_6$ have vertices $s,h,h',a,b,\ell$ and edges $sh$, $hh'$, $ha$, $hb$, $h'a$, $h'b$, $h'\ell$. With the arcs $a\to b\to\ell$ the first player wins from $s$; with the reversed chain $\ell\to b\to a$ the first player loses from $s$. The two positions have the same GE-local data.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Item (1) and the equality of the data in (2) are direct computations over all sets of key points. For the outcomes in (2) the first move $s\to h$ is forced. With the chain $a\to b\to\ell$: if the second player moves to $h'$, the first moves to $\ell$ and the second is stuck; if the second moves to $a$, the first crosses to $b$, and the second must move to $h'$ or cross to $\ell$, which the first answers with $\ell$ or $h'$, leaving the second without a move; if the second moves to $b$, the first crosses to $\ell$, the second is forced to $h'$, and the first moves to $a$, where the second is stuck because the arc $a\to b$ leads to a visited vertex. With the chain $\ell\to b\to a$ the second player answers $h\to a$; no arc leaves $a$, so the first must move to $h'$; the second moves to $b$, and the first is stuck, because $h,h'$ are visited and the arc $b\to a$ leads to a visited vertex.
+\end{proof}
+
+A sampled search over $38{,}805$ two-tail starts on graphs with at most seven vertices found four such conflicts, two chained and two with a common head. In $G_6$ the matching structure around the key points is the same in both positions; what differs is the direction in which the chain can be traversed relative to where the play meets it.
+
+\begin{remark}[where the complexity stands]\label{rem:tails-complexity}
+DVG is $\PSPACE$-complete in general \cite{LichtensteinSipser} and polynomial when the one-way arcs of every strong component share a tail (\cref{cor:star-dvg}). Unless $\Pclass=\PSPACE$, hard instances need strong components with many tails. \Cref{lem:p-tails} confines the difficulty to undirected phases that end at matching-type terminals, and \cref{prop:barrier,prop:ge-barrier} show that no rule reading only the matching structure at the key points, through deficiencies of key-point deletions or Gallai--Edmonds classes, decides the two-tail phase. A polynomial algorithm would have to follow how the play approaches the tails; a hardness proof would have to encode a formula in an undirected phase that ends at one of two matching-type terminals. Whether DVG is fixed-parameter tractable in the number of tails is open already at two (\cref{prob:two-tails}). A bag invariant of a tree decomposition does not bear on this: the barrier graphs have small width, and DVG on bounded treewidth is linear \cite{Bodlaender}.
+\end{remark}

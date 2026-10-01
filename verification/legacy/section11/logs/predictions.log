@@ -1,0 +1,18 @@
+triangle, a private sink at every vertex                                         predicted True  exact True  
+triangle, sinks at two vertices only                                             predicted False exact False 
+triangle, pendant at 0, sinks at 1 and 2                                         predicted True  exact True  
+triangle, pendant at 0, sink at 1 only                                           predicted False exact False 
+triangle, pendant 2-path at 0, exits to directed 2-paths at 1 and 2              predicted True  exact True  
+same, but vertex 2 exits to a sink instead                                       predicted False exact False 
+4-cycle, sinks at opposite vertices                                              predicted True  exact True  
+4-cycle, sinks at adjacent vertices                                              predicted False exact False 
+4-cycle, pendant at 0 and sink at 2                                              predicted True  exact True  
+book with 3 pages, two pendants at the spine tail                                predicted True  exact True  
+book with 3 pages, one pendant at the spine tail                                 predicted False exact False 
+book with 4 pages, three sinks at the spine tail                                 predicted True  exact True  
+book with 2 pages, pendant at tail, a sink at every other vertex and 2 at tail?  predicted False exact False 
+5-cycle, sinks at 0 and 2                                                        predicted False exact False 
+5-cycle, a sink at every vertex                                                  predicted True  exact True  
+6-cycle, sinks at 0, 2, 4                                                        predicted True  exact True  
+6-cycle, sinks at 0, 2, 3                                                        predicted False exact False 
+17 of 17 predictions confirmed

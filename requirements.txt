@@ -1,0 +1,12 @@
+# core (all tests)
+sympy>=1.12
+networkx>=3.0
+mpmath>=1.3
+pytest>=7
+# numerical sanity checks in scripts/adversarial_*.py
+numpy>=1.24
+scipy>=1.10
+# optional: exact Groebner bases with Singular and Galois groups with PARI
+# (scripts/search6_c3k3*.py, scripts/ym_arithmetic.py, verification/legacy)
+# passagemath-singular
+# passagemath-pari

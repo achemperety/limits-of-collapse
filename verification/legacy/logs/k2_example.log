@@ -1,0 +1,4 @@
+nu(G) = 4
+start 5: outcome True | start 3: outcome False
+identical deficit vectors: True
+deficits for start 5: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3)

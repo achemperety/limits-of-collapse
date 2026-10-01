@@ -1,0 +1,69 @@
+\begin{figure}[t]
+\centering
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}[
+  node distance=6mm and 4mm,
+  q/.style={draw=black!45, rounded corners=3pt, minimum width=34mm, minimum height=8mm, align=center, font=\small\bfseries},
+  yes/.style={draw=green!55!black, fill=green!8, rounded corners=3pt, line width=0.9pt, text width=46mm, align=center, font=\scriptsize},
+  no/.style={draw=red!65!black, fill=red!6, rounded corners=3pt, line width=0.9pt, text width=38mm, align=center, font=\scriptsize},
+  iff/.style={draw=orange!85!black, fill=orange!8, rounded corners=3pt, line width=0.9pt, text width=34mm, align=center, font=\scriptsize},
+  lab/.style={font=\scriptsize, fill=white, inner sep=1pt},
+  >={Stealth[length=2mm]}]
+\node[q] (root) {How is the arena given?};
+\node[no, below left=14mm and 12mm of root] (oracle) {\textbf{No when $h=\omega(\log N)$}\\ $2^{\Omega(h)}$ queries to $\pay$, classical or quantum\\ \textcolor{black!60}{\cref{thm:query}}};
+\node[q, below=14mm of root] (rules) {Which class of rules?};
+\node[yes, below right=14mm and 12mm of root, text width=36mm] (explicit) {\textbf{Yes: linear time}\\ $\Pclass$-complete; in $\NC$ only if $\NC=\Pclass$\\ \textcolor{black!60}{\cref{prop:explicit}}};
+\node[yes, below left=10mm and -6mm of rules] (collapse) {\textbf{Yes: polynomial at any horizon}\\ Nim, Wythoff (\S\ref{ssec:phase}); UVG and SCC-symmetric DVG (\S\ref{sec:matching}); one-way arcs with a common tail (\S\ref{sec:oneway}); affine, 2-CNF, Horn QBF (\S\ref{ssec:qcsp}); matroids (\S\ref{ssec:matroid}); Maker--Breaker rank $\le 3$ (\S\ref{ssec:positional}); width along the prefix (\S\ref{ssec:width})};
+\node[q, below right=10mm and -2mm of rules] (hor) {Horizon?};
+\node[no, below left=9mm and -14mm of hor] (unb) {\textbf{No in deterministic time}\\ $\EXPTIME$-complete; randomized and quantum open\\ \textcolor{black!60}{\cref{cor:exp}}};
+\node[iff, below right=9mm and -14mm of hor] (pol) {\textbf{Yes iff $\Pclass=\PSPACE$}\\ $\PSPACE$-complete\\ \textcolor{black!60}{\cref{cor:polyhorizon}}};
+\draw[->] (root) -- node[lab, pos=0.45, above left]{$\pay$ by queries only} (oracle);
+\draw[->] (root) -- node[lab, right]{succinct circuits} (rules);
+\draw[->] (root) -- node[lab, pos=0.45, above right]{explicit graph} (explicit);
+\draw[->] (rules) -- node[lab]{collapsing class} (collapse);
+\draw[->] (rules) -- node[lab]{all arenas} (hor);
+\draw[->] (hor) -- node[lab]{unbounded} (unb);
+\draw[->] (hor) -- node[lab]{polynomial} (pol);
+\end{tikzpicture}
+\end{adjustbox}
+\caption{Verdicts on the existence of a polynomial-time invariant $\Phi$ with $\val=f\circ\Phi$, by representation, rule class and horizon. Each ``no'' verdict is for the class of all arenas in the model its box names; the small print names the proof.}
+\label{fig:glance}
+\end{figure}
+
+\section*{Contributions and status of results}
+
+\Cref{fig:glance} summarizes the complexity verdicts. Sections \ref{sec:setting}--\ref{sec:extensions} restate classical results in the language of arenas. The new material is \cref{prop:blind}, \S\S\ref{sec:spectral}--\ref{sec:matching}, \cref{thm:sigma2} and \S\S\ref{sec:realstab}--\ref{sec:treewidth}. New results are proved here; cited results name their source in the statement. \Cref{app:concordance} maps the numbering of the earlier drafts to this version.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Signed resolvent formula for $\val$} (\cref{cor:index}).
+\item \emph{Spectral derivation of the Fraenkel--Scheinerman--Ullman theorem} from Godsil's path-tree theorem (\cref{thm:matching-collapse}).
+\item \emph{Directed resolvent collapse} on SCC-symmetric digraphs (\cref{thm:directed-collapse,cor:dvg-poly}), and its \emph{converse}: a local weighted matching potential with real weights exists only on SCC-symmetric digraphs (\cref{thm:conj610}; proof in \S\ref{sec:realstab}).
+\item \emph{Real-stable potentials force reciprocity} (\cref{thm:main-real}): the obstruction uses only real stability, so it also covers Hermitian determinantal potentials, nonnegative edge weights, and frozen environments (\cref{thm:frozen-real}); it is sharp for the directed triangle at every $|z|>2$ (\cref{prop:triangle-band}).
+\item \emph{The complex form of \cref{thm:conj610} is false} (\cref{thm:complex-counterexample,cor:complex-false}): genuine digraphs realize the complex frozen environments that rescue every directed cycle (\cref{thm:every-cycle}); the obstruction to real potentials is reality, not monodromy (\cref{prop:Ym-arithmetic,rem:monodromy}). What remains open over $\Qzbar$ is \cref{prob:complex}.
+\item \emph{One-way arcs}: polynomial time when the one-way arcs of every strong component share a tail (\cref{thm:common-tail}); no key-local rule for any other two-arc geometry (\cref{cor:dichotomy}); at most $p$ crossings with $p$ tails (\cref{lem:p-tails}).
+\item \emph{Set potentials}: exact criteria for cycles, books, one blown-up vertex and cacti; a continuant criterion for all blow-ups of directed cycles (\cref{thm:blowup-criterion}), with which every two-periodic blow-up carries a set potential (\cref{lem:twin,cor:two-periodic}).
+\item \emph{Treewidth}: the exponential degree of exact resolvents at pathwidth~$2$ (\cref{thm:ladders}) is intrinsic to every exact multiplicative potential, however indexed (\cref{thm:intrinsic-degree}); the resolvent recursion closes on canonical subgames, which are path-dependent and at treewidth~$3$ need $2^{\Omega(\sqrt{n/\log n})}$ states at a single vertex (\cref{prop:memory}); component-state circuits have linear size when strong components are small (\cref{thm:component-circuits}).
+\item \emph{Other results}: the residue of the resolvent as a density of matching strategies (\cref{prop:residue}); the torsion obstruction (\cref{thm:torsion}); unconditional limits of landscape invariants (\cref{prop:blind}); $\Sigma^0_2$-completeness of collapsibility (\cref{thm:sigma2}).
+\end{enumerate}
+
+\begin{longtable}{@{}L{0.42}L{0.53}@{}}
+\toprule
+Result & Status\\ \midrule\endhead
+\cref{lem:well-defined}, \cref{thm:local}, \cref{cor:certify} & classical: attractors and progress measures\\
+\cref{lem:normal-form}, \S\S\ref{sec:barriers}--\ref{sec:extensions}, \cref{thm:strategies}, \cref{cor:chess} & classical, restated for arenas\\
+\cref{prop:blind} & new, elementary\\
+\cref{lem:threshold}, \cref{thm:resolvent-outcome}, \cref{cor:index} & new assembly of classical facts (Cvetkovi\'c--Gutman; Fraenkel--Scheinerman--Ullman)\\
+\cref{lem:transfer}, \cref{thm:matching-collapse} & Godsil 1981 read as a game; the derivation of the FSU theorem appears new\\
+\cref{thm:unweighted}, \cref{lem:entry} & new, elementary\\
+\cref{thm:directed-collapse}, \cref{prop:no-cancel}, \cref{cor:dvg-poly}, \cref{prop:fails}, \cref{cor:edge-geo} & new as far as we know\\
+\cref{thm:conj610} (formerly Conjecture 6.10), \cref{thm:main-real}, \cref{thm:frozen-real}, \cref{prop:triangle-band} & new; proofs in \S\ref{sec:realstab}\\
+\S\ref{sec:fields}--\S\ref{sec:complex} (results over arbitrary fields, complex frontier) & new; \cref{thm:complex-counterexample} proved, and independently verified by computer; \cref{thm:exact5}, \cref{prop:env-barrier,prop:smallest-env,prop:c5c6,prop:c3-minimal} and \cref{prop:Ym-arithmetic}(3) are computer-assisted (exact Gr\"obner bases with saturation, PARI)\\
+\S\ref{sec:oneway} (one-way arcs) & new; \cref{prop:two-arcs,prop:barrier,prop:ge-barrier} are explicit examples checked by exhaustive search\\
+\S\ref{sec:setpot} (set potentials) & new; \cref{thm:cores5,prop:census67} computer-assisted; \cref{thm:blowup-criterion,lem:twin,cor:two-periodic} proved, and checked by computer\\
+\S\ref{sec:treewidth} (treewidth) & new; \cref{prop:memory}(2) also checked by computer for $m\le6$\\
+\cref{prop:residue} & strategy from FSU 1993; the residue as a density of strategies is new\\
+\cref{thm:kasteleyn,thm:hardness}, \cref{prop:rank-game} & consequences of cited hardness results\\
+\cref{thm:compositional,thm:torsion} & new, elementary\\
+\cref{thm:sigma2} & index-set argument in the style of H\'ajek and Kozen; $\Sigma^0_2$-completeness proved here\\
+\bottomrule
+\end{longtable}

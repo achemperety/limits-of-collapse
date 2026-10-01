@@ -1,0 +1,750 @@
+{
+"fig:glance": [
+"Figure",
+"1"
+],
+"sec:setting": [
+"Section",
+"1"
+],
+"ssec:arenas": [
+"Section",
+"1.1"
+],
+"lem:well-defined": [
+"Lemma",
+"1.1"
+],
+"lem:normal-form": [
+"Lemma",
+"1.2"
+],
+"prop:blind": [
+"Proposition",
+"1.3"
+],
+"rem:bypass": [
+"Remark",
+"1.4"
+],
+"rem:strategy-stealing": [
+"Remark",
+"1.5"
+],
+"sec:local": [
+"Section",
+"2"
+],
+"thm:local": [
+"Theorem",
+"2.1"
+],
+"cor:certify": [
+"Corollary",
+"2.2"
+],
+"rem:template": [
+"Remark",
+"2.3"
+],
+"sec:barriers": [
+"Section",
+"3"
+],
+"thm:query": [
+"Theorem",
+"3.1"
+],
+"thm:alternation": [
+"Theorem",
+"3.2"
+],
+"cor:exp": [
+"Corollary",
+"3.3"
+],
+"cor:polyhorizon": [
+"Corollary",
+"3.4"
+],
+"prop:explicit": [
+"Proposition",
+"3.5"
+],
+"prop:components": [
+"Proposition",
+"3.6"
+],
+"sec:extensions": [
+"Section",
+"4"
+],
+"thm:worst-average": [
+"Theorem",
+"4.1"
+],
+"thm:ip": [
+"Theorem",
+"4.2"
+],
+"cor:nonuniform": [
+"Corollary",
+"4.3"
+],
+"thm:unit-cost": [
+"Theorem",
+"4.4"
+],
+"thm:bss": [
+"Theorem",
+"4.5"
+],
+"sec:spectral": [
+"Section",
+"5"
+],
+"lem:threshold": [
+"Lemma",
+"5.1"
+],
+"thm:resolvent-outcome": [
+"Theorem",
+"5.2"
+],
+"eq:schur": [
+"Equation",
+"5.1"
+],
+"cor:index": [
+"Corollary",
+"5.3"
+],
+"rem:index": [
+"Remark",
+"5.4"
+],
+"sec:matching": [
+"Section",
+"6"
+],
+"lem:transfer": [
+"Lemma",
+"6.1"
+],
+"ssec:uvg": [
+"Section",
+"6.2"
+],
+"eq:vertex-recurrence": [
+"Equation",
+"6.1"
+],
+"thm:matching-collapse": [
+"Theorem",
+"6.2"
+],
+"ssec:fails": [
+"Section",
+"6.3"
+],
+"ssec:directed": [
+"Section",
+"6.5"
+],
+"thm:unweighted": [
+"Theorem",
+"6.3"
+],
+"rem:transposition": [
+"Remark",
+"6.4"
+],
+"lem:entry": [
+"Lemma",
+"6.5"
+],
+"thm:directed-collapse": [
+"Theorem",
+"6.6"
+],
+"prop:no-cancel": [
+"Proposition",
+"6.7"
+],
+"cor:dvg-poly": [
+"Corollary",
+"6.8"
+],
+"prop:fails": [
+"Proposition",
+"6.9"
+],
+"thm:conj610": [
+"Theorem",
+"6.10"
+],
+"cor:edge-geo": [
+"Corollary",
+"6.11"
+],
+"ssec:pfaffian": [
+"Section",
+"6.6"
+],
+"prop:residue": [
+"Proposition",
+"6.12"
+],
+"thm:kasteleyn": [
+"Theorem",
+"6.13"
+],
+"ssec:torsion": [
+"Section",
+"6.7"
+],
+"thm:compositional": [
+"Theorem",
+"6.14"
+],
+"thm:torsion": [
+"Theorem",
+"6.15"
+],
+"ex:bouquet": [
+"Example",
+"6.16"
+],
+"cor:rank-not": [
+"Corollary",
+"6.17"
+],
+"ssec:hard": [
+"Section",
+"6.8"
+],
+"thm:hardness": [
+"Theorem",
+"6.18"
+],
+"prop:rank-game": [
+"Proposition",
+"6.19"
+],
+"sec:algebraic": [
+"Section",
+"7"
+],
+"ssec:qcsp": [
+"Section",
+"7.2"
+],
+"thm:schaefer": [
+"Theorem",
+"7.1"
+],
+"prop:affine": [
+"Proposition",
+"7.2"
+],
+"thm:apt": [
+"Theorem",
+"7.3"
+],
+"ssec:matroid": [
+"Section",
+"7.3"
+],
+"thm:lehman": [
+"Theorem",
+"7.4"
+],
+"ssec:positional": [
+"Section",
+"7.4"
+],
+"ssec:width": [
+"Section",
+"7.5"
+],
+"sec:boundary": [
+"Section",
+"8"
+],
+"thm:strategies": [
+"Theorem",
+"8.1"
+],
+"cor:chess": [
+"Corollary",
+"8.2"
+],
+"thm:sigma2": [
+"Theorem",
+"8.3"
+],
+"ssec:phase": [
+"Section",
+"8.3"
+],
+"sec:realstab": [
+"Section",
+"9"
+],
+"ssec:real-setting": [
+"Section",
+"9.1"
+],
+"lem:branden": [
+"Lemma",
+"9.1"
+],
+"thm:hl": [
+"Theorem",
+"9.2"
+],
+"def:real-stable": [
+"Definition",
+"9.3"
+],
+"ex:real-stable": [
+"Example",
+"9.4"
+],
+"thm:main-real": [
+"Theorem",
+"9.5"
+],
+"cor:characterization": [
+"Corollary",
+"9.6"
+],
+"lem:asymptotics": [
+"Lemma",
+"9.7"
+],
+"lem:tameness": [
+"Lemma",
+"9.8"
+],
+"lem:first-order": [
+"Lemma",
+"9.9"
+],
+"lem:vanishing": [
+"Lemma",
+"9.10"
+],
+"rem:locality": [
+"Remark",
+"9.11"
+],
+"thm:frozen-real": [
+"Theorem",
+"9.12"
+],
+"prop:restriction": [
+"Proposition",
+"9.13"
+],
+"prop:triangle-band": [
+"Proposition",
+"9.14"
+],
+"rem:scope": [
+"Remark",
+"9.15"
+],
+"sec:fields": [
+"Section",
+"10"
+],
+"ssec:fields-setting": [
+"Section",
+"10.1"
+],
+"lem:field-independence": [
+"Lemma",
+"10.1"
+],
+"lem:telescoping": [
+"Lemma",
+"10.2"
+],
+"lem:cavity": [
+"Lemma",
+"10.3"
+],
+"lem:two-point": [
+"Lemma",
+"10.4"
+],
+"eq:green-difference": [
+"Equation",
+"10.1"
+],
+"thm:normal": [
+"Theorem",
+"10.5"
+],
+"thm:no-phantom": [
+"Theorem",
+"10.6"
+],
+"thm:cocycle": [
+"Theorem",
+"10.7"
+],
+"thm:locality": [
+"Theorem",
+"10.8"
+],
+"prop:path-lemma": [
+"Proposition",
+"10.9"
+],
+"cor:u-edges": [
+"Corollary",
+"10.10"
+],
+"cor:unilateral": [
+"Corollary",
+"10.11"
+],
+"cor:sign-coherent": [
+"Corollary",
+"10.12"
+],
+"cor:triangles": [
+"Corollary",
+"10.13"
+],
+"cor:c4": [
+"Corollary",
+"10.14"
+],
+"thm:exact5": [
+"Theorem",
+"10.15"
+],
+"prop:shape": [
+"Proposition",
+"10.16"
+],
+"sec:complex": [
+"Section",
+"11"
+],
+"def:frozen": [
+"Definition",
+"11.1"
+],
+"prop:env-barrier": [
+"Proposition",
+"11.2"
+],
+"thm:triangle-solved": [
+"Theorem",
+"11.3"
+],
+"thm:every-cycle": [
+"Theorem",
+"11.4"
+],
+"ssec:counterexample": [
+"Section",
+"11.2"
+],
+"lem:disjoint-union": [
+"Lemma",
+"11.5"
+],
+"eq:Ym": [
+"Equation",
+"11.1"
+],
+"thm:complex-counterexample": [
+"Theorem",
+"11.6"
+],
+"cor:complex-false": [
+"Corollary",
+"11.7"
+],
+"prop:sinks": [
+"Proposition",
+"11.8"
+],
+"prop:Ym-arithmetic": [
+"Proposition",
+"11.9"
+],
+"prop:c3-minimal": [
+"Proposition",
+"11.10"
+],
+"rem:monodromy": [
+"Remark",
+"11.11"
+],
+"prop:smallest-env": [
+"Proposition",
+"11.12"
+],
+"prop:symmetric-env": [
+"Proposition",
+"11.13"
+],
+"prop:c5c6": [
+"Proposition",
+"11.14"
+],
+"conj:minimal-env": [
+"Conjecture",
+"11.15"
+],
+"lem:frozen-path": [
+"Lemma",
+"11.16"
+],
+"lem:env-seen": [
+"Lemma",
+"11.17"
+],
+"thm:meanfield": [
+"Theorem",
+"11.18"
+],
+"prob:complex": [
+"Open Problem",
+"11.19"
+],
+"sec:oneway": [
+"Section",
+"12"
+],
+"ssec:oneway-reduction": [
+"Section",
+"12.1"
+],
+"def:key-local": [
+"Definition",
+"12.1"
+],
+"eq:star-nu": [
+"Equation",
+"12.1"
+],
+"thm:common-tail": [
+"Theorem",
+"12.2"
+],
+"cor:one-arc": [
+"Corollary",
+"12.3"
+],
+"cor:star-dvg": [
+"Corollary",
+"12.4"
+],
+"prop:two-arcs": [
+"Proposition",
+"12.5"
+],
+"prop:barrier": [
+"Proposition",
+"12.6"
+],
+"cor:dichotomy": [
+"Corollary",
+"12.7"
+],
+"lem:p-tails": [
+"Lemma",
+"12.8"
+],
+"prop:ge-barrier": [
+"Proposition",
+"12.9"
+],
+"rem:tails-complexity": [
+"Remark",
+"12.10"
+],
+"sec:setpot": [
+"Section",
+"13"
+],
+"ssec:hierarchy": [
+"Section",
+"13.1"
+],
+"thm:hierarchy": [
+"Theorem",
+"13.1"
+],
+"lem:set-components": [
+"Lemma",
+"13.2"
+],
+"lem:branches": [
+"Lemma",
+"13.3"
+],
+"ssec:setpot-cycles": [
+"Section",
+"13.3"
+],
+"thm:set-cycles": [
+"Theorem",
+"13.4"
+],
+"thm:books": [
+"Theorem",
+"13.5"
+],
+"thm:cores5": [
+"Theorem",
+"13.6"
+],
+"cor:census5": [
+"Corollary",
+"13.7"
+],
+"rem:mechanism": [
+"Remark",
+"13.8"
+],
+"thm:blowup-criterion": [
+"Theorem",
+"13.9"
+],
+"lem:twin": [
+"Lemma",
+"13.10"
+],
+"cor:two-periodic": [
+"Corollary",
+"13.11"
+],
+"thm:one-blown": [
+"Theorem",
+"13.12"
+],
+"thm:cacti": [
+"Theorem",
+"13.13"
+],
+"cor:uniform-cacti": [
+"Corollary",
+"13.14"
+],
+"prop:census67": [
+"Proposition",
+"13.15"
+],
+"conj:blowups": [
+"Conjecture",
+"13.16"
+],
+"sec:treewidth": [
+"Section",
+"14"
+],
+"thm:ladders": [
+"Theorem",
+"14.1"
+],
+"thm:intrinsic-degree": [
+"Theorem",
+"14.2"
+],
+"ssec:canonical": [
+"Section",
+"14.2"
+],
+"def:canonical": [
+"Definition",
+"14.3"
+],
+"lem:canonical": [
+"Lemma",
+"14.4"
+],
+"prop:memory": [
+"Proposition",
+"14.5"
+],
+"ssec:circuits": [
+"Section",
+"14.3"
+],
+"thm:component-circuits": [
+"Theorem",
+"14.6"
+],
+"cor:small-components": [
+"Corollary",
+"14.7"
+],
+"rem:bodlaender": [
+"Remark",
+"14.8"
+],
+"sec:open": [
+"Section",
+"15"
+],
+"prob:makermaker": [
+"Open Problem",
+"15.1"
+],
+"prob:qcsp": [
+"Open Problem",
+"15.2"
+],
+"prob:grundy": [
+"Open Problem",
+"15.3"
+],
+"prob:ch": [
+"Open Problem",
+"15.4"
+],
+"prob:two-tails": [
+"Open Problem",
+"15.5"
+],
+"prob:fpt-deficiency": [
+"Open Problem",
+"15.6"
+],
+"prob:sigma2": [
+"Open Problem",
+"15.7"
+],
+"prob:band": [
+"Open Problem",
+"15.8"
+],
+"prob:tw-circuits": [
+"Open Problem",
+"15.9"
+],
+"prob:setpot": [
+"Open Problem",
+"15.10"
+],
+"app:verification": [
+"Appendix",
+"A"
+],
+"app:notation": [
+"Appendix",
+"B"
+],
+"app:concordance": [
+"Appendix",
+"C"
+]
+}

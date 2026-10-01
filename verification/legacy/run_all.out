@@ -1,0 +1,78 @@
+godsil: 1 s
+    weighted two-point identity: tests 1680 failures 0
+n3: 2 s
+         [(0, 1), (0, 2), (1, 2), (2, 1)] U options: [[(1, 2)]]
+         [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)] U options: [[(0, 1), (0, 2), (1, 2)]]
+    3 non-SCC-sym none 3
+    1.3064770698547363 s
+n4: 45 s
+    160 30.20420789718628
+    180 34.6281042098999
+    200 39.37831521034241
+    {(True, True): 104, (False, False): 114} 44.1132071018219 s
+corollary_3p: 0 s
+    potentials (D,U) found at n=4: 310 | U-edge kinds: {'incomparable': 389, 'sym-in-comp': 198} | violations: 0
+gen5: 6 s
+    9608 6.004345655441284
+cocycle: 0 s
+    4 [(0, 1), (1, 2), (2, 0), (3, 0)]
+    4 [(0, 1), (1, 2), (2, 3), (3, 0)]
+    4 [(0, 1), (0, 2), (1, 2), (2, 3), (3, 1)]
+    4 [(0, 1), (0, 2), (0, 3), (1, 2), (2, 3), (3, 1)]
+census: 6 s
+    set potentials flagged at z0: 86 {3: 1, 4: 6, 5: 79} | confirmed exactly over Q(z): 86
+n5_complex: 373 s
+    digraph 77 of 79 done; 78754 candidates so far 359 s
+    digraph 78 of 79 done; 79776 candidates so far 366 s
+    digraph 79 of 79 done; 80798 candidates so far 372 s
+    DONE: candidates 80798 potentials found 0 372 s
+n5_real (two processes): 109 s
+    ==> logs/n5_real_0.log <==
+    DONE 0 {'nonsym': 4038, 'cands': 183442, 'fast_pass': 19805, 'groebner_pass': 0} 109
+    
+    ==> logs/n5_real_1.log <==
+    DONE 1 {'nonsym': 4017, 'cands': 183109, 'fast_pass': 19574, 'groebner_pass': 0} 108
+frozen: 10 s
+    tri 0<->1,0<->2,1->2 |F| = 1 U with environment potential: 0 []
+    tri 0<->1,0<->2,1->2 |F| = 2 U with environment potential: 0 []
+    tri 0<->1,1->2,2->0 |F| = 1 U with environment potential: 0 []
+    tri 0<->1,1->2,2->0 |F| = 2 U with environment potential: 0 []
+frozen_degs: 1 s
+    U = [(0, 3), (0, 4), (1, 3), (1, 4), (2, 3), (2, 4)] dim 0 factor degrees of eliminants (var, [(deg,mult)]): [(0, [(3, 1)]), (1, [(3, 1)]), (2, [(3, 1)]), (3, [(6, 1)]), (4, [(6, 1)])]
+    U = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (2, 4)] dim 0 factor degrees of eliminants (var, [(deg,mult)]): [(0, [(3, 1)]), (1, [(3, 1)]), (2, [(3, 1)]), (3, [(6, 1)]), (4, [(6, 1)])]
+    U = [(0, 3), (0, 4), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)] dim 0 factor degrees of eliminants (var, [(deg,mult)]): [(0, [(3, 1)]), (1, [(3, 1)]), (2, [(3, 1)]), (3, [(6, 1)]), (4, [(6, 1)])]
+    U = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)] dim 0 factor degrees of eliminants (var, [(deg,mult)]): [(0, [(3, 1)]), (1, [(3, 1)]), (2, [(3, 1)]), (3, [(6, 1)]), (4, [(6, 1)])]
+frozen_sextic: 1 s
+      z =    5: real roots (Sturm count) = 0
+      z =   10: real roots (Sturm count) = 0
+      z =  100: real roots (Sturm count) = 0
+      z = 1000: real roots (Sturm count) = 0
+c4: 1 s
+    Delta_12(y0=-1,y3=1) = z^2*p*q + z^2*p + z^2*q - z^2 + z*p - z*q - p*q + 4
+    Delta_13(y0=y2=0)    = (-1) * (q - 1) * (z^2*p + 1)
+    Delta_02(y1=y3=z)    = -z^4*p + 3*z^2*p - p + 1
+    Rayleigh {0,2} at y=z : T0*T2 - Te*T02 = -z^4*p + 3*z^2*p - p + 1
+k1_classes: 197 s
+    w (-1, 0, -1, -1, -1, -1, -1) | (0, -1, -1, -1) -> {True}
+    w (0, -1, 0, -1, 0, -1, -1) | (0, 0, -1, 0) -> {False}
+    w (0, 0, 0, -1, 0, -1, -1) | (0, 0, -1, 0) -> {False}
+    w (0, 0, 0, 0, 0, 0, 0) | (1, 0, 0, 0) -> {False}
+k1_rule_a: 38 s
+    seed 7 positions checked 204142 mismatches 0
+k1_rule_b: 13 s
+    seed 8 positions checked 68257 mismatches 0
+k2_classes: 212 s
+    CONFLICT ([(0, 2), (1, 2), (1, 4), (2, 5), (3, 4), (4, 5)], [(0, 3), (3, 1)], 5) || ([(0, 6), (0, 7), (0, 8), (0, 9), (1, 6), (1, 7), (1, 9), (2, 6), (2, 8), (2, 9), (3, 6), (3, 8), (3, 9), (4, 6), (4, 7), (4, 9), (5, 6), (5, 7), (5, 9)], [(1, 3), (3, 4)], 0)
+    CONFLICT ([(0, 6), (0, 7), (0, 9), (0, 10), (1, 8), (1, 9), (2, 7), (2, 8), (2, 9), (2, 10), (3, 6), (3, 9), (4, 7), (4, 9), (5, 7), (5, 9), (5, 10)], [(4, 1), (2, 4)], 8) || ([(0, 2), (0, 4), (1, 2), (1, 3), (1, 4)], [(2, 3), (4, 2)], 0)
+    CONFLICT ([(0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4)], [(1, 2), (3, 1)], 0) || ([(0, 1), (0, 3), (0, 4), (0, 5), (0, 6), (1, 6), (2, 5), (4, 5), (4, 6)], [(4, 3), (1, 4)], 6)
+    CONFLICT ([(0, 1), (0, 5), (0, 6), (0, 8), (1, 4), (2, 4), (3, 5), (3, 6), (3, 8), (4, 8), (5, 6), (5, 7), (6, 7), (6, 8)], [(1, 2), (2, 5)], 0) || ([(0, 3), (1, 3), (1, 4), (2, 3), (2, 4)], [(1, 2), (2, 0)], 4)
+k2_example: 0 s
+    nu(G) = 4
+    start 5: outcome True | start 3: outcome False
+    identical deficit vectors: True
+    deficits for start 5: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3)
+ladders: 1 s
+      n= 8  max deg R =   38
+      n=10  max deg R =   56
+      n=12  max deg R =   90
+      n=14  max deg R =   83

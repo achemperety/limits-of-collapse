@@ -1,0 +1,86 @@
+\section{Problem and setting}\label{sec:setting}
+
+This section states the problem, fixes the model and makes precise what an invariant is. \Cref{prop:blind} then shows that the state graph alone, undirected or through its spectrum, cannot determine $\val$.
+
+\subsection*{The problem as posed}
+A finite oriented state graph has the states $\sigma=(S_0,B_0)\in\{0,1\}^N$ as vertices, $2^N$ of them, and two deterministic transition operators $\to^{+}$ and $\to^{-}$ generate its edges. The value of a start $\sigma_0$ is the alternating expression $\val(\sigma_0)=\sup\inf\sup\cdots\pay(\sigma_{\mathrm{terminal}})\in\{-1,0,1\}$ over the successive states. The problem asks for a global algebraic or topological invariant $\Phi\colon\{0,1\}^N\to\{-1,0,1\}$, defined on the connected components or on the global landscape of the state graph, with $\Phi(\sigma_0)=\val(\sigma_0)$, computable in time $O(N^k)$ relative to the input description and without running the alternating search. It suggests three directions: continuous extensions and spectral mapping (\S\S\ref{sec:extensions}--\ref{sec:spectral}), global invariant operators (\S\S\ref{sec:local} and \ref{sec:matching}), and the exact boundary of feasibility (\S\S\ref{sec:algebraic}--\ref{sec:boundary}).
+
+\subsection{Arenas on the hypercube}\label{ssec:arenas}
+Positions are the vertices $\sigma$ of the hypercube $\{0,1\}^N$. An \emph{arena} is a tuple $\arena=(N,p,T^{+},T^{-},\tau,\pay)$ where
+\begin{itemize}
+\item $p\colon\{0,1\}^N\to\{\mathrm{Max},\mathrm{Min}\}$ names the player to move;
+\item $T^{+},T^{-}\colon\{0,1\}^N\to\{0,1\}^N$ are the transition operators, so a non-terminal $\sigma$ has the options $T^{+}\sigma$ and $T^{-}\sigma$;
+\item $\tau\subseteq\{0,1\}^N$ is the set of terminal positions and $\pay\colon\tau\to\{-1,0,+1\}$ is the payoff from Min to Max.
+\end{itemize}
+Players alternate: $p(T^{\pm}\sigma)\neq p(\sigma)$ for every non-terminal $\sigma$ (the operators are irrelevant at terminals). The \emph{state graph} $\SG=(\{0,1\}^N,E)$ has an edge from each non-terminal $\sigma$ to $T^{+}\sigma$ and to $T^{-}\sigma$. We do not use the split $\sigma=(S_0,B_0)$ of the problem statement; if $S_0$ and $B_0$ are the sets of elements already claimed by two players, the arena is a positional game, and \S\ref{ssec:positional} gives the sharp threshold for that reading.
+
+\begin{remark*}[conventions]
+$\val$ is the value, $\pay$ the payoff, $\SG$ the state graph and $\arena$ an arena. $N$ is the dimension of the cube and $n$ the input size in \S\S\ref{sec:setting}--\ref{sec:extensions} and \S\ref{sec:boundary}; from \S\ref{sec:spectral} on, $n$ is the number of vertices of the graph or digraph at hand and $V=V(D)$ its vertex set. N- and P-positions are outcomes of normal play (\S\ref{sec:spectral}). \Cref{app:notation} lists all symbols.
+\end{remark*}
+
+The answer depends on how the arena is presented.
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.27\linewidth}@{}}
+\toprule
+Representation & What is given & Input size $n$\\ \midrule
+Explicit & adjacency lists of $\SG$ & $\Theta(2^N)$\\
+Succinct & Boolean circuits for $p$, $T^{+}$, $T^{-}$, $\tau$, $\pay$ & total circuit size $s\ge N$\\
+Landscape (oracle) & the move structure; $\pay$ only through queries at terminals & queries counted separately\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+``Polynomial time relative to the input description size'' is read in the succinct model, where $n=\Theta(s)$. The \emph{horizon} $h(\arena,\sigma_0)$ is the supremum of play lengths from $\sigma_0$, possibly $\infty$; only positions reachable from $\sigma_0$ matter for $\val(\sigma_0)$. A family has \emph{polynomial horizon} if $h(\arena,\sigma_0)\le q(n)$ for a fixed polynomial $q$. This is a promise on the family, not a property one can read off the circuits; \emph{clocked} arenas make it syntactic: a step counter in the position ends play after $q(n)$ moves with payoff $0$.
+
+\subsection{The value}
+For finite horizon, $\val$ is defined by backward induction, with $\sup$ at Max positions and $\inf$ at Min positions. The expression in the problem statement is the case where Max moves at $\sigma_0$; when Min moves there it begins with $\inf$:
+\[
+\val(\sigma_0)=\sup_{\sigma_1}\inf_{\sigma_2}\sup_{\sigma_3}\cdots\,\pay(\sigma_{\mathrm{terminal}}),\qquad \sigma_{k+1}\in\{T^{+}\sigma_k,\,T^{-}\sigma_k\}.
+\]
+When play can be infinite, an infinite play is a draw worth $0$. Let $W_{+}$ be the set of positions from which Max can force a terminal with $\pay=+1$, and $W_{-}$ the set from which Min can force a terminal with $\pay=-1$. Set $\val=+1$ on $W_{+}$, $\val=-1$ on $W_{-}$ and $\val=0$ elsewhere.
+
+\begin{lemma}[well-defined value]\label{lem:well-defined}
+$W_{+}$ and $W_{-}$ are disjoint, $\val$ agrees with backward induction for finite horizon, and both players have positional optimal strategies.
+\end{lemma}
+
+\begin{proof}
+$W_{+}$ is the least fixed point of $X\mapsto X\cup\{\sigma\notin\tau:\ p(\sigma)=\mathrm{Max}$ and some option lies in $X\}\cup\{\sigma\notin\tau:\ p(\sigma)=\mathrm{Min}$ and both options lie in $X\}$, started from the terminals with $\pay=+1$; $W_{-}$ is defined symmetrically. Reachability games on finite graphs are determined with positional strategies (Zermelo). From outside $W_{+}$ Min has a positional strategy that never reaches a $+1$ terminal, and from outside $W_{-}$ Max has one that never reaches a $-1$ terminal, so both can guarantee $0$ on the rest. If $\sigma$ were in both sets, the two forcing strategies played against each other would end at a terminal with $\pay=+1$ and $\pay=-1$ at once. For finite horizon, induction on the height of $\sigma$ shows that $\val$ is the backward-induction value. The stage at which $\sigma$ enters $W_{+}$ is its attractor rank, the length of a shortest forced win.
+\end{proof}
+
+\begin{lemma}[normal form]\label{lem:normal-form}
+Let a finite game with at most $b$ options per position, any turn order and payoffs in $\{-1,0,+1\}$ be given by circuits of size $s$ that compute the player to move, the number of options, the $i$-th option of a position and the payoffs. Then an arena with circuits of size $\poly(s,\log b)$ simulates it, and every play grows by a factor $O(1+\log b)$. The format of the problem statement therefore loses no generality.
+\end{lemma}
+
+\begin{proof}
+Encode a choice among the options by $\max(1,\lceil\log_2 b\rceil)$ binary choices of the same player; codes beyond the last option of a position select that last option. Between two binary choices of one player insert a dummy opponent move with $T^{+}=T^{-}$, and do the same between consecutive moves of one player in the original game. The partial choice is stored in $O(\log b)$ extra bits, and dummy moves change no value.
+\end{proof}
+
+One could also read the operators as fixed per player: $T^{+}$ is Max's only move and $T^{-}$ is Min's only move. Then nobody chooses and $\val$ is read off one deterministic orbit. This zero-player reading changes the answers: $\val$ is $\Pclass$-complete for polynomial horizon and $\PSPACE$-complete for unbounded horizon (\cref{thm:alternation}), and in the landscape model one query at the end of the orbit suffices. We use the two-choice reading throughout.
+
+\subsection{What an invariant is}
+\begin{definition*}
+An \emph{invariant} for a family of arenas is a map $\Phi$ from instances (an arena with a start position) to a set $\Omega$, together with a decoder $f\colon\Omega\to\{-1,0,+1\}$ such that $\val=f\circ\Phi$. It is \emph{polynomial-time} if $\Phi$ and $f$ are computable in time polynomial in $n$. The problem's $\Phi$ is the case $\Omega=\{-1,0,+1\}$ with $f$ the identity; \S\S\ref{sec:spectral}--\ref{sec:matching} use invariants valued in rational functions and divisor classes. An invariant is \emph{defined on} a structure $S(\SG)$ of the state graph if $\Phi(\arena,\sigma_0)$ depends only on $S(\SG)$ and $\sigma_0$.
+\end{definition*}
+
+\begin{proposition}[landscape invariants are blind]\label{prop:blind}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $\val$ is not a function of the labelled undirected state graph, so no invariant is defined on it, whatever its cost. Here the graph underlying $\SG$ carries the labels $p$, the terminal set $\tau$ and the payoffs $\pay$, with $\sigma_0$ marked; connected components, spectra and homology are functions of it.
+\item At finite horizon the part of $\SG$ reachable from $\sigma_0$ is acyclic, so its adjacency matrix is nilpotent and its strong components are single positions. Neither the spectrum nor the strong components of $\SG$ determine $\val(\sigma_0)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) Take $N=2$ and positions $u,v,s,t$ with $p(u)=p(s)=\mathrm{Max}$ and $p(v)=p(t)=\mathrm{Min}$, where $s,t$ are terminals with $\pay(s)=+1$ and $\pay(t)=-1$. In $\arena_1$, $u$ has the options $t$ and $v$, and $v$ has the option $s$ twice. In $\arena_2$, $u$ has the option $t$ twice, and $v$ has the options $s$ and $u$. Players alternate in both, and both have the undirected edges $ut,uv,vs$ with the same labels ($E$ is a set, so a repeated option gives one edge). In $\arena_1$, $\val(v)=+1$ and $\val(u)=\max(-1,+1)=+1$; in $\arena_2$, $\val(u)=-1$ and $\val(v)=\min(+1,-1)=-1$. Mark $\sigma_0=u$.
+(2) A cycle reachable from $\sigma_0$ would give an infinite play, so the reachable part is acyclic and its adjacency matrix is nilpotent. A chain of $m$ positions ending at a terminal with payoff $c$ has spectrum $\{0\}$ and single-position components for each $c\in\{-1,0,1\}$, and positions that $\sigma_0$ cannot reach can be fixed identically in the three arenas.
+\end{proof}
+
+\Cref{prop:blind} is why \S\ref{sec:spectral} unfolds $\SG$ into its game tree. The unfolding turns orientation into the parent--child relation, and the root resolvents of two threshold trees then determine the value (\cref{cor:index}), although the spectrum of one tree alone does not. \Cref{prop:components} adds that for succinct $\SG$ even the connected components are $\PSPACE$-hard to compute.
+
+\begin{remark}[what ``bypassing the search tree'' can mean]\label{rem:bypass}
+Avoiding the $\sup/\inf$ iteration is not a formal constraint: Bouton's rule for Nim already avoids it. The formal requirement is the time bound alone. The question studied here is therefore: for which families, in which representation, is $\val$ computable in time polynomial in $n$?
+\end{remark}
+
+\begin{remark}[knowledge at one point does not localize]\label{rem:strategy-stealing}
+Strategy stealing shows that the first player wins every minimum poset game, played on a poset with a least element where a move removes the chosen element and everything below it. It also shows that the first player never loses a symmetric Maker--Maker game. Yet finding such a first move is $\PSPACE$-complete in both classes \cite{BodwinGrossman}. A useful invariant must be known across the landscape, which \S\ref{sec:local} makes precise.
+\end{remark}

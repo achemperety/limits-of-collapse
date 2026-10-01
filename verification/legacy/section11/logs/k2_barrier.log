@@ -1,0 +1,3 @@
+chained (u2 -> w2 = u1 -> w1)    same key data: True | outcomes: win vs loss
+common head                      same key data: True | outcomes: win vs loss
+disjoint (Proposition 10.12)     same key data: True | outcomes: win vs loss

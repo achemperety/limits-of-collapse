@@ -1,0 +1,61 @@
+\section{Spectral mapping: an exact resolvent formula for the value}\label{sec:spectral}
+
+Up to a sign fixed by who moves first, $\val$ is half the sum of the orders of vanishing at $z=0$ of the root resolvents of two threshold trees built from the unfolded game tree. This reformulates $\val$ exactly; it does not by itself make $\val$ cheaper to compute.
+
+\subsection{From three values to normal play}
+In the normal-play game on a finite rooted tree, the player to move takes the token from the current node to a child, and a player who cannot move loses. A node is an \emph{N-position} if the player to move wins and a \emph{P-position} otherwise; a node is N exactly when some child is P.
+
+\begin{lemma}\label{lem:threshold}
+Take a finite-horizon arena, a start $\sigma_0$ and $t\in\{0,1\}$. Let $\mathcal T_t$ be the game tree of $\sigma_0$ (nodes are histories of play), and at each leaf $\ell$ attach one pendant child exactly when $p(\ell)=\mathrm{Max}$ and $\pay(\ell)\ge t$, or $p(\ell)=\mathrm{Min}$ and $\pay(\ell)<t$. Then the root of $\mathcal T_t$ is an N-position if and only if the player to move at $\sigma_0$ wins the $t$-game: $\val(\sigma_0)\ge t$ when Max moves at $\sigma_0$, and $\val(\sigma_0)<t$ when Min moves there. $\mathcal T_t$ has at most twice as many nodes as the game tree.
+\end{lemma}
+
+\begin{proof}
+Say the player to move at $v$ wins the $t$-game from $v$ if Max can force $\pay\ge t$ when Max moves at $v$, or Min can force $\pay<t$ when Min moves there. By induction on height, $v$ is N in $\mathcal T_t$ exactly when the player to move wins the $t$-game from $v$. A leaf with a pendant child can move to a node with no moves, so it is N; a leaf without one is P; this matches the attaching rule. At an internal node the player to move wins exactly when some child is a position from which the opponent, now to move (players alternate), loses; by induction that child is P, so $v$ is N.
+\end{proof}
+
+\subsection{The resolvent outcome theorem}
+For a finite tree $T$ with adjacency matrix $A$ and a node $r$, the \emph{root resolvent} is
+\[
+R_r(z)=\bigl\langle e_r,(zI-A)^{-1}e_r\bigr\rangle=\frac{\varphi(T-r,z)}{\varphi(T,z)}=\sum_j\frac{|\langle e_r,v_j\rangle|^2}{z-\lambda_j},
+\]
+where $\varphi$ is the characteristic polynomial and $(\lambda_j,v_j)$ an orthonormal eigenbasis of $A$. Write $\ord_0$ for the order of vanishing at $z=0$, negative for a pole. Where a function has no pole at $0$, the spectral sum gives its derivative there as $-\sum_j|\langle e_r,v_j\rangle|^2/\lambda_j^2<0$; $-R_r$ is a Herglotz function.
+
+\begin{theorem}[resolvent outcome theorem]\label{thm:resolvent-outcome}
+Let $T$ be a finite tree rooted at $r$. Then $\ord_0R_r\in\{-1,+1\}$, and the following are equivalent:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $r$ is an N-position of normal play on $T$;
+\item $\ord_0R_r=+1$, that is, $R_r$ has a simple zero at $0$;
+\item $e_r\in\operatorname{Im}A$, that is, every vector in $\ker A$ vanishes at $r$;
+\item $r$ is covered by every maximum matching of $T$.
+\end{enumerate}
+Correspondingly $r$ is a P-position exactly when $R_r$ has a simple pole at $0$, and the residue is the squared length of the projection of $e_r$ onto $\ker A$.
+\end{theorem}
+
+\begin{proof}
+Let $r$ have children $c_1,\dots,c_k$ with subtrees $T_1,\dots,T_k$. Removing $r$ splits $T$ into the $T_i$, and the Schur complement of the $(r,r)$ entry gives
+\begin{equation}\label{eq:schur}
+R_r(z)=\Bigl(z-\sum_{i=1}^kR^{T_i}_{c_i}(z)\Bigr)^{-1},\qquad R_r(z)=\frac1z\ \text{for a leaf.}
+\end{equation}
+We prove by induction on height that either $R_r$ has a simple pole at $0$ with positive residue and $r$ is P, or $R_r(0)=0$ with negative derivative and $r$ is N. A leaf has $R_r=1/z$ and is P. If some child is P, its term has a simple pole with positive residue and every other term is such a pole or regular; positive residues cannot cancel, so the sum has a simple pole with residue $c>0$, and $R_r$ has a simple zero with derivative $-1/c$: $r$ is N. If every child is N, each term vanishes at $0$ with negative derivative, so the denominator is $z(1-\sum_iR_i'(0))+O(z^2)$ with $1-\sum_iR_i'(0)>1$, and $R_r$ has a simple pole with positive residue: $r$ is P. This proves (1)$\Leftrightarrow$(2) and $\ord_0R_r\in\{\pm1\}$.
+For (2)$\Leftrightarrow$(3), the spectral sum has a pole at $0$ exactly when $e_r$ has a nonzero projection onto $\ker A$, that is, when $e_r\notin(\ker A)^{\perp}=\operatorname{Im}A$. For (3)$\Leftrightarrow$(4): in a forest $F$ a permutation contributes to $\det A(F[S])$ only if all its cycles are edges, so $\det A(F[S])$ is $\pm$ the number of perfect matchings of $F[S]$, which is $0$ or $1$. The rank of a symmetric matrix is the largest size of a nonsingular principal submatrix, so $\rk A(F)=2\nu(F)$, where $\nu$ is the matching number. Therefore $\ord_0R_r=\operatorname{nullity}A(T-r)-\operatorname{nullity}A(T)=2(\nu(T)-\nu(T-r))-1$, which is $+1$ exactly when every maximum matching covers $r$.
+\end{proof}
+
+On trees, (1)$\Leftrightarrow$(4) is the tree case of the Fraenkel--Scheinerman--Ullman theorem; the identity $\operatorname{nullity}A(T)=|T|-2\nu(T)$ is due to Cvetkovi\'c and Gutman \cite{CvetkovicGutman}. In Parter--Wiener terminology \cite{JLS}, $\ord_0R_r=+1$ says that $r$ is a Parter vertex for the eigenvalue $0$ and $\ord_0R_r=-1$ that it is a downer vertex; no vertex of a tree is neutral for $0$. The equivalence (1)$\Leftrightarrow$(3) is the exact classical counterpart of the zero-energy analysis of the NAND-tree algorithm \cite{FGG} and of span programs \cite{ReichardtSpalek}.
+
+\subsection{The spectral index formula}
+\begin{corollary}\label{cor:index}
+For every finite-horizon arena and start $\sigma_0$, let $R^{(t)}$ be the root resolvent of $\mathcal T_t$ from \cref{lem:threshold}, and let $s(\sigma_0)=+1$ if Max moves at $\sigma_0$ and $s(\sigma_0)=-1$ if Min does. Then
+\[
+\val(\sigma_0)=\tfrac{s(\sigma_0)}2\Bigl(\ord_{z=0}R^{(1)}(z)+\ord_{z=0}R^{(0)}(z)\Bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+By \cref{lem:threshold,thm:resolvent-outcome}, the root of $\mathcal T_t$ is N exactly when $\val\ge t$ if Max moves at $\sigma_0$, and exactly when $\val<t$ if Min does. In both cases $\one[\val\ge t]=(1+s(\sigma_0)\ord_0R^{(t)})/2$. Since $\val\in\{-1,0,1\}$, $\val=\one[\val\ge1]+\one[\val\ge0]-1$.
+\end{proof}
+
+Equivalently $\val(\sigma_0)=s(\sigma_0)\bigl(\one[e_r\in\operatorname{Im}A_1]+\one[e_r\in\operatorname{Im}A_0]-1\bigr)$ with $A_t$ the adjacency matrix of $\mathcal T_t$. For example, if Min moves at $\sigma_0$ and both options are terminals with $\pay=+1$, both roots are P-positions, each order is $-1$, and the formula gives $(-\frac12)(-1-1)=+1=\val(\sigma_0)$.
+
+\begin{remark}\label{rem:index}
+\Cref{cor:index} is an exact basis-free reformulation of $\val$: the order of a zero or pole of a resolvent entry at one point, or whether one vector lies in the image of a self-adjoint operator; equivalently, the multiplicity of the root $z=0$ of $\det(zI-A_t)$ before and after one vertex is deleted. It does not bypass the search tree: the proof of \cref{thm:resolvent-outcome} evaluates the order by the recursion \eqref{eq:schur}, which is backward induction on a tree with up to $2^h$ nodes, and \cref{thm:alternation} rules out a general polynomial-time evaluation. \S\ref{sec:matching} finds families where the tree collapses to a polynomial-size object.
+\end{remark}

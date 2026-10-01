@@ -1,0 +1,113 @@
+\section{Potentials versus bounded width}\label{sec:treewidth}
+
+DVG takes linear time on digraphs of bounded treewidth \cite{Bodlaender}, and directed cycles have treewidth $2$; so Bodlaender's dynamic program does not come from a local weighted matching potential (\cref{thm:conj610}). This section asks what kind of potential a width-bounded dynamic program could carry, and answers with three barriers and one construction. Exact resolvents have exponential degree already at pathwidth $2$, and every exact multiplicative potential inherits at least half of that degree, however it is indexed (\cref{thm:intrinsic-degree}). The state on which the resolvent recursion closes is the canonical subgame, which is non-reversing and path-dependent, and at treewidth $3$ one vertex can carry $2^{\Omega(\sqrt{n/\log n})}$ distinct exact resolvents, so no bag-local state determines them (\cref{prop:memory}). What survives is a change of representation: resolvents as arithmetic circuits over component states have linear size when strong components are small (\cref{thm:component-circuits}), and the part of the spectral data that a bag carries is the valuation, the level at which Bodlaender's algorithm works.
+
+\subsection{Degree}
+
+\begin{theorem}[exponential degree on ladders]\label{thm:ladders}
+Let $L_m$ have vertices $t_0,\dots,t_{m-1}$ and $b_0,\dots,b_{m-1}$, arcs $t_i\to t_{i+1}$ and $b_i\to b_{i+1}$, and rungs $t_i\rightleftarrows b_i$. Then $L_m$ is SCC-symmetric, its underlying graph has pathwidth $2$, and $R(V,t_0)$ in lowest terms has a denominator of degree $2^{m+1}-2$.
+\end{theorem}
+\begin{proof}
+The strong components are the rungs. Let $F_i$ be the resolvent when the token enters column $i$ with columns $i,\dots,m-1$ unvisited; a vertex left behind in an earlier column can never be reached again, because the rails point right. From $t_i$ the token moves to $t_{i+1}$, worth $F_{i+1}$, or to $b_i$, from which the only move is to $b_{i+1}$; by the symmetry of the rails
+\[
+F_i=\cfrac{1}{z-F_{i+1}-\cfrac{1}{z-F_{i+1}}}=\frac{z-F_{i+1}}{(z-F_{i+1})^{2}-1},\qquad F_{m-1}=\frac{z}{z^{2}-1}.
+\]
+If $F_{i+1}=p/q$ in lowest terms with $\deg p<\deg q=d$, then $F_i=q(zq-p)/\bigl((zq-p-q)(zq-p+q)\bigr)$. A common irreducible factor of numerator and denominator would divide $q$ or $zq-p$, and in either case also the other one and then $p$; so this is in lowest terms, with denominator degree $2d+2$ and numerator degree $2d+1$. Hence $d_i+2=2(d_{i+1}+2)$, and $d_{m-1}=2$ gives $d_0=2^{m+1}-2$.
+\end{proof}
+
+The weights of \cref{thm:directed-collapse} inherit this: the weight at $t_0$ is $z-F_1$, whose denominator has degree $2^{m}-2$. The next theorem shows that no other indexing avoids it.
+
+\begin{theorem}[the degree is intrinsic]\label{thm:intrinsic-degree}
+Let $\mathcal S$ be any set of states, $\Mpot\colon\mathcal S\to\Qz^{\times}$ any map, and suppose that to the reachable position $(V,t_0)$ of $L_m$ are attached two states $s,s'$ with $R(V,t_0)=\Mpot(s')/\Mpot(s)$ \textup{(}for instance, states that record the unvisited set, a bag of a tree decomposition with the part of the play inside it, or the entire history\textup{)}. Then $\Mpot(s)$ or $\Mpot(s')$ has a numerator or denominator of degree at least $2^{m}-1$.
+\end{theorem}
+\begin{proof}
+Write $\Mpot(s)=p_1/q_1$ and $\Mpot(s')=p_2/q_2$ with all four degrees at most $d$. Then $R(V,t_0)=p_2q_1/(q_2p_1)$ has, in lowest terms, a denominator of degree at most $2d$, so $2d\ge2^{m+1}-2$ by \cref{thm:ladders}.
+\end{proof}
+
+So a potential that avoids the degree explosion cannot consist of explicit rational functions, whatever it is indexed by; the escape is a change of representation (\S\ref{ssec:circuits}). Since $L_m$ has $2m$ vertices, the bound is $2^{n/2}-1$.
+
+\subsection{States: the canonical subgame}\label{ssec:canonical}
+
+\begin{definition}\label{def:canonical}
+The \emph{canonical subgame} of a position $(W,v)$ is the pair $\operatorname{cs}(W,v)=(\mathrm{Reach}_W(v),v)$, where $\mathrm{Reach}_W(v)$ is the set of vertices reachable from $v$ inside $D[W]$.
+\end{definition}
+
+\begin{lemma}[the recursion closes on canonical subgames]\label{lem:canonical}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $R(W,v)$ depends only on $\operatorname{cs}(W,v)$, and with $S=\mathrm{Reach}_W(v)$,
+\[
+\frac1{R(W,v)}=z-\eta_v-\sum_{w\in\nplus(v)\cap(S-v)}R\bigl(\operatorname{cs}(S-v,w)\bigr).
+\]
+\item The canonical subgame is non-reversing, $\mathrm{Reach}_{W-v}(w)\subseteq\mathrm{Reach}_W(v)\setminus\{v\}$ for every option $(W-v,w)$, and path-dependent: it is a function of the history of play through $W$, not of the token alone.
+\item For a position $(W,v)$ with $v$ in the strong component $C$, $\operatorname{cs}(W,v)$ is determined by $W\cap C$, $v$ and the set of vertices below $C$, which are all unvisited \textup{(}\cref{lem:entry}\textup{)}; so on reachable positions the component state $(W\cap C,v)$ determines the canonical subgame.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+The game tree of $(W,v)$ is the tree of directed paths from $v$ inside $D[W]$, and every such path stays inside $\mathrm{Reach}_W(v)$; the recursion is \eqref{eq:schur} with self-energies, restricted to this set. (2) is immediate, and (3) is \cref{lem:entry}: every vertex reachable from $v$ outside $C$ lies below $C$ and is unvisited, and inside $C$ the reachable set is computed in $D[W\cap C]$ together with the exits.
+\end{proof}
+
+A potential with states finer than canonical subgames records irrelevant history, and any exact recursion must distinguish canonical subgames with different resolvents. The next proposition shows how many there can be at one vertex, at treewidth $3$.
+
+\begin{proposition}[memory]\label{prop:memory}
+For $m\ge1$ let $Q_m$ be the digraph with a spine $p_0,\dots,p_m$, vertices $a_i,b_i$ $(0\le i<m)$ with arcs $p_i\to a_i\to p_{i+1}$ and $p_i\to b_i\to p_{i+1}$, a collector $q$ with arcs $p_m\to q$ and $q\to a_i$, $q\to b_i$, and at every $x\in\{a_i,b_i\}$ a private directed tail, so that the directed path from $x$ through its tail has $L(x)$ vertices, where the $2m$ numbers $L(x)+1$ are distinct primes. Then:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $Q_m$ has treewidth at most $3$, and $n=|V(Q_m)|=O(m^{2}\log m)$ when the primes are the first $2m$ odd primes;
+\item the positions at $q$ reachable from $(V,p_0)$ have $2^{m}$ pairwise distinct resolvents;
+\item consequently, for any set $B\ni q$ of at most $k+1$ vertices with $k<m$, some $2^{m-k}\ge2$ of these positions agree on $W\cap B$ and have pairwise distinct resolvents; no function of the token and of $W\cap B$ equals $R$, and an exact table of resolvents indexed by any states needs at least $2^{m}=2^{\Omega(\sqrt{n/\log n})}$ states at $q$.
+\end{enumerate}
+The outcome at every such position is the same \textup{(}the player to move at $q$ loses\textup{)}.
+\end{proposition}
+\begin{proof}
+(1) $Q_m-q$ without its tails is a chain of diamonds, a series-parallel graph of treewidth $2$; adding $q$ to every bag of a width-$2$ decomposition, and attaching the tails as paths, gives width at most $3$. The tails have $\sum_x(L(x)-1)=O(m^{2}\log m)$ vertices by the prime number theorem.
+
+(2) A play from $p_0$ reaches $q$ only as $p_0c_0p_1c_1\cdots c_{m-1}p_mq$ with $c_i\in\{a_i,b_i\}$, since entering a tail ends the play in it. At the resulting position $(W_c,q)$ the options are the unvisited $x_i\in\{a_i,b_i\}\setminus\{c_i\}$, and from $x_i$ the only continuation is its tail, because $p_{i+1}$ is visited; so the subgame from $x_i$ is a directed path with $L(x_i)$ vertices and
+\[
+R(W_c,q)=\frac{1}{z-S_c},\qquad S_c=\sum_{i<m}f_{L(x_i)},\qquad f_L=\frac{\mu(P_{L-1})}{\mu(P_L)} .
+\]
+The poles of $f_L$ are the zeros $2\cos(k\pi/(L+1))$, $1\le k\le L$, of $\mu(P_L)=U_L(z/2)$; they are simple, and they are not zeros of the coprime numerator $\mu(P_{L-1})$. For distinct primes $p=L+1$ and $p'=L'+1$ the pole sets are disjoint, since $k/p=k'/p'$ with $0<k<p$, $0<k'<p'$ is impossible. So the poles of $S_c$ are exactly the union of the pole sets of the chosen $f_{L(x_i)}$, which determines $c$; distinct $c$ give distinct $S_c$ and distinct $R(W_c,q)$.
+
+(3) Since $q\in W_c$ always, $W_c\cap B$ takes at most $2^{k}$ values, so some value is shared by at least $2^{m-k}$ vectors $c$. The number of vertices is $n=O(m^{2}\log m)$, so $m=\Omega(\sqrt{n/\log n})$. Finally all $L(x)$ are even, since $L(x)+1$ is an odd prime, so every move from $q$ leads to a directed path with an even number of vertices, which is an N-position.
+\end{proof}
+
+The package reproduces (2) for $m\le6$ (\code{treewidth.comb}, \code{tests/test_treewidth.py}). So the ``path-dependent bag invariant'' that an exact potential on bounded treewidth would need is not bag-local: at treewidth $3$ it must remember $\Omega(\sqrt{n/\log n})$ bits of the history outside any bag, while the outcomes, which are what Bodlaender's algorithm computes, are constant on the same positions.
+
+\subsection{Circuits: the component-state potential}\label{ssec:circuits}
+
+\begin{theorem}[component-state circuits]\label{thm:component-circuits}
+For every digraph $D$ with self-energies from exits there is an arithmetic circuit over $\QQ$ with input $z$ and gates $+,-,\times,\div$, with
+\[
+O\Bigl(\sum_{C}2^{|C|}\bigl(|C|+e(C)\bigr)\Bigr)
+\]
+gates, where $C$ runs over the strong components and $e(C)$ counts the arcs with tail in $C$, whose gates include $R(W,v)$ for every reachable position $(W,v)$. In particular it has $O(2^{k}(n+|A(D)|))$ gates when every strong component has at most $k$ vertices; for the ladders $L_m$ it has $O(m)$ gates and computes $R(V,t_0)$, of degree $2^{m+1}-2$.
+\end{theorem}
+\begin{proof}
+Process the components in reverse topological order. For a component $C$ put $\eta_x=\sum\Rdown(y)$ over the exits $y$ of $x$, gates already built, and for $S\subseteq C$ and $v\in S$, in order of increasing $|S|$, the gate
+\[
+R_C(S,v)=\Bigl(z-\eta_v-\sum_{w\in\nplus(v)\cap(S-v)}R_C(S-v,w)\Bigr)^{-1}.
+\]
+Then $\Rdown(y)=R_C(C,y)$ for $y\in C$. By \cref{lem:entry,lem:canonical}(3), $R(W,v)=R_C(W\cap C,v)$ at every reachable position with $v\in C$. Each gate costs $O(1+|\nplus(v)|)$ operations, which gives the bound; for $L_m$ every component is a rung with two vertices.
+\end{proof}
+
+\begin{corollary}\label{cor:small-components}
+DVG is decidable in time $2^{k}\poly(n)$, where $k$ is the largest number of vertices of a strong component that is not symmetric; in particular in polynomial time when every non-symmetric strong component has $O(\log n)$ vertices.
+\end{corollary}
+\begin{proof}
+Symmetric components are decided by \cref{cor:dvg-poly} from the outcomes of their exits; a non-symmetric component $C$ is decided by the outcome version of the recursion of \cref{thm:component-circuits} over the $|C|2^{|C|}$ states $(S,v)$, exits to P-positions winning at once.
+\end{proof}
+
+Neither bound uses treewidth, and neither is small on long directed cycles with many chords. Canonical subgames can do better than component states: on the closed ladder, $L_m$ plus the arc $b_{m-1}\to t_0$, which is strongly connected and not symmetric and has pathwidth at most $3$, the recursion of \cref{lem:canonical} has few states although the component-state bound is $2m\cdot2^{2m}$ \textup{(}\code{treewidth.closed_ladder}, \code{canonical_subgame}\textup{)}:
+\begin{center}\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+$m$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$\\ \midrule
+reachable positions & $22$ & $69$ & $188$ & $463$ & $1{,}092$ & $2{,}495$\\
+distinct canonical subgames & $16$ & $48$ & $108$ & $212$ & $376$ & $616$\\
+distinct exact resolvents & $9$ & $20$ & $46$ & $86$ & $150$ & $246$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The subgame counts equal $(8m^{3}-30m^{2}+94m-84)/3$ for $2\le m\le7$; we have not proved cubic growth in general.
+
+\begin{remark}[the bridge to Bodlaender's algorithm]\label{rem:bodlaender}
+Combining \cref{thm:intrinsic-degree,prop:memory,thm:component-circuits}: an exact potential that a bounded-width dynamic program could carry must be (i) path-dependent, indexed at least by canonical subgames, which are not bag-local, and (ii) represented by circuits rather than by explicit rational functions. The part of the spectral data that is bag-local is the valuation $\ord_0R$, which is $\pm1$ by \cref{thm:resolvent-outcome}; that is the information Bodlaender's algorithm propagates, and on the comb of \cref{prop:memory} it is constant where the exact resolvents take $2^{m}$ values. Valuation potentials indexed by unvisited sets need not exist either (\cref{thm:hierarchy}: a three-vertex digraph has none), so even at the valuation level the index must record more than the unvisited set. Whether exact resolvents on bounded treewidth have circuits of polynomial size is \cref{prob:tw-circuits}.
+\end{remark}

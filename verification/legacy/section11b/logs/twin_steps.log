@@ -1,0 +1,13 @@
+m=3 r=2  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=3 r=3  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=4 r=2  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=4 r=3  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=5 r=2  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=6 r=2  Step 2 formulas: True True True | Step 3 equation equivalent: True
+m=3 r=2  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=4 r=2  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=4 r=3  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=5 r=2  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=5 r=3  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=6 r=2  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True
+m=7 r=2  Step 4: rotations at x_a are 1/K_a and at t_j is 1/K_t: True

@@ -1,0 +1,69 @@
+\section{Algebraic and continuous extensions (background)}\label{sec:extensions}
+
+Embedding $\{0,1\}^N$ into $\FF^N$ or $\RR^N$ yields canonical extensions of $\val$, and the classical results below show what each costs. Low-degree extensions over finite fields are as hard on average as $\val$ itself (\cref{thm:worst-average}) but make $\val$ verifiable (\cref{thm:ip}). Unit-cost arithmetic on exponentially long words evaluates $\val$ quickly (\cref{thm:unit-cost}), and a polynomial-time real-number algorithm with algebraic constants would give $\PSPACE=\CH$ (\cref{thm:bss}).
+
+\subsection{Canonical extensions}
+Fix a polynomial-horizon arena in normal form, with terminals made absorbing by dummy moves so that every play has exactly $h$ moves. A play from $\sigma_0$ is then a move string $x\in\{0,1\}^h$. For a threshold $t\in\{0,1\}$ let $W_t(x)=1$ if the play $x$ ends at a terminal with $\pay\ge t$ and $0$ otherwise. Composing the transition circuits $h$ times gives a circuit for $W_t$ of size $\poly(n)$. Arithmetize: replace a NOT gate $a$ by $1-a$ and an AND gate $(a,b)$ by $ab$; replace the move quantifiers (OR at Max moves, AND at Min moves) by
+\[
+\textstyle\bigvee_{x_i}f\ \mapsto\ 1-\bigl(1-f|_{x_i=0}\bigr)\bigl(1-f|_{x_i=1}\bigr),\qquad \bigwedge_{x_i}f\ \mapsto\ f|_{x_i=0}\cdot f|_{x_i=1}.
+\]
+The result is an integer expression $P_t$ equal to $\one[\val\ge t]$, and $\val(\sigma_0)=P_1+P_0-1$. This is a closed-form algebraic map that compresses the history of play into one static expression; its evaluation is $\PSPACE$-complete by \cref{thm:alternation}. A second canonical extension is the multilinear extension of the whole value function $f\colon\{0,1\}^n\to\{-1,0,+1\}$, with the arena description among its input bits:
+\[
+\widehat f(y)=\sum_{a\in\{0,1\}^n}f(a)\prod_{i=1}^{n}\bigl(a_iy_i+(1-a_i)(1-y_i)\bigr),\qquad y\in\FF^n.
+\]
+
+\subsection{Low-degree extensions over finite fields are as hard as the cube}
+
+\begin{theorem}[Beaver--Feigenbaum; Lipton]\label{thm:worst-average}
+Let $\FF$ be a finite field of characteristic greater than $2$ with at least $n+2$ elements. Suppose a randomized polynomial-time algorithm $\mathsf A$ satisfies $\Pr[\mathsf A(y)=\widehat f(y)]\ge 1-1/(3(n+1))$ for uniformly random $y\in\FF^n$. Then $f\in\BPP$. For polynomial horizon this gives $\PSPACE\subseteq\BPP$, and for unbounded horizon $\EXP=\BPP$.
+\end{theorem}
+
+\begin{proof}[Proof \textup{\cite{BeaverFeigenbaum,Lipton}}]
+To compute $f(a)$ for $a\in\{0,1\}^n$, choose $b\in\FF^n$ uniformly and restrict $\widehat f$ to the line $s\mapsto a+sb$. The restriction $g$ is a univariate polynomial of degree at most $n$ with $g(0)=f(a)$, and for each fixed $s\neq0$ the point $a+sb$ is uniform in $\FF^n$. Query $\mathsf A$ at $s=1,\dots,n+1$; by the union bound all answers are correct with probability at least $2/3$. Interpolate $g$ and output $g(0)$. Characteristic $\neq2$ keeps $-1\neq+1$.
+\end{proof}
+
+List decoding lowers the required agreement much further for suitably encoded $\PSPACE$- and $\EXP$-complete functions \cite{STV,TrevisanVadhan}. So no low-degree extension can be easy on most of its domain while encoding $\val$ at the vertices: hardness is a property of the whole extension, not a boundary effect at the cube.
+
+\subsection{What algebraic extensions buy: verification}
+\begin{theorem}[Lund--Fortnow--Karloff--Nisan; Shamir]\label{thm:ip}
+$\IP=\PSPACE$ \cite{LFKN,Shamir}. The expression $P_t$ admits an interactive proof with a polynomial-time verifier, via the sum-check protocol with degree reduction.
+\end{theorem}
+A claimed value of a polynomial-horizon game can therefore be checked in polynomial time against an all-powerful prover: the algebraic extension buys verification, not evaluation.
+
+\begin{corollary}[non-uniform invariants]\label{cor:nonuniform}
+If $\val$ had circuits $\Phi_n$ of size $\poly(n)$ for every input length $n$, then $\PSPACE=\MA$ for polynomial horizon and $\EXP=\MA$ for unbounded horizon \cite{BFNW}.
+\end{corollary}
+\begin{proof}[Proof sketch for $\PSPACE$]
+The honest prover of the $\IP=\PSPACE$ protocol runs in polynomial space, so under the hypothesis it has polynomial-size circuits. Merlin sends such a circuit and Arthur runs the protocol against it; soundness holds against every prover, so false claims are still rejected.
+\end{proof}
+
+\subsection{The unit-cost mirage}
+\begin{theorem}\label{thm:unit-cost}
+On a random-access machine with unit-cost addition, subtraction, multiplication and bitwise Boolean operations on unbounded integers, $\val$ is computable in $\poly(n)$ steps for polynomial horizon. Hartmanis and Simon \cite{HartmanisSimon} showed that such machines decide exactly $\PSPACE$ in polynomial time.
+\end{theorem}
+
+\begin{proof}[Construction \textup{(word-parallel minimax)}]
+Index move strings by $j\in\{0,\dots,2^h-1\}$, with $x_1$ the most significant bit. Represent a Boolean function of $x$ by the $2^h$-bit integer whose bit $j$ is its value at $j$. A left shift by $2^m$ positions is multiplication by $2^{2^m}$, obtained by $m$ squarings.
+\begin{enumerate}[label=\arabic*.]
+\item Build each projection word $X_i$, whose bit $j$ is the move bit $x_i$ of $j$. It has period $2^{h-i+1}$: take one block $(2^{2^{h-i}}-1)\cdot2^{2^{h-i}}$ and replicate it by $O(h)$ doublings $Y\mapsto Y\ \mathrm{OR}\ (Y\ll \text{a multiple of the period})$.
+\item Evaluate the circuit for $W_t$ gate by gate with bitwise operations on these words (NOT is subtraction from the all-ones word). The result $L_t$ has bit $j$ equal to $W_t(j)$.
+\item Fold from the last move upward: for $i=h,\dots,1$ replace $L$ by $(L\ \mathrm{op}\ (L\ll 2^{h-i}))\ \mathrm{AND}\ Z_i$, where op is OR when Max chooses $x_i$ and AND when Min does, and $Z_i$ keeps the positions whose move bits $x_i,\dots,x_h$ all equal $1$.
+\item Bit $2^h-1$ of the final word is $\one[\val\ge t]$; it is read by an AND with $2^{2^h-1}=\prod_{k<h}2^{2^k}$.
+\end{enumerate}
+Each step costs $O(h)$ or $O(\text{circuit size})$ operations, so the total is polynomial.
+\end{proof}
+
+\noindent\emph{Accounting.} Under the logarithmic cost measure every word has $2^h$ bits and the same computation costs $2^{\Theta(h)}$: the apparent speed-up is exactly the power to operate on exponentially long words at unit cost.
+
+\subsection{Real-number machines}
+\begin{theorem}\label{thm:bss}
+Suppose a Blum--Shub--Smale machine over $\RR$ with algebraic constants computes $\val$ in polynomial time on $0/1$ inputs. Then $\PSPACE=\CH$ for polynomial horizon, and $\EXP=\PSPACE=\CH$ for unbounded horizon, where $\CH$ is the counting hierarchy.
+\end{theorem}
+
+\begin{proof}
+Algebraic constants do not add power: constant-free polynomial time over $\RR$ equals polynomial time with real algebraic constants \cite{ChapuisKoiran}. The Boolean part of constant-free polynomial time is $\Pclass^{\mathrm{PosSLP}}$, and $\mathrm{PosSLP}\in\CH$ \cite{ABKM}. So each threshold $\one[\val\ge t]$ would lie in $\Pclass^{\CH}=\CH$. For polynomial horizon $\PSPACE\subseteq\CH\subseteq\PSPACE$; for unbounded horizon $\EXP\subseteq\CH\subseteq\PSPACE\subseteq\EXP$.
+\end{proof}
+
+Neither collapse is known to be false, and both are widely considered implausible. Arbitrary real constants must be excluded, because one real number can encode unbounded advice.
+
+\noindent\emph{Summary.} Each extension moves the cost to a stated resource: average-case hardness over finite fields, word length under unit-cost arithmetic, and the conjecture $\PSPACE\neq\CH$ over the reals, which is stronger than $\Pclass\neq\PSPACE$. None gives a polynomial-time evaluation in the bit model.

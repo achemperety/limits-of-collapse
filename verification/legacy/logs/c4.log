@@ -1,0 +1,4 @@
+Delta_12(y0=-1,y3=1) = z^2*p*q + z^2*p + z^2*q - z^2 + z*p - z*q - p*q + 4
+Delta_13(y0=y2=0)    = (-1) * (q - 1) * (z^2*p + 1)
+Delta_02(y1=y3=z)    = -z^4*p + 3*z^2*p - p + 1
+Rayleigh {0,2} at y=z : T0*T2 - Te*T02 = -z^4*p + 3*z^2*p - p + 1

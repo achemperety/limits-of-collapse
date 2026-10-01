@@ -1,0 +1,16 @@
+cycles with 2-periodic self-energies (a, b, a, b, ...):
+   m = 3: set potential for all a: True
+   m = 4: set potential for all a, b: True
+   m = 5: set potential for all a: True
+   m = 6: set potential for all a, b: True
+   m = 7: set potential for all a: True
+   m = 8: set potential for all a, b: True
+books with r pages: eta_y = eta_p = e, eta_x = e + (r-1)/(z-e):
+   r = 2: set potential: True | with (r)/(z-e) instead: False
+   r = 3: set potential: True | with (r)/(z-e) instead: False
+   r = 4: set potential: True | with (r)/(z-e) instead: False
+   r = 5: set potential: True | with (r)/(z-e) instead: False
+   r = 6: set potential: True | with (r)/(z-e) instead: False
+C4 blow-up (1,1,1,2) with sinks at the vertices of S0 and S1 (predicted True): True
+C4 blow-up (1,1,1,2) with sinks at S0 only (predicted False): False
+2-page book, sinks at y, p, q; at x a sink and a pendant that has its own sink (predicted True): True

@@ -1,0 +1,29 @@
+\section{Local characterization: global invariants are locally consistent labelings}\label{sec:local}
+
+A labeling $\Phi$ equals $\val$ exactly when it matches $\pay$ at terminals, obeys the one-step minimax rule everywhere and, when play can cycle, carries a ranking that certifies progress. Checking a candidate is local and cheap; finding one is the whole difficulty.
+
+\begin{theorem}\label{thm:local}
+Let $\Phi\colon\{0,1\}^N\to\{-1,0,+1\}$. Then $\Phi=\val$ if and only if:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textup{(boundary)} $\Phi=\pay$ on $\tau$;
+\item \textup{(Bellman consistency)} for non-terminal $\sigma$, $\Phi(\sigma)$ is the maximum of $\Phi(T^{+}\sigma)$ and $\Phi(T^{-}\sigma)$ if Max moves at $\sigma$, and their minimum if Min moves;
+\item \textup{(ranking)} there are functions $\rk_{+}\colon\Phi^{-1}(+1)\to\NN$ and $\rk_{-}\colon\Phi^{-1}(-1)\to\NN$ such that at every non-terminal $\sigma$ with $\Phi(\sigma)=+1$: if Max moves, some option $\sigma'$ has $\Phi(\sigma')=+1$ and $\rk_{+}(\sigma')<\rk_{+}(\sigma)$; if Min moves, every option $\sigma'$ \textup{(}which has $\Phi(\sigma')=+1$ by \textup{(2)}\textup{)} satisfies $\rk_{+}(\sigma')<\rk_{+}(\sigma)$. The mirror condition holds for $\rk_{-}$ with Max and Min exchanged.
+\end{enumerate}
+For finite horizon condition \textup{(3)} holds automatically, with $\rk$ the remaining depth. Rankings of this kind are the progress measures of Jurdzi\'nski \cite{Jurdzinski}.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) Let $\Phi(\sigma)=+1$. At Max positions in $\Phi^{-1}(+1)$ Max picks an option that keeps $\Phi=+1$ and lowers $\rk_{+}$; at Min positions every option does both, by (2) and (3). Along any play consistent with this strategy $\rk_{+}$ strictly decreases, so the play is finite and ends at a terminal with $\Phi=+1$, where $\pay=+1$ by (1). Hence $\sigma\in W_{+}$.
+Now let $\Phi(\sigma)\le 0$. At Min positions with $\Phi\le0$, (2) gives an option with $\Phi\le 0$, and Min takes it; at Max positions with $\Phi\le0$, (2) gives $\Phi\le 0$ at both options. So play stays where $\Phi\le 0$, any terminal it reaches has $\pay\le 0$, and $\sigma\notin W_{+}$. Hence $\Phi^{-1}(+1)=W_{+}$; the mirror argument gives $\Phi^{-1}(-1)=W_{-}$, and therefore $\Phi^{-1}(0)=\val^{-1}(0)$.
+($\Rightarrow$) $\val$ satisfies (1) and (2) by \cref{lem:well-defined}, and the stages at which positions enter the fixed points $W_{+}$ and $W_{-}$ serve as $\rk_{+}$ and $\rk_{-}$.
+\end{proof}
+
+Consistency alone is not enough when play can cycle: label $+1$ both positions of a $2$-cycle with no exit; the labeling is consistent, yet nobody can force termination and the true value is $0$. The ranking rules this out.
+
+\begin{corollary}[certification versus discovery]\label{cor:certify}
+In a succinct family, suppose a candidate $\Phi$ and rankings $\rk_{\pm}$ with values of polynomial bit length are computable in polynomial time. Then ``$\Phi=\val$ on the whole landscape'' is a $\coNP$ statement on each instance: a counterexample is one position that violates a local condition. The difficulty lies entirely in finding such a $\Phi$.
+\end{corollary}
+
+\begin{remark}[the template of known collapses]\label{rem:template}
+Bouton's rule for Nim, the Fraenkel--Scheinerman--Ullman theorem and the Aspvall--Plass--Tarjan theorem can each be phrased this way: each exhibits a polynomial-time $\Phi$ and verifies conditions (1)--(2) by a local argument. The Sprague--Grundy theorem has the same local form, but its $\Phi$, the Grundy value, is polynomial-time only on special families; for undirected vertex geography it is $\PSPACE$-complete (\S\ref{ssec:fails}). The phrase of the problem statement, ``a global invariant dictates local terminal states'', is \cref{thm:local} read from right to left.
+\end{remark}

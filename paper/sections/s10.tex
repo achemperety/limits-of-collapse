@@ -1,0 +1,199 @@
+\section{Potentials over arbitrary fields}\label{sec:fields}
+
+\Cref{thm:main-real} settles real weights. This section collects what holds over an arbitrary field $\mathbb K\supseteq\Qz$, in particular over $\Qzbar$, where \S\ref{sec:complex} shows that the conclusion of \cref{thm:conj610} fails. Four mechanisms are available over every field: a balance law at $z=\infty$, a cocycle carried by the game alone, locality in $U$, and the cavity identity. Three further obstructions use real weights through sums of squares or Rayleigh differences at a few points. For weights in $\Puis$ they are special cases of \cref{thm:main-real}; we keep their short proofs because each isolates one mechanism and shows exactly where reality enters, which is what \S\ref{sec:complex} exploits.
+
+\subsection{Setting}\label{ssec:fields-setting}
+Throughout, $D$ is a digraph on $V$ with $\eta\equiv0$ unless said otherwise, $(U,a)$ is a local weighted matching potential over a field $\mathbb K\supseteq\Qz$, and
+\[
+\Mpot(S)=\mu_a(U[S])\quad(S\subseteq V),\qquad c(X)=\frac{\Mpot(V\setminus X)}{\Mpot(V)},
+\]
+and $\rho(S,s)=\Mpot(S-s)/\Mpot(S)$ when $\Mpot(S)\neq0$.
+We call $\rho$ the \emph{Green's function} of the potential; at reachable positions $\rho=R$. For a vertex $v$ its \emph{exits} are $\Delta^{+}(v)=\nplus(v)\setminus N_U(v)$ and its \emph{phantom neighbours} are $\Delta^{-}(v)=N_U(v)\setminus\nplus(v)$. Two vertices are \emph{comparable} if one reaches the other, and $D$ is \emph{unilateral} if any two of its vertices are comparable. As in \S\ref{sec:realstab}, $\Gamma(P)$ is the product of resolvents along a play $P$ started at $(V,t_0)$, and $\back(P)$ counts the arcs $t_j\to t_i$ with $i<j$.
+
+\begin{lemma}[field independence]\label{lem:field-independence}
+For a digraph $D$ and a graph $U$ on $V(D)$ the following are equivalent: \textup{(i)} $D$ has a potential $(U,a)$ over some field $\mathbb K\supseteq\Qz$; \textup{(ii)} it has one over $\Qzbar$; \textup{(iii)} it has one with weights in the field $\CC\{\!\{z^{-1}\}\!\}$ of complex Puiseux series in $z^{-1}$ that converge for all large $|z|$.
+\end{lemma}
+\begin{proof}
+Introduce unknowns $a_x$ $(x\in V)$ and $t$. The polynomials $\Mpot(W-v)-R(W,v)\Mpot(W)$ over the reachable positions $(W,v)$, together with $t\prod_W\Mpot(W)-1$, lie in $\Qz[a,t]$, and their common zeros in $\mathbb K^{V}\times\mathbb K$ are exactly the potentials over $\mathbb K$ with graph $U$. If they have a common zero in some $\mathbb K\supseteq\Qz$, the ideal they generate in $\Qz[a,t]$ does not contain $1$, and by Hilbert's Nullstellensatz it has a zero over $\Qzbar$. So (i) implies (ii). By the Newton--Puiseux theorem $\Qzbar$ embeds into $\CC\{\!\{z^{-1}\}\!\}$ (every algebraic function has convergent Puiseux expansions at $z=\infty$), so (ii) implies (iii), and (iii) implies (i) trivially.
+\end{proof}
+
+So ``a potential over $\Qzbar$'', ``a potential over $\CC(z)$'s algebraic closure'' and ``a potential over some field'' mean the same thing, and the existence question for fixed $U$ is decided by one Gr\"obner basis over $\Qz$ (\cref{thm:exact5}). For a nonzero Puiseux series $f$ we write $\deg f$ for the exponent of its leading term at $z=\infty$ (so $\deg z=1$), and $f=O(z^{-q})$ as in \S\ref{ssec:real-setting}; when the weights lie in $\Qzbar$ these notions refer to a fixed embedding into $\CC\{\!\{z^{-1}\}\!\}$, and every statement below holds for each embedding. \Cref{lem:asymptotics} holds verbatim for self-energies that are complex Puiseux series, with the same $o(\cdot)$ error terms; for $\eta\equiv0$ each $R(W,v)$ is an odd function of $z$, so its error terms improve to $R(W,v)=z^{-1}+d^{+}_W(v)z^{-3}+O(z^{-5})$ and $z^{|V(P)|}\Gamma(P)=1+\ell(P)z^{-2}+O(z^{-4})$ with $\ell(P)=\sum_{t\in V(P)}d^{+}(t)-\back(P)$.
+
+\begin{lemma}[telescoping]\label{lem:telescoping}
+If $P$ is a directed path of $D$, then $c(V(P))=\Gamma(P)$. In particular $\Gamma(P)$ depends only on the vertex set of $P$.
+\end{lemma}
+\begin{proof}
+Every position of the play $P$ from $(V,t_0)$ is reachable, and multiplying the identities $\Mpot(W-v)=R(W,v)\Mpot(W)$ along the play gives $\Mpot(V\setminus V(P))=\Gamma(P)\Mpot(V)$.
+\end{proof}
+
+\subsection{Three identities}
+
+\begin{lemma}[cavity identity]\label{lem:cavity}
+At every reachable position $(W,v)$,
+\[
+a_v-z=\sum_{w\in\Delta^{-}(v)\cap W}\rho(W-v,w)\;-\sum_{t\in\Delta^{+}(v)\cap W}R(W-v,t).
+\]
+\end{lemma}
+\begin{proof}
+$\Mpot(W-v)=R(W,v)\Mpot(W)\neq0$, because resolvents of positions are nonzero rational functions. Sorting matchings by how they cover $v$ gives $\Mpot(W)=a_v\Mpot(W-v)-\sum_{w}\Mpot(W-v-w)$ over the $U$-neighbours $w\in W$ of $v$; dividing by $\Mpot(W-v)$ gives $1/R(W,v)=a_v-\sum_w\rho(W-v,w)$. The game recursion gives $1/R(W,v)=z-\sum_tR(W-v,t)$ over the out-neighbours $t\in W$ of $v$. If $w$ is both a $U$-neighbour and an out-neighbour, $(W-v,w)$ is reachable, so $\rho(W-v,w)=R(W-v,w)$ and the two terms cancel.
+\end{proof}
+
+\begin{lemma}[weighted two-point identity]\label{lem:two-point}
+For every graph $U$, all vertex weights in a commutative ring, every $S\subseteq V(U)$ and $x\neq y$ in $S$,
+\[
+\Mpot(S-x)\,\Mpot(S-y)-\Mpot(S)\,\Mpot(S-x-y)=\sum_{P}\Mpot\bigl(S\setminus V(P)\bigr)^{2},
+\]
+the sum running over the paths $P$ of $U[S]$ from $x$ to $y$.
+\end{lemma}
+\begin{proof}
+Induction on $|S|$. Expand $\Mpot(S)$ and $\Mpot(S-y)$ by the vertex recurrence at $x$; the terms with $a_x$ cancel. What remains is $\Mpot(S-x-y)^2$ when $xy\in U$, plus, for each $U$-neighbour $w\neq y$ of $x$, the left side of the identity for $S-x$ and the pair $(w,y)$. By induction that is the sum over paths from $w$ to $y$ avoiding $x$, and prefixing $x$ gives every other path from $x$ to $y$.
+\end{proof}
+
+This is the identity of Heilmann--Lieb and Godsil \cite{HeilmannLieb,GodsilBook}; the proof uses only the vertex recurrence. Write $\tau(S;x,y)$ for the left side divided by $\Mpot(S)^2$. When $\Mpot(S)$ and $\Mpot(S-x)$ are nonzero,
+\begin{equation}\label{eq:green-difference}
+\rho(S,y)-\rho(S-x,y)=\frac{\tau(S;x,y)}{\rho(S,x)}.
+\end{equation}
+For weights in $\Puis$, $\tau(S;x,y)$ is a sum of squares of elements of $\Puis$, hence nonnegative at all large real $z$.
+
+\subsection{Obstructions over every field}
+
+\begin{theorem}[normal potentials]\label{thm:normal}
+Let $(U,a)$ be a potential for $D$ with weights in $\CC\{\!\{z^{-1}\}\!\}$ and $\deg a_x\ge1$ for every $x$. Then $D$ is SCC-symmetric, $U$ contains every symmetric pair of $D$, and every other edge of $U$ joins two incomparable vertices.
+\end{theorem}
+\begin{proof}
+\emph{Step 1.} A matching $N$ of $U[S]$ contributes $\prod_{x\in S}a_x$ times $O(z^{-2|N|})$, because each covered vertex removes a factor of degree at least $1$. So $\Mpot(S)=\bigl(\prod_{x\in S}a_x\bigr)(1+O(z^{-2}))$ and $\rho(S,s)=a_s^{-1}(1+O(z^{-2}))$. At the reachable position $(V,x)$ this equals $R(V,x)=z^{-1}(1+O(z^{-2}))$, so $a_x=z+O(z^{-1})$ and $\rho(S,s)=z^{-1}+O(z^{-3})$ for all $S$ and $s$.
+
+\emph{Step 2 (balance).} At a reachable position $(W,v)$ the vertex recurrence gives $\Mpot(W)/\Mpot(W-v)=a_v-|N_U(v)\cap(W-v)|\,z^{-1}+O(z^{-3})$, and the game recursion gives $1/R(W,v)=z-d^{+}_W(v)z^{-1}+O(z^{-3})$. So the coefficient of $z^{-1}$ in $a_v-z$ equals $|N_U(v)\cap(W-v)|-d^{+}_W(v)$ for every reachable $(W,v)$. Comparing with $W=V$ gives the \emph{balance law}
+\[
+|\nplus(v)\cap X|=|N_U(v)\cap X|\qquad\text{for every reachable position }(V\setminus X,v).
+\]
+
+\emph{Step 3.} Let $x\to y$ be an arc and let $y$ reach $x$. Take a shortest path $y=p_0\to p_1\to\dots\to p_k=x$. For $0\le j\le k$ the position $(V\setminus\{p_j,\dots,p_{k-1}\},x)$ is reachable from $p_j$, so subtracting the balance laws for $j$ and $j+1$ gives $[p_j\in\nplus(x)]=[p_j\in N_U(x)]$; at $j=0$ this gives $xy\in U$. If $y\not\to x$, the position $(V-x,y)$ is reachable from $x$, and the balance law at $y$ with $X=\{x\}$ reads $0=[xy\in U]=1$. So every arc inside a strong component lies in $U$ and has its reverse. The same suffix argument applied to a $U$-edge $xw$ with $w$ reaching $x$ gives $x\to w$, so $x,w$ lie in one strong component and form a symmetric pair; by symmetry of $U$ the same holds when $x$ reaches $w$.
+\end{proof}
+
+\begin{theorem}[no phantom neighbour]\label{thm:no-phantom}
+Let the weights lie in any field. If a vertex $v$ has no phantom neighbour, then $a_v=z-\sum_{t\in\Delta^{+}(v)\cap W}R(W-v,t)$ at every reachable position $(W,v)$, and no exit of $v$ reaches $v$.
+\end{theorem}
+\begin{proof}
+The formula is \cref{lem:cavity} with $\Delta^{-}(v)=\emptyset$. By \cref{lem:asymptotics} its right side is $z-|\Delta^{+}(v)\cap W|\,z^{-1}+O(z^{-3})$, and $a_v$ does not depend on the position, so $|\Delta^{+}(v)\cap W|$ is the same at every reachable position $(W,v)$; at the start $(V,v)$ it equals $|\Delta^{+}(v)|$. If an exit $t$ of $v$ reached $v$, a shortest path from $t$ to $v$ would give a reachable position $(W',v)$ with $t\notin W'$, and then $|\Delta^{+}(v)\cap W'|<|\Delta^{+}(v)|$.
+\end{proof}
+
+\begin{theorem}[back-arc cocycle]\label{thm:cocycle}
+Let the weights lie in any field, or more generally let $\Mpot$ be any \emph{set potential}: a function on the unvisited sets of reachable positions, with values in a field containing $\Qz$, such that $\Mpot(W)\neq0$ and $\Mpot(W-v)=R(W,v)\Mpot(W)$ at every reachable $(W,v)$. Then any two directed paths with the same vertex set have the same number of back arcs. In particular, if $D[X]$ has a directed Hamiltonian cycle, then $D[X]$ is Eulerian: every vertex of $X$ has as many out-neighbours as in-neighbours in $X$.
+\end{theorem}
+\begin{proof}
+By \cref{lem:telescoping} both paths give $\Gamma=c(X)$, so their $z^{-2}$ terms in \cref{lem:asymptotics} agree, and the out-degree sums are equal. Moving the first vertex $x_i$ of a rotation of the Hamiltonian cycle to the end changes the back count by $d^{+}_X(x_i)-d^{-}_X(x_i)$.
+\end{proof}
+
+This settles \cref{prop:fails}(2) with no reference to $U$: both non-cycle digraphs there have the Hamiltonian cycle $0\to1\to2\to0$ and a vertex with two out-neighbours and one in-neighbour. Directed cycles are Eulerian and need the argument of \cref{prop:fails}(1).
+
+\begin{theorem}[locality]\label{thm:locality}
+Let the weights lie in any field. For every arc $u\to v$ inside a strong component, $u$ and $v$ lie in one component of $U$. Hence every strong component lies inside one component of $U$.
+\end{theorem}
+\begin{proof}
+Since $\mu_a$ factorizes over the components of $U[W]$, and every factor is nonzero when $\Mpot(W)\neq0$, $\rho(W,u)$ depends only on the component of $u$ in $U[W]$. Suppose that $u$ and $v$ lie in different components of $U$. Take a shortest path $v=p_0\to\dots\to p_k=u$, put $W_1=V\setminus\{p_1,\dots,p_{k-1}\}$ and $W_0=W_1-v$. The positions $(W_1,u)$ and $(W_0,u)$ are reachable, from $p_1$ and from $v$ respectively, and the components of $u$ in $U[W_1]$ and $U[W_0]$ coincide, so their Green's functions agree. Their resolvents differ: $1/R(W_1,u)-1/R(W_0,u)=-R(W_1-u,v)=-z^{-1}+O(z^{-3})$.
+\end{proof}
+
+\subsection{Obstructions that use real weights}
+For weights in $\Puis$ each result of this subsection follows from \cref{thm:main-real}; the direct proofs use only the two-point identity or Rayleigh differences at three points. The notation $O(\cdot)$ refers to $\Puis$.
+
+\begin{proposition}[path lemma]\label{prop:path-lemma}
+Let the weights lie in $\Puis$. If $t_0\to t_1\to\dots\to t_m$ is a directed path with $m\ge1$ and $t_m\not\to t_0$, then $t_0t_m\notin U$.
+\end{proposition}
+\begin{proof}
+Put $T=\{t_1,\dots,t_{m-1}\}$ and $S=V\setminus T$. The sets $T$, $T+t_0$, $T+t_m$ and $T+t_0+t_m$ are the vertex sets of the directed paths $(t_1..t_{m-1})$, $(t_0..t_{m-1})$, $(t_1..t_m)$ and $(t_0..t_m)$, so their values $c(\cdot)$ are products $\Gamma$ (\cref{lem:telescoping}). \Cref{lem:two-point} at $S$, divided by $\Mpot(V)^2$, gives
+\begin{multline*}
+c(T{+}t_0)\,c(T{+}t_m)-c(T)\,c(T{+}t_0{+}t_m)=\sum_{P}\Bigl(\frac{\Mpot(S\setminus V(P))}{\Mpot(V)}\Bigr)^{2}\\
+\ge\;c(T{+}t_0{+}t_m)^{2}\quad\text{if }t_0t_m\in U,
+\end{multline*}
+at every large real $z$. In \cref{lem:asymptotics} the out-degree sums cancel, and the back counts of the four paths differ only by the arcs from $T$ to $t_0$, from $t_m$ to $T$ and $t_m\to t_0$; the combination leaves $[t_m\to t_0]=0$. So the left side is $O(z^{-2|T|-6})$, while the right side is $z^{-2|T|-4}(1+O(z^{-2}))$, which is impossible at large $z$.
+\end{proof}
+
+\begin{corollary}\label{cor:u-edges}
+Let the weights lie in $\Puis$. Every edge of $U$ is a symmetric pair inside one strong component or joins two incomparable vertices.
+\end{corollary}
+\begin{proof}
+If $x$ reaches $w$ and $xw\in U$, \cref{prop:path-lemma} applied to a path from $x$ to $w$ forces $w\to x$; then $w$ reaches $x$, and the arc $w\to x$ with the edge $wx$ forces $x\to w$.
+\end{proof}
+
+\begin{corollary}[unilateral digraphs]\label{cor:unilateral}
+Let the weights lie in $\Puis$. In every potential each tail $x$ of a one-way arc inside a strong component has a $U$-neighbour incomparable to $x$. Hence a unilateral digraph, in particular a strongly connected digraph or one with a directed Hamiltonian path, has a potential only if it is SCC-symmetric.
+\end{corollary}
+\begin{proof}
+Let $x\to y$ be one-way inside a strong component $C$, and suppose every $U$-neighbour of $x$ is comparable to $x$. By \cref{cor:u-edges} they are symmetric partners, hence out-neighbours, so $x$ has no phantom neighbour. By \cref{thm:no-phantom} no exit of $x$ reaches $x$, so $y$ is not an exit and $xy\in U$, contradicting \cref{cor:u-edges}.
+\end{proof}
+
+\begin{corollary}[sign-coherent potentials]\label{cor:sign-coherent}
+Let the weights lie in $\Puis$ and suppose that for every $S\subseteq V$ the value $\Mpot(S)$ is nonzero with the sign of $\Mpot(V)$ at all large real $z$. Then $D$ is SCC-symmetric. Normal real potentials are sign-coherent, since $\Mpot(S)=z^{|S|}(1+o(1))$, and so is the potential of \cref{thm:directed-collapse}.
+\end{corollary}
+\begin{proof}
+Let $x\to y$ be one-way inside a strong component, take a shortest path $y=p_0\to\dots\to p_k=x$ (so $k\ge2$) and put $T=\{p_1,\dots,p_{k-1}\}$.
+
+\emph{Claim 1: $\tau(V\setminus T;x,y)=z^{-4}(1+O(z^{-2}))$.} The sets $T$, $T+x$, $T+y$, $T+x+y$ are the vertex sets of the paths $(p_1..p_{k-1})$, $(p_1..x)$, $(y,p_1..p_{k-1})$ and $(y,p_1..x)$, with back counts $b$, $b+B_x$, $b+B_y$ and $b+B_x+B_y+1$, where $B_x$ counts arcs from $x$ into $T$ and $B_y$ arcs from $T$ into $y$, and the last $1$ is the arc $x\to y$. By \cref{lem:asymptotics}, $c(T{+}x)c(T{+}y)-c(T)c(T{+}x{+}y)=z^{-2|T|-4}(1+O(z^{-2}))$, while $c(T)^2=z^{-2|T|}(1+O(z^{-2}))$.
+
+\emph{Claim 2: $\tau(V;x,y)=c(x)c(y)-c(x,y)=O(z^{-6})$}, because the only possible back arc of the path $(x,y)$ would be $y\to x$.
+
+\emph{Claim 3: $\tau(V\setminus T;x,y)\le\tau(V;x,y)$ at large real $z$.} Every Green's function is positive at large real $z$ by sign-coherence, so \eqref{eq:green-difference} gives $\rho(S-u,b)\le\rho(S,b)$ whenever the sets involved are nonempty. For a path $P$ of $U$ from $x$ to $y$ that avoids $T$, remove its vertices $q_1,\dots,q_r$ one at a time:
+\begin{align*}
+0<\frac{\Mpot(V\setminus T\setminus V(P))}{\Mpot(V\setminus T)}&=\prod_i\rho\bigl(V\setminus T\setminus\{q_1,\dots,q_{i-1}\},q_i\bigr)\\
+&\le\prod_i\rho\bigl(V\setminus\{q_1,\dots,q_{i-1}\},q_i\bigr)=\frac{\Mpot(V\setminus V(P))}{\Mpot(V)}.
+\end{align*}
+So each term of $\tau(V\setminus T;x,y)$ is at most the term of the same path in $\tau(V;x,y)$, whose other terms are nonnegative. Claims 1 and 2 contradict Claim 3 at large $z$.
+\end{proof}
+
+\begin{corollary}[directed triangles]\label{cor:triangles}
+Let the weights lie in $\Puis$. Let $i\to j$ be a one-way arc and $k$ a vertex adjacent to both $i$ and $j$ such that $D[\{i,j,k\}]$ has a directed Hamiltonian path. Then $\back\{i,j,k\}=\back\{i,k\}+\back\{j,k\}$, where $\back X$ is the back count of any directed Hamiltonian path of $D[X]$ \textup{(}well defined by \cref{thm:cocycle}\textup{)}. Consequently every strongly connected set of three vertices induces a symmetric subdigraph, and no one-way arc inside a strong component lies on a directed triangle; no assumption on $U$ is needed.
+\end{corollary}
+\begin{proof}
+By \cref{thm:hl} and \cref{ex:real-stable}(a), at every large real $z$ the polynomial $f(h)=\mu_{a+h}(U)/\mu_a(U)$ is real stable, and so is its restriction to $h_i,h_j,h_k$ with the other variables set to $0$. Its coefficients are the $c(T)$, $T\subseteq\{i,j,k\}$, and each such $T$ is the vertex set of a directed path. Write $f=A+Bh_i+Ch_j+Dh_ih_j$ with $A,B,C,D$ affine in $h_k$. By \cref{lem:branden}, for every real $h_k$,
+\[
+BC-AD=\gamma+\beta h_k+\alpha h_k^{2}\ge0,\qquad\text{so}\qquad \beta^{2}\le4\alpha\gamma,
+\]
+with $\gamma=c(i)c(j)-c(i,j)$, $\beta=c(i)c(j,k)+c(j)c(i,k)-c(i,j,k)-c(k)c(i,j)$ and $\alpha=c(i,k)c(j,k)-c(k)c(i,j,k)$. By \cref{lem:asymptotics} the out-degree sums cancel, $\gamma=\back\{i,j\}z^{-4}+O(z^{-6})=O(z^{-6})$, $\alpha=O(z^{-6})$, and $\beta=\bigl(\back\{i,j,k\}-\back\{i,k\}-\back\{j,k\}\bigr)z^{-5}+O(z^{-7})$. If the bracket were nonzero, $\beta^2$ would have order $z^{-10}$ while $4\alpha\gamma=O(z^{-12})$. A strongly connected non-symmetric triple is a directed triangle or one of the two digraphs of \cref{prop:fails}(2); the bracket equals $1$ for the triangle, and the other two are not Eulerian (\cref{thm:cocycle}).
+\end{proof}
+
+\begin{corollary}[an isolated directed $4$-cycle]\label{cor:c4}
+Let the weights lie in $\Puis$. If a chordless directed $4$-cycle $x_0\to x_1\to x_2\to x_3\to x_0$ is a connected component of $D$, then $D$ has no potential, whatever the rest of $D$ and $U$.
+\end{corollary}
+\begin{proof}
+Plays inside the cycle ignore the rest of $D$, so $c(T)=\mu(P_{4-|T|})/\mu(P_4)$ for every cyclic interval $T$. As in \cref{cor:triangles}, $g(h)=\sum_{T\subseteq\{x_0,\dots,x_3\}}c(T)h^T$ is real stable at large real $z$, hence so is $P(y)=\mu(P_4)\,g(y-z\one)$. Let $Q$ be the multivariate matching polynomial of the undirected $4$-cycle in the variables $y$. The Taylor coefficients of $Q$ at $y=z\one$ are $\mu(C_4-T)$; they agree with those of $P$ on every nonempty interval, and on $\emptyset$ they give $\mu(C_4)=\mu(P_4)-(z^2-1)$. Only $\{x_0,x_2\}$ and $\{x_1,x_3\}$ are not intervals, so for real $p,q$ depending on $z$,
+\[
+P(y)=Q(y)+(z^{2}-1)+(p-1)(y_0-z)(y_2-z)+(q-1)(y_1-z)(y_3-z).
+\]
+Direct expansion gives $\Delta_{02}P=1-p\,\mu(P_4)$ at $y_1=y_3=z$, so $p\le1/\mu(P_4)$ by \cref{lem:branden}, and likewise $q\le1/\mu(P_4)$. Next $\Delta_{13}P=(1-q)(z^{2}p+1)$ at $y_0=y_2=0$, so $p\ge-z^{-2}$, and likewise $q\ge-z^{-2}$. Finally, at $y_0=-1$ and $y_3=1$,
+\[
+\Delta_{12}P=4-z^{2}+z^{2}(p+q)+z(p-q)+pq\,(z^{2}-1),
+\]
+and for $z\ge3$ and $p,q\in[-z^{-2},1/\mu(P_4)]$ the last three terms are each at most $1$, so $\Delta_{12}P\le7-z^{2}<0$, contradicting \cref{lem:branden}. (The three expansions are checked symbolically by \code{scripts/check_c4.py}.)
+\end{proof}
+
+\subsection{Exact verification on at most five vertices}
+
+\begin{theorem}[exact verification]\label{thm:exact5}
+A digraph with at most five vertices has a local weighted matching potential over $\Qzbar$ if and only if it is SCC-symmetric.
+\end{theorem}
+\begin{proof}[Method \textup{(computer-assisted)}]
+For fixed $D$ and $U$ the weights are the unknowns. The polynomials $\Mpot(W-v)-R(W,v)\Mpot(W)$ over reachable positions generate an ideal of $\Qz[a_1,\dots,a_n]$; saturating it by every $\Mpot(W)$ discards solutions with a vanishing denominator. By \cref{lem:field-independence} the saturated ideal is the unit ideal exactly when no potential with graph $U$ exists over any field, so no test point is involved.
+\begin{itemize}
+\item Three and four vertices: all $16$ and $218$ digraphs against all $8$ and $64$ graphs $U$. The $13$ and $104$ SCC-symmetric digraphs have potentials; for the $3$ and $114$ others every saturated ideal is the unit ideal.
+\item Five vertices: $8{,}055$ of the $9{,}608$ digraphs are not SCC-symmetric. A potential over any field gives a set potential in the sense of \cref{thm:cocycle}, and whether a set potential exists is decided exactly over $\Qz$ by propagating $\Mpot$ from $V$ along the reachable positions; $7{,}976$ of the $8{,}055$ have none. For the other $79$ every graph $U$ contained in the symmetric part of $D$ is excluded by \cref{thm:no-phantom} (a tail $x$ of a one-way arc $x\to y$ inside a strong component would have no phantom neighbour and the exit $y$ reaching it), and all $80{,}798$ remaining saturated ideals are the unit ideal.
+\end{itemize}
+The computations are those of the original verification package, reproduced in \code{verification/legacy} (\cref{app:verification}).
+\end{proof}
+
+\subsection{The shape of a counterexample over an arbitrary field}
+
+\begin{proposition}\label{prop:shape}
+Let $D$ be a digraph that is not SCC-symmetric and has a potential $(U,a)$ over a field $\mathbb K\supseteq\Qz$. Then:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $D$ has at least six vertices \textup{(\cref{thm:exact5})};
+\item any two directed paths with the same vertex set have the same back count, and every vertex set spanning a directed Hamiltonian cycle induces an Eulerian subdigraph \textup{(\cref{thm:cocycle})};
+\item every strong component lies inside one component of $U$ \textup{(\cref{thm:locality})};
+\item for no embedding of the weights into $\CC\{\!\{z^{-1}\}\!\}$ do all weights have degree at least $1$ \textup{(\cref{thm:normal})};
+\item if $x\to y$ is a one-way arc inside a strong component and $xy\notin U$, then $x$ has a phantom neighbour \textup{(\cref{thm:no-phantom})};
+\item for every strong component $C$, $(U,a)$ is a frozen potential for $(D[C],\eta)$ with environment $V\setminus C$ and the exit self-energies $\eta$ of \cref{thm:directed-collapse} \textup{(\cref{prop:restriction}, whose proof uses no property of the field)};
+\item $D$ has no potential with all weights in $\Puis$ \textup{(\cref{thm:conj610})}.
+\end{enumerate}
+\end{proposition}
+
+Items (1)--(6) are all the constraints we know over $\Qzbar$, and the counterexamples of \S\ref{sec:complex} meet them with seven vertices. There the real-weight obstructions visibly fail: the directed triangle $D_3$ of \cref{thm:complex-counterexample} has one-way arcs on a directed triangle, which \cref{cor:triangles} forbids for real weights, and two of its seven weights are non-real at every large real $z$ (\cref{prop:Ym-arithmetic}).

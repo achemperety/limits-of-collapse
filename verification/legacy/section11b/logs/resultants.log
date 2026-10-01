@@ -1,0 +1,16 @@
+kappa=0 m= 3  resultant vanishes identically: False   w**10*(w - 1)**7*(w + 1)**7
+kappa=0 m= 4  resultant vanishes identically: False   -w**18*(w - 1)**13*(w + 1)**13
+kappa=0 m= 5  resultant vanishes identically: False   w**28*(w - 1)**21*(w + 1)**21
+kappa=0 m= 6  resultant vanishes identically: False   -w**40*(w - 1)**31*(w + 1)**31
+kappa=0 m= 7  resultant vanishes identically: False   w**54*(w - 1)**43*(w + 1)**43
+kappa=0 m= 8  resultant vanishes identically: False   -w**70*(w - 1)**57*(w + 1)**57
+kappa=0 m= 9  resultant vanishes identically: False   w**88*(w - 1)**73*(w + 1)**73
+kappa=0 m=10  resultant vanishes identically: False   -w**108*(w - 1)**91*(w + 1)**91
+kappa=1 m= 3  resultant vanishes identically: False   w**10*(w - 1)**5*(w + 1)**5*(w**2 + 1)**2
+kappa=1 m= 4  resultant vanishes identically: False   -w**18*(w - 1)**7*(w + 1)**7*(w**12 + 39*w**10 + 159*w**8 + 250*w**6 + 159*w**4 + 39*w**2 
+kappa=1 m= 5  resultant vanishes identically: False   w**28*(w - 1)**9*(w + 1)**9*(w**24 + 68*w**22 + 2226*w**20 + 30196*w**18 + 135407*w**16 + 
+kappa=1 m= 6  resultant vanishes identically: False   -w**40*(w - 1)**11*(w + 1)**11*(w**40 + 130*w**38 + 6840*w**36 + 221210*w**34 + 4726445*w*
+kappa=1 m= 7  resultant vanishes identically: False   w**54*(w - 1)**13*(w + 1)**13*(w**60 + 222*w**58 + 21603*w**56 + 1201004*w**54 + 43847685*
+kappa=1 m= 8  resultant vanishes identically: False   -w**70*(w - 1)**15*(w + 1)**15*(w**84 + 350*w**82 + 55545*w**80 + 5321631*w**78 + 34309703
+kappa=1 m= 9  resultant vanishes identically: False   w**88*(w - 1)**17*(w + 1)**17*(w**112 + 520*w**110 + 125380*w**108 + 18661752*w**106 + 192
+kappa=1 m=10  resultant vanishes identically: False   -w**108*(w - 1)**19*(w + 1)**19*(w**144 + 738*w**142 + 256491*w**140 + 55919460*w**138 + 8

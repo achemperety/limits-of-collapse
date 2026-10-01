@@ -1,0 +1,246 @@
+\section{The complex frontier: Theorem 6.10 fails over \texorpdfstring{$\Qzbar$}{the algebraic closure}}\label{sec:complex}
+
+By \cref{lem:field-independence}, ``over $\Qzbar$'', ``over the algebraic closure of $\CC(z)$'' and ``over some field containing $\Qz$'' are the same question. This section answers it: \emph{the complex form of \cref{thm:conj610} is false} (\cref{thm:complex-counterexample}). The route runs through frozen environments. Over $\Qzbar$ a frozen environment rescues every directed cycle (\cref{thm:every-cycle}), and the earlier draft asked whether genuine vertices of a digraph, whose own positions must also satisfy the potential identities, can realize such an environment. They can: a directed $m$-cycle together with $m+1$ isolated vertices has a potential whose cycle weights vanish and whose environment weights are the roots of an explicit polynomial $Y_m$. The mechanism is Vieta's formulas: with vanishing cycle weights every identity prescribes an elementary symmetric function of the environment weights, and over an algebraically closed field every monic polynomial splits. Over $\RR$ the same prescription asks for a real-rooted polynomial, and $Y_m$ is not real-rooted at large real $z$, in accordance with \cref{thm:main-real}.
+
+\subsection{Frozen potentials over an arbitrary field}
+
+\begin{definition}\label{def:frozen}
+Let $C$ be a digraph with self-energies $\eta\colon V(C)\to\mathbb K$, where $\mathbb K\supseteq\Qz$ is a field; the game $(C,\eta)$ has the positions of DVG on $C$ and the resolvents $1/R(W,v)=z-\eta_v-\sum_{w}R(W-v,w)$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ (a finite set disjoint from $V(C)$) is a graph $U$ on $V(C)\sqcup F$ with weights $a\colon V(C)\sqcup F\to K$ such that $\Mpot_F(W)=\mu_a(U[W\cup F])$ satisfies $\Mpot_F(W)\neq0$ and $\Mpot_F(W-v)=R(W,v)\Mpot_F(W)$ at every reachable position $(W,v)$ of $(C,\eta)$.
+\end{definition}
+
+The environment is never visited and acts only through $U$. By \cref{prop:restriction}, whose proof uses no property of the field, a potential for $D$ restricts to a frozen potential for each strong component with environment the rest of $D$. For a directed cycle $C$ with $\eta=0$ the reachable unvisited sets are the cyclic intervals, and $R(W,v)=\mu(P_{\ell-1})/\mu(P_\ell)$ on an interval of length $\ell$ that begins at $v$ (proof of \cref{prop:fails}(1)); so a frozen potential is exactly a function $\Mpot_F$ with $\Mpot_F(I)=\lambda\,\mu(P_{|I|})(z)$ on every cyclic interval $I$, for a constant $\lambda=\Mpot_F(\emptyset)\neq0$.
+
+\begin{proposition}[the environment barrier for the triangle]\label{prop:env-barrier}
+Let $C$ be the directed triangle with $\eta=0$. With one frozen vertex there is no frozen potential over $\Qzbar$. With two frozen vertices exactly four graphs $U$ admit one: $U$ contains all six edges between $C$ and $F$, with or without the edge inside $F$ and with or without the three edges inside $C$. Each solution set is finite; every weight on $C$ has degree $3$ over $\Qz$ and every weight on $F$ has degree $6$. For the smallest $U$ an environment weight $a$ satisfies
+\[
+(z^{2}-4)\,a^{6}+12a^{4}+4z\,a^{3}-12a^{2}+8=(za^{3}+2)^{2}+4(1-a^{2})^{3}=0,
+\]
+an irreducible sextic over $\Qz$ that has no real root at any real $z$ with $|z|\ge4$.
+\end{proposition}
+\begin{proof}
+The enumeration of graphs $U$ and the degrees are exact computations (saturated Gr\"obner bases over $\Qz$ and factorization, \cref{app:verification}). The sextic follows from \cref{thm:triangle-solved} by eliminating $t$, and its two forms agree by expansion. For real $z$ with $|z|\ge4$ it is positive at every real $a$: when $|a|\le1$ both terms are nonnegative and they do not vanish together, and when $|a|>1$, $|za^{3}+2|\ge4|a|^3-2>2|a|^{3}$ gives $(za^{3}+2)^{2}>4a^{6}>4(a^{2}-1)^{3}$.
+\end{proof}
+
+\begin{theorem}[the rescued triangle, solved]\label{thm:triangle-solved}
+Let $C$ be the directed triangle with $\eta=0$, $F=\{f_1,f_2\}$, and $U$ the six edges between $C$ and $F$. The frozen potentials are exactly the following: the three cycle weights equal $\alpha=z+t$, where $t$ is a root of $t^{3}-3t=z$, and the two environment weights are the roots of $(t^{2}-1)x^{2}-2tx+2=0$. With $z=v^{3}+v^{-3}$ this reads $t=v+v^{-1}$, $\alpha=\mu(P_3)(t)$ and $x=(t\pm\sqrt{2-t^{2}})/(t^{2}-1)$. For real $z\notin\{0,\pm1,\pm\sqrt2\}$ a real frozen potential exists if and only if $|z|<2$, and one branch has weights that are real power series in $z$ at $z=0$.
+\end{theorem}
+\begin{proof}
+Write $\Mpot(S)=\mu_a(U[S\cup F])$ for $S\subseteq C$, $p=a_{f_1}a_{f_2}$ and $s=a_{f_1}+a_{f_2}$. The frozen identities say $\Mpot(S)=\lambda\mu(P_{|S|})(z)$ on every $S\subseteq C$ (every subset of the triangle is a cyclic interval), with $\lambda=\Mpot(\emptyset)=p$. Since $\Mpot(\{j\})=a_jp-s$, the singletons give $a_jp-s=zp$, so every cycle weight equals $\alpha=z+t$ with $t=s/p$. With equal cycle weights, $\Mpot(C\setminus\{i\})=\alpha^{2}p-2\alpha s+2$ and $\Mpot(C)=\alpha^{3}p-3\alpha^{2}s+6\alpha$. Dividing by $p$ and substituting $\alpha=z+t$, the identity for the pairs becomes $2/p=t^{2}-1$, and the identity for $C$ becomes $(z+t)^{2}(z-2t)+3(z+t)(t^{2}-1)=z^{3}-2z$, that is, $t^{3}-3t=z$. So $p=2/(t^{2}-1)$ and $s=tp$, and the environment weights are the roots of $(t^{2}-1)x^{2}-2tx+2$. Conversely these values satisfy every identity, and $\Mpot(W)=p\,\mu(P_{|W|})(z)\neq0$.
+
+For real $|z|>2$ the cubic has one real root, with $|t|>2$, so $2-t^{2}<0$ and $x$ is not real; at the other two roots $\alpha=z+t$ is not real. At $z=\pm2$ the roots are $t=\pm2$, again with $2-t^2<0$, and the double root $t=\mp1$, where the quadratic degenerates. For $|z|<2$ write $z=2\cos3\theta$ with $0<\theta<\pi/3$; the roots are $t=2\cos(\theta+2\pi k/3)$, one of which has $|\cos|<\frac12$, so $t^{2}<1$ and all weights are real, except where $t^2=1$ or $p$ or a denominator vanishes, which happens only at $z\in\{0,\pm1,\pm\sqrt2\}$. Near $z=0$ the root $t=-z/3+O(z^{3})$ is a real power series, and so are $\alpha$ and $x$, with $x(0)=\mp\sqrt2$.
+\end{proof}
+
+\begin{theorem}[every directed cycle is rescued by a frozen environment]\label{thm:every-cycle}
+Let $m\ge3$, let $C$ be the directed $m$-cycle with $\eta=0$, let $|F|=m-1$, and let $U$ consist of all edges between $C$ and $F$. Let $t$ be a root of $2T_m(t/2)=z$, where $T_m$ is the Chebyshev polynomial of the first kind, let $\alpha=U_m(t/2)=\mu(P_m)(t)$, and let
+\[
+Q(x)=\sum_{r=0}^{m-1}F_r(\alpha)\,\frac{x^{r}}{r!},\qquad F_r(a)=\sum_{k=0}^{r}\binom{r}{k}(-a)^{r-k}\,\mu(P_k)(z).
+\]
+Then the weight $\alpha$ on every cycle vertex and the $m-1$ roots of $Q$ on the environment form a frozen potential. Moreover:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item With $z=v^{m}+v^{-m}$ and $t=v+v^{-1}$, $F_r(\alpha)=\mathsf D^{r}(v^{2m}-v^{2r})/(v^{2m}-1)$ with $\mathsf D=v^{m}-\alpha$, so the environment weights are $x=y/\mathsf D$ where $v^{2m}\exp_{m-1}(y)=\exp_{m-1}(v^{2}y)$ and $\exp_n(y)=\sum_{j\le n}y^{j}/j!$ is the truncated exponential.
+\item Near $z=\infty$, $\alpha-z=U_{m-2}(t/2)$ grows like $z^{(m-2)/m}$, and each environment weight is $-y_0v^{-(m-2)}(1+o(1))$, of order $z^{-(m-2)/m}$, where $y_0$ runs over the zeros of $\exp_{m-1}$.
+\item The $m$ branches are the sheets of the Chebyshev cover $t\mapsto2T_m(t/2)$, branched over $\pm2$ and $\infty$; its monodromy group is dihedral of order $2m$, the loop around $z=\infty$ permuting the branches cyclically and the loops around $\pm2$ acting as reflections.
+\item At every sufficiently large real $z$, no branch has all weights real.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+$U$ is invariant under all permutations of $C$ and the cycle weights are equal, so $\Mpot(W)$ depends only on $k=|W|$; write $\Mpot_k$. Sorting matchings by the cycle vertices matched into $F$ gives the exponential generating function $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x}\prod_j(\beta_j-x)$, with $\beta_j$ the environment weights. The frozen identities say $\Mpot_k=\lambda\mu(P_k)(z)$ for $0\le k\le m$ with $\lambda\neq0$. Multiplying by $e^{-\alpha x}$ and comparing coefficients up to $x^m$, this holds exactly when $\prod_j(\beta_j-x)=\lambda Q(x)$ and $F_m(\alpha)=0$. With $\mu(P_k)(z)=(w^{k+1}-w^{-k-1})/(w-w^{-1})$ and $z=w+w^{-1}$,
+\[
+F_r(a)=\frac{w\,(w-a)^{r}-w^{-1}(w^{-1}-a)^{r}}{w-w^{-1}}.
+\]
+Put $w=v^{m}$ and $\alpha=\sum_{j=0}^{m}v^{m-2j}=U_m(t/2)$. Then $w^{-1}-\alpha=v^{2}(w-\alpha)$, which gives the formula in (1), and it vanishes at $r=m$. Since $F_m$ has degree $m$ in $a$, its roots are exactly the $m$ values $U_m(t/2)$. Finally $\lambda=\prod_j\beta_j\neq0$, because $Q(0)=1$ and the leading coefficient $F_{m-1}(\alpha)/(m-1)!$ is nonzero by (1).
+
+For (2), $U_m-U_{m-2}=2T_m$ gives $\alpha-z=U_{m-2}(t/2)$, and $\mathsf D=-v^{m-2}(1+O(v^{-2}))$. Dividing the equation of (1) by $v^{2m}$ gives $\exp_{m-1}(y)=\sum_{r<m}v^{2r-2m}y^{r}/r!$, whose right side tends to $0$ uniformly on compact sets, since $|v|\to\infty$; by Hurwitz's theorem the $m-1$ roots tend to the zeros of $\exp_{m-1}$. Item (3) is the classical monodromy of Chebyshev polynomials. For (4), suppose that along real $z\to\infty$ one branch had all environment weights real. Then all $y_j=\mathsf D\beta_j$ lie on the line $\RR\mathsf D$, so in the limit all zeros of $\exp_{m-1}$ lie on one line through $0$, closed under conjugation. It is not $\RR$, because $\exp_n$ has at most one real zero ($\exp_n>0$ for even $n$, and $\exp_n$ is increasing for odd $n$), so it is $i\RR$; but the zeros of $\exp_{m-1}$ sum to $-(m-1)\neq0$.
+\end{proof}
+
+\begin{remark*}[inside the band]
+A scan of the family of \cref{thm:every-cycle} over real $z\in(-2,2)$ finds branches with all weights real for $m=3$ on the whole band (\cref{thm:triangle-solved}), for $m=4$ on about $(0.178,2)$ and for $m=5$ on about $(-1.024,1.025)$; it finds none for $m=6,7$ on a grid of $799$ points. These are numerical observations, not theorems (\cref{prob:band}).
+\end{remark*}
+
+\subsection{Genuine digraphs realize complex environments}\label{ssec:counterexample}
+
+\begin{lemma}[disjoint unions]\label{lem:disjoint-union}
+If $D_1$ and $D_2$ have potentials $(U_1,a_1)$ and $(U_2,a_2)$ over a field $\mathbb K$, then $(U_1\sqcup U_2,a_1\sqcup a_2)$ is a potential for $D_1\sqcup D_2$ over $\mathbb K$.
+\end{lemma}
+\begin{proof}
+A reachable position of $D_1\sqcup D_2$ with the token in $D_1$ has the form $(W_1\cup V(D_2),v)$ with $(W_1,v)$ reachable in $D_1$, and its resolvent is $R_{D_1}(W_1,v)$. The weighted matching polynomial factorizes: $\mu_a(U[W_1\cup V(D_2)])=\mu_{a_1}(U_1[W_1])\,\mu_{a_2}(U_2[V(D_2)])$, where the second factor is nonzero because $(V(D_2),s)$ is reachable in $D_2$ for every $s$. So the identities of $D_1$ carry over, and symmetrically for $D_2$.
+\end{proof}
+
+For $m\ge3$ let $\exp_m(w)=\sum_{k=0}^{m}w^{k}/k!$ be the truncated exponential, and let
+\begin{equation}\label{eq:Ym}
+Y_m(y)=y^{m+1}-\frac{m!\,z}{\mu(P_m)(z)}\sum_{\ell=0}^{m}\mu(P_\ell)(z)\,\frac{y^{\ell}}{\ell!}\ \in\Qz[y].
+\end{equation}
+For instance $\mu(P_3)\,Y_3/z=(z^{2}-2)y^{4}-z(z^{2}-2)y^{3}-3(z^{2}-1)y^{2}-6zy-6$.
+
+\begin{theorem}[a counterexample over $\Qzbar$]\label{thm:complex-counterexample}
+Let $m\ge3$ and let $D_m$ be the disjoint union of the directed cycle $c_0\to c_1\to\dots\to c_{m-1}\to c_0$ and a set $F$ of $m+1$ isolated vertices. Let $U$ be the complete bipartite graph between the cycle and $F$, put $a_{c}=0$ on the cycle, and let $(a_f)_{f\in F}$ be the $m+1$ roots of $Y_m$ in $\Qzbar$, in any order.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $(U,a)$ is a local weighted matching potential for $D_m$ over the splitting field of $Y_m$. In particular $D_m$, which is not SCC-symmetric, has a potential over $\Qzbar$.
+\item Conversely, if $(U,a)$ is a potential for $D_m$ with this $U$ and $a\equiv0$ on the cycle, then $(a_f)_{f\in F}$ are the roots of $Y_m$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{Positions.} Every vertex is a start. From a cycle vertex the token runs around the cycle and never meets $F$, so the reachable positions are $(I\cup F,v)$, with $I$ a cyclic interval of length $\ell\in\{1,\dots,m\}$ that begins at $v$, and the starts $(V,f)$, $f\in F$, which have no option. The game from $(I\cup F,v)$ is DVG on a directed path with $\ell$ vertices, so $R(I\cup F,v)=\mu(P_{\ell-1})/\mu(P_\ell)$, and $R(V,f)=1/z$.
+
+\emph{Matching polynomials.} Let $J$ be a set of $\ell$ cycle vertices. A matching of $U[J\cup F]$ that leaves a vertex of $J$ uncovered contributes the factor $a_c=0$, so only matchings that cover $J$ count. Such a matching is a choice of an $\ell$-subset $S\subseteq F$ and a bijection $J\to S$, and it contributes $(-1)^{\ell}\prod_{f\in F\setminus S}a_f$. Hence
+\[
+\mu_a(U[J\cup F])=(-1)^{\ell}\,\ell!\;e_{m+1-\ell}(a_F),\qquad \mu_a(U[V-f])=(-1)^{m}\,m!\quad(f\in F),
+\]
+where $e_j(a_F)$ is the $j$-th elementary symmetric function of the environment weights; in the second formula every vertex of $F-f$ is matched, since $|F-f|=m$.
+
+\emph{Vieta.} Put $c=(-1)^{m}m!\,z/\mu(P_m)$. Comparing \eqref{eq:Ym} with
+\[
+Y_m(y)=\sum_{j=0}^{m+1}(-1)^{j}e_j(a_F)\,y^{m+1-j}
+\]
+at the coefficient of $y^{\ell}$ gives
+\[
+e_{m+1-\ell}(a_F)=(-1)^{\ell}\,c\,\frac{\mu(P_\ell)}{\ell!}\qquad(0\le\ell\le m),
+\]
+so that $\mu_a(U[J\cup F])=c\,\mu(P_{|J|})$ for every set $J$ of cycle vertices.
+
+\emph{Identities.} At $(I\cup F,v)$ with $|I|=\ell$: $\mu_a(U[I\cup F])=c\,\mu(P_\ell)\neq0$, and $\mu_a(U[(I-v)\cup F])=c\,\mu(P_{\ell-1})=R(I\cup F,v)\,\mu_a(U[I\cup F])$. At $(V,f)$: $\mu_a(U[V])=c\,\mu(P_m)=(-1)^{m}m!\,z\neq0$, and $\mu_a(U[V-f])=(-1)^{m}m!=\frac1z\,\mu_a(U[V])$. This proves (1): the arcs of the cycle are one-way arcs inside a strong component.
+
+For (2), the identities at the positions $(I\cup F,v)$ with $|I|=\ell$ say $\mu_a(U[I\cup F])/\mu(P_\ell)$ is independent of $\ell$, and nonzero; call it $c'$. The identity at $(V,f)$ then says $(-1)^{m}m!=c'\mu(P_m)/z$, so $c'=c$, and the matching formula determines $e_1(a_F),\dots,e_{m+1}(a_F)$ as above. A monic polynomial is determined by its elementary symmetric functions.
+\end{proof}
+
+\begin{corollary}[the complex form of Theorem 6.10 is false]\label{cor:complex-false}
+Let $\mathbb K$ be an algebraically closed field containing $\Qz$, for instance $\Qzbar$ or the algebraic closure of $\CC(z)$. The digraphs with a local weighted matching potential over $\mathbb K$ strictly contain the SCC-symmetric digraphs. The smallest counterexample produced here is $D_3$, with seven vertices; for every $m\ge3$ and every digraph $D'$ with a potential over $\mathbb K$ (for instance any SCC-symmetric digraph), $D_m\sqcup D'$ is a counterexample.
+\end{corollary}
+\begin{proof}
+\Cref{thm:complex-counterexample} and \cref{lem:disjoint-union}.
+\end{proof}
+
+\Cref{thm:complex-counterexample} was also verified by computer, independently of the proof: \code{complex_counterexample.verify_symbolic} enumerates every reachable position with the package's game recursion, computes each $\mu_a(U[S])$ symbolically in indeterminate environment weights, rewrites it in elementary symmetric functions and checks every identity exactly, for $3\le m\le5$; \code{verify_numeric} checks the identities with the roots of $Y_m$ at real and complex $z$ to $50$ digits (residuals below $10^{-50}$), for $m\le6$.
+
+The counterexample is not confined to a bare cycle: exits do not destroy it.
+
+\begin{proposition}[cycles with exits]\label{prop:sinks}
+Let $m\ge3$ and $r\ge0$, and let $D_{m,r}$ be $D_m$ with $r$ private sinks attached to every cycle vertex \textup{(}arcs $c_i\to s_{i,1},\dots,s_{i,r}$\textup{)}. Put $x=z-r/z$ and let $Y_{m,r}$ be \eqref{eq:Ym} with $\mu(P_\ell)(z)$ replaced by $\mu(P_\ell)(x)$ throughout \textup{(}the factor $m!\,z$ is unchanged\textup{)}. Then $U$ as in \cref{thm:complex-counterexample}, weight $0$ on the cycle, weight $z$ on every sink \textup{(}isolated in $U$\textup{)} and the roots of $Y_{m,r}$ on $F$ form a potential for $D_{m,r}$ over $\Qzbar$.
+\end{proposition}
+\begin{proof}
+Let $S$ be the set of sinks. While the token is on the cycle every sink is unvisited, and a move to a sink ends the play there; so the reachable positions are $(I\cup F\cup S,v)$ with the cycle intervals $I$ as before, the positions $((I-v)\cup F\cup S,s)$ with $s$ a sink of $v$, and the starts $(V,f)$ and $(V,s)$. Every sink has fresh-entry resolvent $1/z$, so each cycle vertex carries the self-energy $r/z$ and $R(I\cup F\cup S,v)=\mu(P_{\ell-1})(x)/\mu(P_\ell)(x)$; at a sink $R=1/z$. Since the sinks are isolated in $U$ with weight $z$, $\mu_a(U[T\cup S'])=z^{|S'|}\mu_a(U[T])$ for $T\cap S=\emptyset$ and $S'\subseteq S$, so every identity at a sink reads $1/z=1/z$, and the other identities are those of the proof of \cref{thm:complex-counterexample} with $\mu(P_\ell)(z)$ replaced by $\mu(P_\ell)(x)$ and $c=(-1)^mm!\,z/\mu(P_m)(x)$. Nonvanishing holds because $\mu(P_\ell)(x)$ is a nonzero rational function.
+\end{proof}
+
+\begin{proposition}[arithmetic of the environment weights]\label{prop:Ym-arithmetic}
+Let $m\ge3$.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $Y_m$ is unramified over $z=\infty$: its roots are $m+1$ distinct Laurent series in $z^{-1}$. Exactly $m$ of them are $w_i/z+O(z^{-3})$, where $w_1,\dots,w_m$ are the \textup{(}distinct\textup{)} zeros of $\exp_m$, and the remaining one is $z+m/z+O(z^{-3})$.
+\item At every sufficiently large real $z$ the weights of \cref{thm:complex-counterexample} include exactly $m-1$ non-real ones if $m$ is odd and exactly $m$ if $m$ is even; the other weights, including the $m$ zeros on the cycle, are real.
+\item For $3\le m\le6$ the Galois group of $Y_m$ over $\CC(z)$, which is the monodromy group of the $(m+1)$-sheeted cover $\{Y_m=0\}\to\mathbb P^{1}_z$, is the full symmetric group $S_{m+1}$. For $m=3$ the discriminant of $\mu(P_3)Y_3/z$ in $y$ is $-108\,(z^{2}-2)^{2}\,(2z^{8}+26z^{6}+99z^{4}-10z^{2}-676)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Put $u=1/z$ and $y=wu$. Since $\mu(P_\ell)(z)=z^{\ell}g_\ell(u^{2})$ with $g_\ell\in\ZZ[u^{2}]$ and $g_\ell(0)=1$,
+\[
+-\frac{z^{m-1}}{m!}\,Y_m(wu)=\frac{1}{g_m(u^{2})}\sum_{\ell=0}^{m}g_\ell(u^{2})\frac{w^{\ell}}{\ell!}-\frac{u^{2}w^{m+1}}{m!},
+\]
+a polynomial in $w$ with coefficients in $\QQ[[u^{2}]]$ that reduces to $\exp_m(w)$ at $u=0$. The zeros of $\exp_m$ are simple, since $\exp_m-\exp_m'=w^{m}/m!$ does not vanish at a zero of $\exp_m$ other than $0$, and $\exp_m(0)=1$. By Hensel's lemma each zero $w_i$ lifts to a root $w_i(u)=w_i+O(u^{2})$ in $\QQ(w_i)[[u^{2}]]$, convergent for small $|u|$, which gives $m$ roots $y=w_i(u)u$. The last root is $e_1(a_F)$ minus their sum; $e_1(a_F)=z$ by the Vieta formula at $\ell=m$, and $\sum_iw_i=-m$, which gives $z+m/z+O(z^{-3})$.
+
+(2) For real $z$ the polynomial $Y_m$ has real coefficients, so its non-real roots come in conjugate pairs. The polynomial $\exp_m$ has no real zero for even $m$ ($\exp_m>0$ on $\RR$) and exactly one for odd $m$ ($\exp_m'=\exp_{m-1}>0$). A root $w_i(u)u$ with $\Im w_i\neq0$ has imaginary part $u\,\Im w_i+O(u^{3})\neq0$ for small real $u$. A root near a real $w_i$, or the large root, is the only root in a small disc symmetric about the real axis, so it equals its conjugate.
+
+(3) Computer-assisted (\code{scripts/ym_arithmetic.py}). For $3\le m\le6$ the primitive part of $\mu(P_m)Y_m$ (which is $\mu(P_m)Y_m/z$ for odd $m$) is irreducible in $\QQ[z,y]$, so $Y_m$ is irreducible over $\Qz$, and its specialization at $z=3$ has Galois group $S_{m+1}$ over $\QQ$ (PARI \code{polgalois}); since specialization at a place where the polynomial stays separable of the same degree embeds the Galois group of the specialization into the Galois group over $\Qz$, the latter is $S_{m+1}$. The discriminant has an irreducible factor of multiplicity one (of degree $8,20,26,42$ for $m=3,4,5,6$) coprime to the leading coefficient; over each of its roots $z_0$ the discriminant, which up to a unit is $\prod_{i<j}(y_i-y_j)^2$, has a simple zero. Three coinciding roots, or two coinciding pairs, would make it vanish to order at least $2$; so exactly two roots meet at $z_0$, and they cannot both be single-valued near $z_0$, since then $(y_1-y_2)^2$ would vanish to even order. A small loop around $z_0$ therefore exchanges them and fixes the other roots: the local monodromy is a transposition. The Galois group over $\CC(z)$ is a normal subgroup of the Galois group over $\Qz$ (the constant field of the splitting field is Galois over $\QQ$), and the only normal subgroup of $S_{m+1}$ that contains a transposition is $S_{m+1}$.
+\end{proof}
+
+\begin{proposition}[a triangle with isolated vertices]\label{prop:c3-minimal}
+The disjoint union of the directed triangle and $k$ isolated vertices has a potential over $\Qzbar$ if and only if $k\ge4$.
+\end{proposition}
+\begin{proof}
+For $k\ge4$ combine \cref{thm:complex-counterexample} ($m=3$) with \cref{lem:disjoint-union}, an isolated vertex having the potential with $U=\emptyset$ and weight $z$. For $k\le2$ the digraph has at most five vertices (\cref{thm:exact5}). For $k=3$: by \cref{thm:locality} the triangle lies in one component of $U$; up to rotations of the triangle and permutations of the isolated vertices there are $2{,}208$ graphs $U$ on six vertices, $1{,}928$ of them with this property, and for each of these the saturated ideal of \cref{thm:exact5} over $\Qz$ is the unit ideal (\code{scripts/search6_c3k3.py}, $878$\,s with Singular).
+\end{proof}
+
+\begin{remark}[what the counterexample says about proof strategies]\label{rem:monodromy}
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Monodromy is not the obstruction.} The frozen rescues of \cref{thm:every-cycle} are ramified over $z=\infty$, where the Chebyshev cover permutes the $m$ branches cyclically, and their monodromy group is dihedral of order $2m$. The genuine potentials of \cref{thm:complex-counterexample} are unramified over $\infty$ (\cref{prop:Ym-arithmetic}(1)) and, for $m\le6$, have the full symmetric group $S_{m+1}$ as monodromy group. So no argument that obstructs a genuine realization through dihedral monodromy, or through ramification at $\infty$, can be correct: it would also exclude $D_m$.
+\item \emph{Reality is the obstruction.} For a one-way arc of the cycle of $D_m$, every subset $X$ of the cycle that enters the proof of \cref{thm:main-real} is a path set when $m=3$, so the polynomial $G_z(v)=\sum_X\gamma_Xv^{X}$ of \S\ref{sec:realstab} is determined by the path data alone; it is a real polynomial, the same for every potential of $D_3$, and the proof shows that it has a negative Rayleigh difference at large real $z$. What fails for $D_3$ is therefore only \textup{(P2)}: the Heilmann--Lieb theorem needs real vertex weights, and the environment weights of order $z^{-1}$ that leave the real axis (\cref{prop:Ym-arithmetic}(2)) violate that hypothesis.
+\item \emph{Vieta realizability.} With vanishing cycle weights every identity fixes one elementary symmetric function of the environment weights, and the $m+1$ identities at the starts $(V,f)$ collapse to one because $\mu_a(U[V-f])$ does not depend on $f$. Over an algebraically closed field any prescribed values of $e_1,\dots,e_{m+1}$ are realized; over $\RR$ only those of real-rooted polynomials. Vanishing cycle weights force $|F|\ge m+1$, since $U[V-f]$ must still have a matching that covers the cycle when $U$ has no edge inside the cycle; this is why $D_m$ has two more environment vertices than the frozen rescue of \cref{thm:every-cycle}.
+\end{enumerate}
+\end{remark}
+
+\subsection{Smallest frozen environments}
+
+\begin{proposition}[smallest environments]\label{prop:smallest-env}
+For $(m,|F|)$ equal to $(3,1)$, $(4,1)$, $(4,2)$, $(5,1)$ or $(5,2)$, no graph $U$ on $C_m\sqcup F$ admits a frozen potential for $(C_m,0)$, even over $\Qzbar$. So the environment of \cref{thm:every-cycle} is as small as possible for $m=3,4$, and a $5$-cycle needs at least three frozen vertices.
+\end{proposition}
+\begin{proof}
+Saturated Gr\"obner bases over $\Qz$ for every $U$ up to the symmetries of the cycle and of $F$: $276$, $4{,}496$, $6{,}560$ and $216{,}288$ graphs for $(4,1)$, $(4,2)$, $(5,1)$ and $(5,2)$; the case $(3,1)$ is \cref{prop:env-barrier}.
+\end{proof}
+
+\begin{proposition}[symmetric environments]\label{prop:symmetric-env}
+Let the weights lie in $\Qzbar$, $\eta=0$, and let $U$ be invariant under every permutation of $C=C_m$ that fixes $F$ pointwise; equivalently all cycle vertices have the same set $N$ of $U$-neighbours in $F$, and $U[C]$ is empty or complete. If a frozen potential exists, then $|N|\ge m-1$ when $U[C]$ is empty, for every $m\ge3$, and when $U[C]$ is complete, for $3\le m\le10$. \Cref{thm:every-cycle} attains $|F|=|N|=m-1$ with $U[C]$ empty, and the frozen potential that $D_m$ induces on its cycle \textup{(}\cref{prop:restriction}\textup{)} has $|N|=m+1$.
+\end{proposition}
+\begin{proof}
+On a singleton interval $\{c\}$ no other cycle vertex is present, and the vertex recurrence at $c$ with the frozen identity $\Mpot(\{c\})=z\lambda$ gives every cycle vertex the weight $\alpha=z+\sum_{f\in N}\rho(F,f)$, where $\rho(F,f)=\mu_a(U[F-f])/\mu_a(U[F])$. Let $\kappa=1$ if $U[C]$ is complete and $\kappa=0$ otherwise. Sorting matchings as in the proof of \cref{thm:every-cycle}, with the factor $e^{-x^2/2}$ counting matchings inside a complete graph, gives $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x-\kappa x^{2}/2}Q(x)$, where $Q$ is a polynomial of degree at most $|N|$. Write $z=w+w^{-1}$; then $w$ is transcendental over $\QQ$. The frozen identities $\Mpot_k=\lambda\mu(P_k)(z)$ for $k\le m$ give
+\[
+Q(x)\equiv\lambda\,e^{\kappa x^{2}/2}\,\frac{w\,e^{Ax}-w^{-1}e^{Bx}}{w-w^{-1}}\pmod{x^{m+1}},\qquad A=w-\alpha,\quad B=w^{-1}-\alpha .
+\]
+If $|N|\le m-2$, the coefficients of $x^{m-1}$ and $x^{m}$ on the right vanish. For $\kappa=0$ this says $wA^{m-1}=w^{-1}B^{m-1}$ and $wA^{m}=w^{-1}B^{m}$. If $A=0$ then $B=0$ and $w-w^{-1}=A-B=0$; otherwise dividing gives $A=B$, hence again $w^{2}=1$, impossible for transcendental $w$. For $\kappa=1$ the two coefficients, multiplied by $(m-1)!/\lambda$ and $m!/\lambda$, are polynomials in $\alpha$ with leading coefficients $\pm1$, and for each $m\le10$ their resultant in $\alpha$ is a nonzero Laurent polynomial in $w$ (exact computation), which does not vanish at a transcendental $w$.
+\end{proof}
+
+\begin{proposition}[the $5$-cycle and the $6$-cycle]\label{prop:c5c6}
+Over $\Qzbar$, with $\eta=0$ and $U[C]=\emptyset$, the directed $5$-cycle has no frozen potential with $|F|=3$, and the directed $6$-cycle has none with $|F|\le3$. Up to rotation of $C$ and permutation of $F$ there are $9{,}168$ graphs $U$ for the $5$-cycle, and $14$, $724$ and $59{,}976$ for the $6$-cycle with $|F|=1,2,3$; all give the unit ideal after saturation.
+\end{proposition}
+\begin{proof}
+Saturated Gr\"obner bases over $\Qz$, as for \cref{prop:smallest-env}.
+\end{proof}
+
+\begin{conjecture}[minimal frozen environments]\label{conj:minimal-env}
+Over $\Qzbar$, every frozen potential of the directed $m$-cycle with $\eta=0$ has at least $m-1$ frozen vertices.
+\end{conjecture}
+
+The conjecture holds for $m=3,4$ (\cref{prop:smallest-env}, with \cref{thm:exact5} for $F=\emptyset$), for every $m$ when $U$ is symmetric with $U[C]$ empty, for $m\le10$ when $U$ is symmetric with $U[C]$ complete (\cref{prop:symmetric-env}), for $m=5$ when $U[C]=\emptyset$ and in general up to two frozen vertices, and for $m=6$ with $U[C]=\emptyset$ up to three frozen vertices. (With $F=\emptyset$ and $U[C]=\emptyset$ the frozen identities on intervals of lengths $1$ and $2$ contradict each other.) For genuine digraphs the relevant count is larger: $D_3$ needs four isolated vertices (\cref{prop:c3-minimal}).
+
+\subsection{Real environments, pointwise in \texorpdfstring{$z$}{z}}
+For weights in $\Puis$, \cref{thm:frozen-real} excludes every frozen potential of a non-symmetric strongly connected digraph. The two results below say more for directed cycles: they hold at each real $z$ outside the band $|z|\le2$ separately, not only for large $z$. Let $C$ be a chordless directed cycle $x_0\to\dots\to x_{m-1}\to x_0$, $m\ge3$, with self-energies $\eta$ vanishing at infinity, let $(U,a)$ be a frozen potential with environment $F$, and write $\Mpot(W)=\mu_a(U[W\cup F])$, $\lambda=\Mpot(\emptyset)$. The frozen identities make $\Mpot$ a set potential for $(C,\eta)$, so $\eta$ has period $2$ and all rotation continuants of $C$ have one value $\cont(C)$ (\cref{thm:set-cycles}); telescoping gives $\Mpot(I)=\lambda\cont(I)$ on every cyclic interval $I$, where $\cont(I)$ is the continuant of the weights $z-\eta$ along $I$ in cycle order (\S\ref{ssec:setpot-cycles}).
+
+\begin{lemma}[frozen path lemma]\label{lem:frozen-path}
+If the weights lie in $\Puis$, then $U$ has no edge inside $C$. When $\eta=0$ this holds pointwise: at every real $z$ with $|z|\ge2$, real weights satisfying the frozen identities at $z$ have $U[C]=\emptyset$.
+\end{lemma}
+\begin{proof}
+Let $x\neq y$ in $C$. Since $m\ge3$, one of the two cyclic intervals with end vertices $x$ and $y$ has at least three vertices; let $I$ be that interval, running from $x$ to $y$. Then $I-x$, $I-y$ and $I-x-y$ are cyclic intervals, and \cref{lem:two-point} at $S=I\cup F$ gives
+\[
+\Mpot(I-x)\,\Mpot(I-y)-\Mpot(I)\,\Mpot(I-x-y)=\sum_{P}\mu_a\bigl(U[(I\cup F)\setminus V(P)]\bigr)^{2}
+\]
+over the $U$-paths $P$ from $x$ to $y$ in $U[I\cup F]$. The left side is $\lambda^{2}[\cont(I-x)\cont(I-y)-\cont(I)\cont(I-x-y)]=\lambda^{2}$ by the determinant identity for continuants (each transfer matrix has determinant $1$); when $I=C$ this uses the equality of the rotation continuants. If $xy\in U$, the path $P=xy$ contributes $\lambda^{2}\cont(I-x-y)^{2}$. At a real $z$ where the weights are real every term on the right is nonnegative, so $\cont(I-x-y)(z)^{2}\le1$. But $I-x-y$ has $|I|-2\ge1$ vertices, so $\cont(I-x-y)=z^{|I|-2}(1+o(1))$ exceeds $1$ in absolute value at large real $z$; when $\eta=0$ it is $\mu(P_{|I|-2})(z)$, whose absolute value is at least $|I|-1\ge2$ at every real $z$ with $|z|\ge2$.
+\end{proof}
+
+\begin{lemma}[the environment seen from the cycle]\label{lem:env-seen}
+Suppose $U[C]=\emptyset$; the weights may lie in any field. For every cycle vertex $c$, with $N(c)$ its set of $U$-neighbours in $F$,
+\[
+a_c=z-\eta_c+\sum_{f\in N(c)}\rho(F,f),\qquad \rho(F,f)=\frac{\mu_a(U[F-f])}{\mu_a(U[F])}.
+\]
+For consecutive cycle vertices $c,c^{+}$, the sum of $\bigl(\mu_a(U[F\setminus V(P)])/\lambda\bigr)^{2}$ over the $U$-paths $P$ from $c$ to $c^{+}$ with inner vertices in $F$ equals $1$.
+\end{lemma}
+\begin{proof}
+The frozen identity on $\{c\}$ gives $\Mpot(\{c\})=\lambda(z-\eta_c)$, and the vertex recurrence at $c$ gives $\Mpot(\{c\})=a_c\lambda-\sum_{f\in N(c)}\mu_a(U[F-f])$. For the second claim apply \cref{lem:two-point} to $S=\{c,c^{+}\}\cup F$: its left side is $\lambda^{2}((z-\eta_c)(z-\eta_{c^+})-\cont(c,c^{+}))=\lambda^{2}$.
+\end{proof}
+
+\begin{theorem}[no real mean-field rescue outside the band]\label{thm:meanfield}
+Let $\eta=0$ and let every vertex of $C$ have the same set $N\subseteq F$ of $U$-neighbours in $F$. At no real $z$ with $|z|>2$ do real weights satisfy the frozen identities. The band edge is sharp: for $m=3$ the environments of \cref{thm:triangle-solved} are of this kind and are real at every $z$ in the band except $0,\pm1,\pm\sqrt2$. A constant self-energy $e$ shifts $z$ to $z-e$, so the same holds for $\eta\equiv e$ at every real $z$ with $|z-e|>2$.
+\end{theorem}
+\begin{proof}
+Fix a real $z$ with $|z|>2$ and real weights satisfying the frozen identities at $z$, and write $z=w+w^{-1}$ with $w$ real, $|w|>1$. By \cref{lem:frozen-path}, $U[C]=\emptyset$, and by \cref{lem:env-seen} every cycle weight equals the real number $\alpha=z+\sum_{f\in N}\rho(F,f)$. Sorting matchings of $U[W\cup F]$ by the set of cycle vertices matched into $F$ gives $\Mpot(W)=\Mpot_k$ with $k=|W|$ and $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x}Q(x)$, where
+\[
+Q(x)=\sum_{J\subseteq N}(-x)^{|J|}\,\mu_a\bigl(U[F\setminus J]\bigr)=\mu_{a-x\one_N}\bigl(U[F]\bigr)
+\]
+is the matching polynomial of $U[F]$ with $x$ subtracted from the weight of every vertex of $N$. By \cref{thm:hl} restricted to this real line, $Q$ has only real zeros, and $Q(0)=\lambda\neq0$. Writing $Q(x)=\sum_jq_jx^{j}/j!$, the identities $\Mpot_k=\lambda\mu(P_k)(z)$ for $k\le m$ give $q_k=\lambda F_k(\alpha)$ for $k\le m$, with $F_k$ as in \cref{thm:every-cycle}.
+
+The Jensen polynomial $g_3(t)=\sum_{k=0}^{3}\binom3kq_kt^{k}$ of the real-rooted polynomial $Q$ is real-rooted \cite{PolyaSchur}: $g_3(t)=t^{3}h(1/t)$ with $h(y)=Q(d/dy)\,y^{3}$, and up to a constant $Q(d/dy)$ is a product of factors $d/dy-\varrho$ with $\varrho$ real, each of which maps a real-rooted polynomial $p$ to $p'-\varrho p=e^{\varrho y}(e^{-\varrho y}p)'$, real-rooted by Rolle's theorem; $h$ has degree $3$ because $q_0\neq0$. Since $m\ge3$, with $A=w-\alpha$ and $B=w^{-1}-\alpha$,
+\[
+g_3(t)=\lambda\,\frac{w(1+At)^{3}-w^{-1}(1+Bt)^{3}}{w-w^{-1}}.
+\]
+For a cube root $\zeta$ of $w^{-2}$ with $A-\zeta B\neq0$ put $t=(\zeta-1)/(A-\zeta B)$. Then $1+At=\zeta(A-B)/(A-\zeta B)$ and $1+Bt=(A-B)/(A-\zeta B)$, so $g_3(t)$ is a multiple of $w\zeta^{3}-w^{-1}=0$. The two non-real cube roots satisfy $A-\zeta B\neq0$, because $A,B$ are real and $A-B=w-w^{-1}\neq0$; the real M\"obius map $\zeta\mapsto(\zeta-1)/(A-\zeta B)$, of determinant $A-B\neq0$, sends them to two non-real roots of $g_3$, a contradiction.
+\end{proof}
+
+\subsection{What remains open over \texorpdfstring{$\Qzbar$}{the algebraic closure}}
+Every counterexample of this section has incomparable vertices, as it must for real weights by \cref{cor:unilateral}; over $\Qzbar$ that corollary is not available, because it rests on \cref{prop:path-lemma}. The natural complex question is therefore the following.
+
+\begin{problem}\label{prob:complex}
+Characterize the digraphs that have a local weighted matching potential over $\Qzbar$. In particular:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Does some strongly connected \textup{(}or unilateral\textup{)} digraph that is not symmetric have one?
+\item Is there a counterexample on six vertices? None exists on five (\cref{thm:exact5}), and the triangle with three isolated vertices is not one (\cref{prop:c3-minimal}).
+\item Does $C_m\sqcup\overline{K}_k$ have a potential for some $k\le m$ when $m\ge4$?
+\item Is the Galois group of $Y_m$ over $\CC(z)$ equal to $S_{m+1}$ for every $m\ge3$?
+\end{enumerate}
+\end{problem}

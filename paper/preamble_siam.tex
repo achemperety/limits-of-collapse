@@ -1,0 +1,99 @@
+\documentclass[final]{siamart0516}
+% SIAM class siamart0516 (May 2016 macros; obtain the full distribution from SIAM).
+% The class loads amsmath, ntheorem, hyperref, xcolor and cleveref itself.
+\usepackage{amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usetikzlibrary{positioning,arrows.meta,shapes.misc}
+
+\setlist{itemsep=2pt,topsep=4pt}
+\setlength{\emergencystretch}{2.5em}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1\linewidth}}
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+
+% ------------------------------------------------------------------ theorem environments
+\numberwithin{theorem}{section}
+\numberwithin{equation}{section}
+\newsiamthm{conjecture}{Conjecture}
+\newsiamthm{claim}{Claim}
+\newsiamremark{remark}{Remark}
+\newsiamremark{example}{Example}
+\newsiamremark{problem}{Open Problem}
+% Unnumbered remark* and definition* (ntheorem's own starred variants are numbered by this class).
+\makeatletter
+\newtheoremstyle{siamnonum}%
+ {\item[\hskip\labelsep\hskip\parindent\theorem@headerfont ##1\theorem@separator]}%
+ {\item[\hskip\labelsep\hskip\parindent\theorem@headerfont ##1\ \textup{(##3)}\theorem@separator]}
+\makeatother
+\theoremstyle{siamnonum}
+\theoremheaderfont{\normalfont\itshape}
+\theorembodyfont{\normalfont}
+\theoremseparator{.}
+\theoremsymbol{}
+\newtheorem{remarkstar}{Remark}
+\theoremheaderfont{\normalfont\sc}
+\theorembodyfont{\normalfont\itshape}
+\newtheorem{definitionstar}{Definition}
+\renewenvironment{remark*}{\remarkstar}{\endremarkstar}
+\renewenvironment{definition*}{\definitionstar}{\enddefinitionstar}
+\theoremstyle{plain}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{claim}{Claim}{Claims}
+\crefname{problem}{Open Problem}{Open Problems}
+\crefname{remark}{Remark}{Remarks}
+\crefname{example}{Example}{Examples}
+\providecommand{\qed}{\hfill\proofbox}
+
+% ------------------------------------------------------------------ macros
+\newcommand{\code}[1]{{\ttfamily\nolinkurl{#1}}}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_\do\-}\makeatother
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\Qz}{\QQ(z)}
+\newcommand{\Rz}{\RR(z)}
+\newcommand{\Qzbar}{\overline{\QQ(z)}}
+\newcommand{\Puis}{\mathcal{P}_{\RR}}
+\newcommand{\val}{\mathcal{V}}            % the value
+\newcommand{\pay}{\mathcal{U}}            % the payoff
+\newcommand{\SG}{\mathcal{G}}             % the state graph
+\newcommand{\arena}{\mathcal{A}}          % an arena
+\newcommand{\Mpot}{\mathcal{M}}           % set-potential values
+\newcommand{\cont}{\mathcal{K}}           % continuants
+\newcommand{\game}{\mathfrak{G}}          % the game G(H;A)
+\newcommand{\arcs}{\mathsf{A}}            % a set of one-way arcs
+\newcommand{\mm}{\mathfrak{m}}            % number of maximum matchings
+\newcommand{\Dv}{\mathsf{D}}              % divisor map
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\back}{\operatorname{back}}
+\newcommand{\tr}{\operatorname{tr}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\rk}{\operatorname{rk}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Rdown}{R^{\downarrow}}
+\newcommand{\nplus}{N^{+}}
+\newcommand{\cls}[1]{\mathsf{#1}}
+\newcommand{\PSPACE}{\cls{PSPACE}}
+\newcommand{\EXP}{\cls{EXP}}
+\newcommand{\EXPTIME}{\cls{EXPTIME}}
+\newcommand{\NP}{\cls{NP}}
+\newcommand{\coNP}{\cls{coNP}}
+\newcommand{\BPP}{\cls{BPP}}
+\newcommand{\BQP}{\cls{BQP}}
+\newcommand{\Pclass}{\cls{P}}
+\newcommand{\NC}{\cls{NC}}
+\newcommand{\CH}{\cls{CH}}
+\newcommand{\MA}{\cls{MA}}
+\newcommand{\IP}{\cls{IP}}
+\newcommand{\sharpP}{\#\cls{P}}
+\newcommand{\Nw}{\mathrm{N}}   % N-position
+\newcommand{\Pw}{\mathrm{P}}   % P-position
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\one}{\mathbf{1}}

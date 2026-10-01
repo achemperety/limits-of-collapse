@@ -1,0 +1,134 @@
+\appendix
+
+\section{Computational verification}\label{app:verification}
+
+Every computation is exact (rational arithmetic, or Gr\"obner bases over $\Qz$) unless marked as numerical. Evaluation at a rational point is used only to refute an identity. Scripts are in the accompanying archive: \code{src/dvgcollapse} (library), \code{tests} (\code{pytest}), \code{scripts} (one-off computations of this revision), \code{verification/legacy} (the verification package of the earlier drafts, unchanged). Results marked \emph{proof} in the paper do not depend on these checks; results marked \emph{computer-assisted} do.
+
+\begin{center}\small
+\begin{longtable}{@{}L{0.25}L{0.43}L{0.25}@{}}
+\toprule
+Claim & Check & Result\\ \midrule\endhead
+\multicolumn{3}{@{}l}{\emph{Earlier drafts} (\code{verification/legacy}; reproduced for this revision)}\\
+\cref{cor:index} & $600$ random game trees, random root player and payoffs; orders cross-checked by nullities on $200$ & no failures\\
+\cref{thm:resolvent-outcome} & $300$ random rooted trees: outcome, order at $0$, image test, coverage & no failures\\
+\cref{thm:matching-collapse} & $200$ random graphs: outcome, path-tree resolvent at random rational $z$ & no failures\\
+\cref{thm:directed-collapse} & $22{,}187$ positions in $120$ random SCC-symmetric digraphs, up to $16$ vertices & no failures\\
+\cref{prop:no-cancel}, \cref{cor:dvg-poly} & $150$ SCC-symmetric digraphs, all starts & no failures\\
+\cref{cor:edge-geo} & $1{,}155$ starts and random positions & no failures\\
+\cref{prop:residue} & $124$ P-positions & no failures\\
+\cref{lem:two-point} & indeterminate weights, $1{,}680$ vertex pairs, graphs on $2$--$7$ vertices & identity holds\\
+\cref{thm:exact5} & $16\times8$, $218\times64$ pairs $(D,U)$; five vertices: set-potential filter, then $80{,}798$ saturated ideals & exactly the SCC-symmetric digraphs have potentials\\
+\cref{thm:hierarchy} (census) & all digraphs on $3$--$5$ vertices & table of \S\ref{ssec:hierarchy}\\
+\cref{cor:one-arc} & $272{,}399$ positions against exhaustive search & no failures\\
+\cref{prop:two-arcs,prop:barrier,prop:ge-barrier} & explicit examples; samples of $26{,}633$ and $38{,}805$ starts & as stated\\
+\cref{prop:env-barrier}, \cref{thm:triangle-solved,thm:every-cycle} & Gr\"obner bases and factorization; symbolic identities & as stated\\
+\cref{prop:smallest-env,prop:c5c6} & $276$, $4{,}496$, $6{,}560$, $216{,}288$; $9{,}168$, $14$, $724$, $59{,}976$ graphs $U$ & all unit ideals\\
+\cref{prop:symmetric-env} & resultants for $m\le10$ & nonzero Laurent polynomials\\
+\cref{thm:cores5}, \cref{cor:census5}, \cref{prop:census67} & self-energies as indeterminates; all digraphs on $\le7$ vertices via \code{nauty} & as stated\\
+\midrule
+\multicolumn{3}{@{}l}{\emph{This revision} (\code{src}, \code{tests}, \code{scripts})}\\
+\cref{lem:first-order}, \cref{thm:main-real} & \code{real_stability.py}: first-order factorization with indeterminate $\ell_X$; $\kappa(\emptyset)=0$, $\kappa(R)=1$ on random digraphs with one-way arcs on cycles; \code{obstruction_certificate} returns a real point with negative Rayleigh difference & as stated\\
+\cref{prop:triangle-band} & \code{triangle_band_value}: $\Delta_{20}G(-\tfrac12)$ symbolic & $(4-z^2)/(4(z^2-2)^2)$\\
+\cref{cor:c4} & \code{scripts/check_c4.py}: the three Rayleigh expansions & as stated\\
+numerical sanity check (not used in proofs) & \code{scripts/adversarial_*.py}: differential evolution searching real-stable completions of cycle path data at large $z$; a symmetric control digraph, where a completion exists, is found & no completion found for cycles; control succeeds\\
+\cref{thm:complex-counterexample,prop:sinks} & \code{complex_counterexample.verify_symbolic}: all reachable positions, resolvents by the game recursion, $\mu_a$ in symmetric functions, for $(m,r)\in\{(3,0),(4,0),(5,0),(3,1),(3,2),(4,1)\}$ & all identities exact\\
+same, numerical & \code{verify_numeric}: roots of $Y_m$ to $50$ digits, $m\le6$, real and complex $z$ & residuals $<10^{-50}$\\
+\cref{prop:Ym-arithmetic}(3) & \code{scripts/ym_arithmetic.py}: irreducibility, discriminants, PARI \code{polgalois} at $z=3,5,7$ & $S_4,S_5,S_6,S_7$\\
+\cref{prop:c3-minimal} & \code{scripts/search6_c3k3.py}: $1{,}928$ graphs $U$, saturated over $\Qz$ (Singular) & all unit ideals ($878$\,s)\\
+\cref{thm:common-tail}, \cref{cor:star-dvg} & \code{tests/test_star_tail.py}: every position of random instances against exhaustive search; the DVG solver on $60$ random digraphs & no failures\\
+\cref{thm:blowup-criterion}, \cref{lem:twin}, \cref{cor:two-periodic} & \code{tests/test_blowups.py}: formula against all paths of seven blow-ups; criterion against direct test on all $115$ blow-ups with $\le9$ vertices; twin identity for $m\le10$ & no failures; exactly the $13$ two-periodic ones pass\\
+\cref{conj:blowups}(1) & \code{scripts/blowup_scan.py}: $331$ size vectors & no counterexample\\
+\cref{thm:ladders,thm:component-circuits} & \code{tests/test_treewidth.py} & as stated\\
+\cref{prop:memory} & \code{treewidth.comb}, $m\le6$ ($n\le232$) & $2^{m}$ distinct resolvents at $q$\\
+closed ladders (\S\ref{ssec:circuits}) & $m\le7$ & table of \S\ref{ssec:circuits}\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\section{Notation}\label{app:notation}
+
+\begin{center}\small
+\begin{longtable}{@{}L{0.25}L{0.71}@{}}
+\toprule
+Symbol & Meaning\\ \midrule\endhead
+$\arena$, $\SG$, $\val$, $\pay$ & arena, state graph, value, payoff (\S\ref{sec:setting})\\
+$N$, $n$ & dimension of the cube; input size (\S\S\ref{sec:setting}--\ref{sec:extensions}, \ref{sec:boundary}) or number of vertices (from \S\ref{sec:spectral} on)\\
+$D$, $V=V(D)$, $\nplus(v)$ & digraph, its vertex set, out-neighbourhood\\
+$(W,v)$ & position of DVG: unvisited set $W$, token $v\in W$\\
+$R(W,v)$, $\Rdown(w)$ & root resolvent of a position; fresh-entry resolvent $R(V,w)$\\
+$\eta_v$ & self-energy; $1/R(W,v)=z-\eta_v-\sum R(W-v,w)$\\
+$\mu(G)$, $\mu_a(G)$, $\mu(P_\ell)$ & matching polynomial; weighted by vertex weights $a$; of the path with $\ell$ vertices\\
+$(U,a)$ & local weighted matching potential: graph $U$ on $V$, weights $a$\\
+$\Mpot$ & potential values: $\mu_a(U[\cdot])$, a set potential, or a real-stable potential (\S\ref{sec:realstab})\\
+$\Mpot_F$ & frozen potential with environment $F$ (\cref{def:frozen})\\
+$c(X)$, $\gamma_X$ & $\Mpot(V\setminus X)/\Mpot(V)$; $z^{|X|}c(X)$\\
+$\Gamma(P)$, $\back(P)$, $\ell(P)$ & product of resolvents along a play; back arcs; first-order coefficient (\cref{lem:asymptotics})\\
+$\rho(S,s)$ & Green's function $\Mpot(S-s)/\Mpot(S)$ (\S\ref{sec:fields})\\
+$\Delta^{+}(v)$, $\Delta^{-}(v)$ & exits and phantom neighbours of $v$\\
+$\Delta_{ij}P$ & Rayleigh difference\\
+$\Puis$ & real Puiseux series in $z^{-1}$ convergent at $\infty$; $\CC\{\!\{z^{-1}\}\!\}$ its complex analogue\\
+$\mathbb K$ & a field containing $\Qz$\\
+$\deg f$ & exponent of the leading term at $z=\infty$\\
+$\kappa(S)$ & first-order coefficient combination in \cref{lem:first-order}\\
+$e_j(a_F)$ & elementary symmetric functions of the environment weights (\S\ref{sec:complex})\\
+$Y_m$, $\exp_m(w)$ & polynomial of the environment weights \eqref{eq:Ym}; truncated exponential $\sum_{k\le m}w^k/k!$\\
+$\game(H;\arcs)$, $K$, $W'$ & DVG inside a component with one-way arcs $\arcs$; current graph; live heads (\S\ref{sec:oneway})\\
+$\nu$ & matching number\\
+$\cont(\cdot)$ & continuant (\S\ref{ssec:setpot-cycles})\\
+$C_m(s_0,\dots,s_{m-1})$, $b^{(j)}_k$ & blow-up of a directed cycle; branching numbers (\cref{thm:blowup-criterion})\\
+$L_m$, $Q_m$ & ladder; comb (\S\ref{sec:treewidth})\\
+$\operatorname{cs}(W,v)$ & canonical subgame (\cref{def:canonical})\\
+$\ord_0$, $\ord_{z=0}$ & order of vanishing at $z=0$\\
+$\mm(G)$, $\mathrm{pm}(G)$ & numbers of maximum and of perfect matchings\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\section{Concordance with the earlier drafts}\label{app:concordance}
+
+Numbers in \S\S\ref{sec:setting}--\ref{sec:boundary} are unchanged, except that Conjecture~6.10 is now \cref{thm:conj610}. The addendum's \S\S10--11 map as follows.
+
+\begin{center}\small
+\begin{longtable}{@{}L{0.29}L{0.33}L{0.31}@{}}
+\toprule
+Earlier draft & This version & Change\\ \midrule\endhead
+Conjecture 6.10 & \cref{thm:conj610}, \cref{cor:complex-false} & proved over $\Qz$, $\Rz$, $\Puis$; false over $\Qzbar$\\
+Open Problem 3 (\S9) & \cref{thm:conj610}, \cref{prob:complex} & settled, with a new complex problem\\
+Open Problem 7 (\S9) & \cref{cor:one-arc,thm:common-tail}, \cref{prob:two-tails} & settled for one arc and for common tails\\
+Lemma 10.A & \cref{lem:asymptotics} & with self-energies\\
+Lemma 10.B, 10.C & \cref{lem:cavity,lem:two-point} & \\
+Theorem 10.1, 10.2 & \cref{thm:normal,thm:no-phantom} & 10.1 extended to complex Puiseux weights\\
+Theorem 10.3, Cor.\ 10.3$'$ & \cref{prop:path-lemma,cor:u-edges} & \\
+Theorem 10.4, 10.5 & \cref{cor:unilateral,cor:sign-coherent} & now also consequences of \cref{thm:main-real}\\
+Theorem 10.6, 10.7 & \cref{thm:cocycle,thm:locality} & \\
+Theorem 10.7$'$, Prop.\ 10.7$''$ & \cref{cor:triangles,cor:c4} & 10.7$''$ was misnamed a theorem in places\\
+Theorem 10.8 & \cref{thm:exact5} & \\
+Theorem 10.9 & \cref{prop:shape} & restated over arbitrary fields\\
+Conjecture 10.9$'$ & \cref{thm:frozen-real} & proved for real weights; false over $\Qzbar$ (\cref{thm:every-cycle})\\
+Proposition 10.10 & \cref{prop:env-barrier} & \\
+Theorem 10.11, Cor.\ 10.11$'$ & \cref{cor:one-arc}, \cref{cor:star-dvg} & special case of \cref{thm:common-tail}\\
+Proposition 10.12 & \cref{prop:two-arcs} & \\
+Theorem 10.13 & \cref{thm:hierarchy} & \\
+Theorem 10.14 & \cref{thm:ladders} & with \cref{thm:intrinsic-degree}\\
+Theorem 11.1, Cor.\ 11.1$'$ & \cref{thm:common-tail}, \cref{cor:star-dvg} & \\
+Proposition 11.2, Cor.\ 11.3 & \cref{prop:barrier}, \cref{cor:dichotomy} & \\
+Theorem 11.4, 11.5 & \cref{thm:triangle-solved,thm:every-cycle} & \\
+Proposition 11.6 & \cref{prop:smallest-env} & \\
+Lemma 11.8, 11.9 & \cref{lem:set-components,lem:branches} & 11.9: path kinds defined disjointly\\
+Theorem 11.10, 11.11 & \cref{thm:set-cycles,thm:books} & \\
+Theorem 11.12, Cor.\ 11.13 & \cref{thm:cores5}, \cref{cor:census5} & \\
+Lemma 11.14 & \cref{lem:p-tails} & generalized to $p$ tails\\
+Proposition 11.15 & \cref{prop:ge-barrier} & \\
+Lemma 11.16, 11.17 & \cref{lem:frozen-path,lem:env-seen} & 11.17 with self-energies\\
+Theorem 11.18 & \cref{thm:meanfield} & \\
+Proposition 11.19, 11.20 & \cref{prop:symmetric-env,prop:c5c6} & \\
+Conjecture 11.21 & \cref{conj:minimal-env} & \\
+Theorem 11.22 & \cref{thm:one-blown} & \\
+Theorem 11.23 & \cref{cor:two-periodic} & extended to all two-periodic blow-ups\\
+Theorem 11.24, Cor.\ 11.25 & \cref{thm:cacti}, \cref{cor:uniform-cacti} & \\
+Proposition 11.26 & \cref{prop:census67} & \\
+Conjecture 11.27 & \cref{conj:blowups} & ``if'' half of (1) proved (\cref{cor:two-periodic})\\
+\S11.11 items 1--5 & \cref{prob:two-tails}, \cref{thm:frozen-real}, \cref{conj:minimal-env}, \cref{conj:blowups}, \cref{prob:band} & item 2 settled\\
+\bottomrule
+\end{longtable}
+\end{center}

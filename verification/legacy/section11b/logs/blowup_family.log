@@ -1,0 +1,10 @@
+m= 3: all rotation continuants equal: True | K = w^4 - 2*w^2*r + r^2 - r
+m= 4: all rotation continuants equal: True | K = (-1) * (-w^3*p^3 + 3*w^2*p^2*r - 3*w*p*r^2 + 2*w*p*r + r^3 - 2*r^2 + r)
+m= 5: all rotation continuants equal: True | K = w^8 - 4*w^6*r + 6*w^4*r^2 - 3*w^4*r - 4*w^2*r^3 + 6*w^2*r^2 + r^4 - 2*w^2*r - 3*r^3 + 3*r^2 - r
+m= 6: all rotation continuants equal: True | K = 
+m= 7: all rotation continuants equal: True | K = 
+m= 8: all rotation continuants equal: True | K = 
+m= 9: all rotation continuants equal: True | K = 
+m=10: all rotation continuants equal: True | K = 
+m=11: all rotation continuants equal: True | K = 
+m=12: all rotation continuants equal: True | K = 

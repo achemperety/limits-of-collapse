@@ -1,0 +1,60 @@
+=== python3 check_factorization.py
+n=2  Delta(eps=0) == 0: True   first-order == Q*F: True
+n=3  Delta(eps=0) == 0: True   first-order == Q*F: True
+n=4  Delta(eps=0) == 0: True   first-order == Q*F: True
+n=5  Delta(eps=0) == 0: True   first-order == Q*F: True
+=== python3 check_kappa.py
+directed triangle                kappa(empty)=0  kappa(R)=1
+C4 with backward chord 2->0      kappa(empty)=0  kappa(R)=1
+C5 plus symmetric pair 1<->2     kappa(empty)=0  kappa(R)=1
+two-vertex-exit C4               kappa(empty)=0  kappa(R)=1
+random instances: 25  violations of (0,1): 0
+=== python3 check_c4.py
+interval coeffs ok: True
+coeff {0,2}: p + z**2 - 1  coeff {1,3}: q + z**2 - 1
+Delta02 at y1=y3=z: -p*z**4 + 3*p*z**2 - p + 1   target 1-p*mu(P4): 0
+Delta13 at y0=y2=0: -(q - 1)*(p*z**2 + 1)  diff: 0
+Delta12 at y0=-1,y3=1: p*q*z**2 - p*q + p*z**2 + p*z + q*z**2 - q*z - z**2 + 4
+  diff from claim: 0
+3 -4.670082644628099 -1
+4 -11.846546553421396 -8
+10 -95.97938251673709 -92
+100 -9995.999799939984 -9992
+=== python3 check_rescued_triangle.py
+m0/m1 - 1/z: 0
+m1/m2 - z/(z^2-1): 0
+m2/m3 - (z^2-1)/(z^3-2z): 0
+sextic identity: 0
+sextic irreducible over Q(z): True
+resultant(quad, sextic) == 0: True
+cubic irreducible: True
+=== python3 complex_numeric_D3.py
+z = 5.0: env weights ['-0.309096', '5.60187', '(-0.146386 - 0.359487j)', '(-0.146386 + 0.359487j)']
+     max |identity residual| = 3.34e-52
+z = 0.7: env weights ['(-1.0003 - 0.525104j)', '(-1.0003 + 0.525104j)', '(1.3503 + 1.13575j)', '(1.3503 - 1.13575j)']
+     max |identity residual| = 1.08e-50
+z = (1.3 + 0.4j): env weights ['(-0.875012 + 0.337958j)', '(-0.977874 - 0.570282j)', '(2.76156 - 1.00614j)', '(0.391325 + 1.63846j)']
+     max |identity residual| = 2.67e-51
+=== python3 blowup_scan.py
+size vectors tested (up to rotation): 331 ; counterexamples to Conjecture 13.16(1): []
+two-periodic (s,t)^r, r = 2..5, s,t <= 5: all have set potentials: True
+=== python3 twin_identity_symbolic.py
+twin identity K(c) = z K(d) for all t<=6, m=2r<=12, symbolic s: True
+=== python3 comb_memory.py 5
+m=1 n=9 distinct resolvents at q: 2 (2^m = 2)  0.0s
+m=2 n=26 distinct resolvents at q: 4 (2^m = 4)  0.0s
+m=3 n=55 distinct resolvents at q: 8 (2^m = 8)  0.1s
+m=4 n=96 distinct resolvents at q: 16 (2^m = 16)  0.3s
+m=5 n=155 distinct resolvents at q: 32 (2^m = 32)  0.9s
+=== python3 closed_ladders.py 6
+m=2: positions     22, canonical subgames    16 (cubic fit    16), distinct resolvents     9  0.0s
+m=3: positions     69, canonical subgames    48 (cubic fit    48), distinct resolvents    20  0.0s
+m=4: positions    188, canonical subgames   108 (cubic fit   108), distinct resolvents    46  0.1s
+m=5: positions    463, canonical subgames   212 (cubic fit   212), distinct resolvents    86  0.1s
+m=6: positions   1092, canonical subgames   376 (cubic fit   376), distinct resolvents   150  0.4s
+=== python3 ym_arithmetic.py
+m=3 irreducible=True  LC=z**2 - 2  disc factors (deg,exp)=[(2, 2), (8, 1)]  simple factors=1  Galois(z0=3,5,7)=['[24, -1, 5, "S4"]', '[24, -1, 5, "S4"]', '[24, -1, 5, "S4"]']  (0.1s)
+m=4 irreducible=True  LC=(z**2 - z - 1)*(z**2 + z - 1)  disc factors (deg,exp)=[(1, 4), (2, 1), (2, 1), (20, 1)]  simple factors=1  Galois(z0=3,5,7)=['[120, -1, 5, "S5"]', '[120, -1, 5, "S5"]', '[120, -1, 5, "S5"]']  (0.1s)
+m=5 irreducible=True  LC=(z - 1)*(z + 1)*(z**2 - 3)  disc factors (deg,exp)=[(1, 1), (1, 1), (2, 1), (26, 1)]  simple factors=1  Galois(z0=3,5,7)=['[720, -1, 16, "S6"]', '[720, -1, 16, "S6"]', '[720, -1, 16, "S6"]']  (0.1s)
+m=6 irreducible=True  LC=(z**3 - z**2 - 2*z + 1)*(z**3 + z**2 - 2*z - 1)  disc factors (deg,exp)=[(1, 6), (3, 1), (3, 1), (42, 1)]  simple factors=1  Galois(z0=3,5,7)=['[5040, -1, 7, "S7"]', '[5040, -1, 7, "S7"]', '[5040, -1, 7, "S7"]']  (0.3s)
+done

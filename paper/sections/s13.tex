@@ -1,0 +1,271 @@
+\section{Set potentials}\label{sec:setpot}
+
+A local weighted matching potential produces every resolvent from one vertex-deletion recurrence. Dropping the recurrence leaves an algebraic consistency condition on the game alone: the products of resolvents along plays must depend only on the set of visited vertices. This section classifies that condition on the families where it can be decided in closed form. A set potential carries no information about complexity; it is a structural invariant of the generating functions of the game.
+
+\subsection{Three kinds of potential}\label{ssec:hierarchy}
+Let $\mathcal W$ be the family of the sets $W$ and $W-v$ over the reachable positions $(W,v)$.
+\begin{itemize}
+\item A \emph{local weighted matching potential} is the object of \cref{thm:conj610}.
+\item A \emph{set potential} is a map $\Mpot\colon\mathcal W\to\Qz^{\times}$ with $\Mpot(W-v)=R(W,v)\Mpot(W)$ at every reachable position (as in \cref{thm:cocycle}).
+\item A \emph{valuation potential} is a map $\Lambda\colon\mathcal W\to\ZZ$ with $\Lambda(W-v)-\Lambda(W)=\ord_0R(W,v)$, which by \cref{thm:resolvent-outcome} is $+1$ at N-positions and $-1$ at P-positions.
+\end{itemize}
+Every set in $\mathcal W$ has the form $V\setminus V(P)$ for a directed path $P$, and $\Mpot(V\setminus V(P))=\Gamma(P)\Mpot(V)$; so a set potential exists exactly when $\Gamma(P)$ depends only on $V(P)$, and whether it does is decided exactly over $\Qz$ by propagating $\Mpot$ from $V$ (\code{potentials.set_potential}). By \cref{lem:field-independence} the answer does not change over any larger field.
+
+\begin{theorem}[hierarchy]\label{thm:hierarchy}
+A matching potential gives a set potential, $\Mpot=\mu_a(U[\cdot])$, and a set potential gives a valuation potential, $\Lambda=\ord_0\Mpot$. All three exist on SCC-symmetric digraphs. Both implications are strict: a directed cycle has a set potential but no matching potential, and the digraph with arcs $0\rightleftarrows1$, $0\to2$, $2\to1$, $2\to3$ has a valuation potential but no set potential. The digraph $T$ with arcs $0\rightleftarrows1$, $0\rightleftarrows2$, $1\to2$ has none of the three.
+\end{theorem}
+\begin{proof}
+On a directed cycle every nonempty unvisited set other than $V$ is a cyclic interval reached by a unique play, and $\emptyset$ is reached from all $k$ starts, each play with product $1/\mu(P_k)$; so a set potential exists, and \cref{prop:fails}(1) excludes a matching potential. The four-vertex digraph has the Hamiltonian cycle $0\to2\to1\to0$ on $\{0,1,2\}$, where vertex $0$ has two out-neighbours and one in-neighbour, so \cref{thm:cocycle} excludes a set potential; a valuation potential exists by direct computation. For $T$ put $\Lambda(V)=0$. The position $(V,0)$ is an N-position (moving to $2$ leaves the opponent stuck), so $\Lambda(\{1,2\})=1$; $(\{1,2\},1)$ is N, so $\Lambda(\{2\})=2$; $(V,1)$ is P, since both options are N, so $\Lambda(\{0,2\})=-1$; and $(\{0,2\},0)$ is N, so $\Lambda(\{2\})=0$, a contradiction.
+\end{proof}
+
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Non-SCC-symmetric digraphs, up to isomorphism & $3$ vertices & $4$ vertices & $5$ vertices\\ \midrule
+no valuation potential & $2$ & $83$ & $6{,}566$\\
+valuation potential only & $0$ & $25$ & $1{,}410$\\
+set potential, no matching potential & $1$ & $6$ & $79$\\ \midrule
+total & $3$ & $114$ & $8{,}055$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Since $T$ has three vertices, the obstruction to valuation potentials is local and has nothing to do with width (\S\ref{sec:treewidth}).
+
+\subsection{Components and symmetric branches}
+Games with self-energies are as in \S\ref{sec:realstab}. A self-energy \emph{vanishes at infinity} if it lies in $\Qz$ (or $\Puis$) and tends to $0$ as $z\to\infty$; those produced by exits and by symmetric branches do.
+
+\begin{lemma}[components]\label{lem:set-components}
+For a strong component $C$ and $x\in C$ let $\eta_x$ be the sum of $\Rdown(t)$ over the out-neighbours $t$ of $x$ outside $C$. Then $D$ has a set potential if and only if every non-symmetric strong component $C$, played alone with the self-energies $\eta$, has one.
+\end{lemma}
+\begin{proof}
+A directed path meets the strong components in topological order and never returns to one. While the token is in $C$, every vertex it can reach outside $C$ lies strictly below $C$ and is unvisited (\cref{lem:entry}), so an exit to $t$ contributes exactly $\Rdown(t)$. Hence $\Gamma(P)$ is the product, over the components met by $P$, of $\Gamma$ of its segment in the component game with self-energies $\eta$, and a segment inside $C$ is itself a directed path of $D$. Two paths with the same vertex set meet the same components in the same vertex sets, so $D$ passes if every component game does, and a failing pair inside one component is a failing pair of $D$. A symmetric component always passes: by Godsil's identity with vertex weights $z-\eta$, each factor is $\mu(G[W]-v)/\mu(G[W])$ and the product telescopes.
+\end{proof}
+
+So everything upstream of a component, and everything incomparable to it, is irrelevant to set potentials.
+
+\begin{lemma}[symmetric branches act as exits]\label{lem:branches}
+Let $C$ carry self-energies $\eta$, let $h\in C$, and let $B\subseteq C\setminus\{h\}$ be nonempty, with $D[B\cup\{h\}]$ symmetric and no arc between $B$ and $A\setminus\{h\}$, where $A=C\setminus B$. With vertex weights $z-\eta$ on $B$ put
+\[
+\sigma=\sum_{t\in N(h)\cap B}\frac{\mu(B-t)}{\mu(B)},
+\]
+the sum of the root resolvents of undirected geography on $B$ at the neighbours of $h$. Then $(C,\eta)$ has a set potential if and only if $(A,\eta')$ has one, where $\eta'_h=\eta_h+\sigma$ and $\eta'=\eta$ elsewhere.
+\end{lemma}
+\begin{proof}
+Let $\Gamma'$ and $R'$ refer to the game $(A,\eta')$, and let $\tau=\eta_h+\sum_aR_{A-h}(a)$ over the out-neighbours $a$ of $h$ in $A$, where $R_{A-h}$ is the fresh resolvent of the game on $A-h$. Sort the directed paths $P$ of $(C,\eta)$ with vertex set $X$ into four kinds: (0) $X\cap B=\emptyset$; (1) $X\cap B\neq\emptyset$ and $X\subseteq B\cup\{h\}$; (2) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $B$; (3) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $A\setminus\{h\}$. A path of kind (2) or (3) passes through $h$ exactly once, because $B$ is joined to the rest only through $h$; it has the form $\beta\cdot h\cdot\alpha$ or $\alpha\cdot h\cdot\beta$ with $\beta$ in $B$ and $\alpha$ in $A\setminus\{h\}$.
+
+Whenever the token stands in $A$ with $B$ unvisited, a move from $h$ into $B$ starts undirected geography on the fresh set $B$, so $B$ contributes exactly $\sigma$ to $1/R(W,h)$; by induction on the game tree every such position has the resolvent of $(A,\eta')$. Hence $\Gamma(P)=\Gamma'(P)$ for kind (0). While $A\setminus\{h\}$ is untouched, the token in $B\cup\{h\}$ plays undirected geography on $G=D[B\cup\{h\}]$ with weights $z-\eta$ on $B$ and $z-\tau$ on $h$, and once $h$ is visited it plays on $B$ alone. Therefore, by Godsil's identity,
+\begin{itemize}
+\item kind (1): $\Gamma(P)=\mu(G-X)/\mu(G)$;
+\item kind (2): $\Gamma(\beta\cdot h\cdot\alpha)=\dfrac{\mu(B\setminus V(\beta))}{\mu(G)}\,\Gamma_{A-h}(\alpha)=\dfrac{\mu(B\setminus V(\beta))}{\mu(B)}\,\Gamma'(h\cdot\alpha)$, because $\mu(G)=\mu(B)(z-\tau-\sigma)$ and $R'(A,h)=1/(z-\tau-\sigma)$;
+\item kind (3): $\Gamma(\alpha\cdot h\cdot\beta)=\Gamma'(\alpha\cdot h)\,\dfrac{\mu(B\setminus V(\beta))}{\mu(B)}$, because $B$ is fresh when the token enters it.
+\end{itemize}
+If $(C,\eta)$ has a set potential, so does $(A,\eta')$, since its paths are the kind-(0) paths. Conversely, suppose $(A,\eta')$ has one and let $P,P'$ have the same vertex set $X$. They have the same kind, except that kinds (2) and (3) can meet. In kinds (0) and (1) the formulas depend only on $X$. In kinds (2) and (3), $\Gamma$ is $\mu(B\setminus X)/\mu(B)$ times $\Gamma'$ of a path of $(A,\eta')$ with vertex set $X\cap A$, which contains $h$, and that value depends only on $X\cap A$.
+\end{proof}
+
+Repeated pruning removes every symmetric branch. A \emph{pruned core} is a strongly connected, non-symmetric digraph without symmetric branches.
+
+\subsection{Directed cycles and books}\label{ssec:setpot-cycles}
+For weights $w_1,\dots,w_n$ and couplings $\beta_2,\dots,\beta_n$ the \emph{continuant} $\cont(w_1,\dots,w_n)$ is defined by $\cont_0=1$, $\cont_1=w_1$ and $\cont_i=w_i\cont_{i-1}-\beta_i\cont_{i-2}$, where $\cont_i$ is the continuant of the first $i$ entries; unlisted couplings are $1$. It is the weighted matching polynomial of a path with edge weights $\beta$, it is unchanged when the sequence (with its couplings) is reversed, and two sequences $\sigma,\tau$ joined with coupling $\beta$ satisfy the \emph{junction rule}
+\[
+\cont(\sigma,\tau)=\cont(\sigma)\cont(\tau)-\beta\,\cont(\sigma^{-})\cont({}^{-}\tau),
+\]
+where $\sigma^{-}$ drops the last entry of $\sigma$ and ${}^{-}\tau$ the first entry of $\tau$. For a directed path with weights $w_i=z-\eta_i$ the product of resolvents along the whole path is $1/\cont(w_1,\dots,w_n)$. With $T_i=\bigl(\begin{smallmatrix}w_i&-1\\1&0\end{smallmatrix}\bigr)$,
+\[
+T_n\cdots T_1=\begin{pmatrix}\cont(w_1,\dots,w_n)&-\cont(w_2,\dots,w_n)\\ \cont(w_1,\dots,w_{n-1})&-\cont(w_2,\dots,w_{n-1})\end{pmatrix}.
+\]
+
+\begin{theorem}[directed cycles]\label{thm:set-cycles}
+A chordless directed cycle $x_0\to x_1\to\dots\to x_{m-1}\to x_0$ with self-energies vanishing at infinity has a set potential if and only if $\eta(x_{i+2})=\eta(x_i)$ for every $i$, indices mod $m$. In particular $\eta$ is constant when $m$ is odd. Then all rotation continuants $\cont_i=\cont(w_i,\dots,w_{i-1})$ agree; write $\cont(C)$ for their value.
+\end{theorem}
+\begin{proof}
+A proper vertex set carried by a path is a cyclic interval, carried by one path, so the only condition is that the $m$ rotations of the whole cycle have equal products $\Gamma=1/\cont_i$. The product $\Pi_i=T_{i-1}\cdots T_{i+1}T_i$ equals $\bigl(\begin{smallmatrix}\cont_i&-B_i\\C_i&-c_i\end{smallmatrix}\bigr)$, where $B_i,C_i,c_i$ are the continuants of $w_{i+1},\dots,w_{i-1}$, of $w_i,\dots,w_{i-2}$ and of $w_{i+1},\dots,w_{i-2}$. Since $\Pi_{i+1}T_i=T_i\Pi_i$, all $\Pi_i$ have the same trace $\cont_i-c_i$. If $\cont_i=A$ for all $i$, then $c_i=c$ for all $i$, and comparing entries of $\Pi_{i+1}T_i=T_i\Pi_i$ gives $B_{i+1}=C_i$, $C_{i+1}=B_i$ and $w_iB_i=A+c$. Because $\eta$ vanishes at infinity, $B_i$ and $A+c$ have degrees $m-1$ and $m$, so $w_i=(A+c)/B_i$ and $B_{i+2}=B_i$ give period $2$. Conversely, if $w$ has period $2$, reversing the sequence $w_{i+1},\dots,w_{i-2}$ gives $w_{i+2},\dots,w_{i-1}$, so $c_i=c_{i+1}$ and $\cont_i=\text{trace}+c_i$ is constant.
+\end{proof}
+
+\begin{theorem}[books]\label{thm:books}
+The $r$-page book $B_r$ has a spine $x\to y$ and pages $p_1,\dots,p_r$ with arcs $y\to p_i\to x$; it is the directed triangle with one vertex blown up into $r$ twins. With self-energies vanishing at infinity it has a set potential if and only if
+\[
+\eta(y)=\eta(p_1)=\dots=\eta(p_r)=e,\qquad \eta(x)=e+\frac{r-1}{z-e}.
+\]
+By \cref{lem:branches} the extra term can be supplied by $r-1$ pendant vertices at $x$ with self-energy $e$, or, when $e=0$, by exits from $x$ to $r-1$ sinks.
+\end{theorem}
+\begin{proof}
+Write $z_v=z-\eta(v)$, $S=\sum_j1/z_{p_j}$, $S_i=S-1/z_{p_i}$ and $T=\sum_jz_x/(z_{p_j}z_x-1)$. The vertex sets carried by several paths are the triangles $\{x,y,p_i\}$, with their three rotations, and the sets $\{p_i,x,y,p_j\}$, carried by $p_ixyp_j$ and $p_jxyp_i$. Direct computation gives
+\begin{gather*}
+\Gamma(xyp_i)=\frac{1}{(z_x(z_y-S)-1)\,z_{p_i}},\qquad \Gamma(yp_ix)=\frac{1}{(z_y-T)(z_{p_i}z_x-1)},\\
+\Gamma(p_ixy)=\frac{1}{D_i},\qquad \Gamma(p_ixyp_j)=\frac{1}{D_i\,z_{p_j}},
+\end{gather*}
+with $D_i=z_{p_i}(z_x(z_y-S_i)-1)-(z_y-S_i)$. Equating the first two gives $z_{p_i}(z_x(T-S)-1)=T-z_y$. Since $\eta$ vanishes at infinity, $z_x(T-S)=O(z^{-2})$, so all pages have the same $z_{p_i}=w$, and then the equation reads $z_y=w$. Equating the first and third gives $z_x=w-(r-1)/w$. The sets $\{p_i,x,y,p_j\}$ agree because the pages are now interchangeable. Conversely these values satisfy all equations.
+\end{proof}
+
+\subsection{Pruned cores on at most five vertices}
+
+\begin{theorem}[pruned cores on at most five vertices]\label{thm:cores5}
+Among pruned cores with at most five vertices and self-energies vanishing at infinity, exactly the following admit a set potential, with exactly these self-energies.
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}L{0.2}L{0.3}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Pruned core & Arcs & Admissible self-energies\\ \midrule
+$C_3$, $C_4$, $C_5$ & the cycle & period $2$ around the cycle (\cref{thm:set-cycles})\\
+books $B_2$, $B_3$ & $x\to y\to p_i\to x$ & \cref{thm:books}\\
+$C_4$ with one vertex doubled & $s_0\to s_1\to s_2\to\{s_3,s_3'\}\to s_0$ & $\eta(s_3)=\eta(s_3')=e$, $\eta(s_1)=e+1/(z-\eta(s_2))$, $\eta(s_0)=\eta(s_2)+1/(z-e)$\\
+$C_3$ with two vertices doubled & $s_0\to\{s_1,s_1'\}\to\{s_2,s_2'\}\to s_0$ & $\eta=a$ on $s_0,s_2,s_2'$ and $\eta=a-1/(z-a)$ on $s_1,s_1'$\\
+bowtie & two directed triangles sharing a vertex $h$ & $\eta=e$ off $h$ and $\eta(h)=e-1/((z-e)-1/(z-e))$\\
+\bottomrule
+\end{tabularx}
+\end{center}
+Every other strongly connected, non-symmetric digraph with at most five vertices either admits no self-energies vanishing at infinity, or has a symmetric branch and reduces by \cref{lem:branches} to a core in the table, with the self-energies the lemma predicts.
+\end{theorem}
+\begin{proof}[Method \textup{(computer-assisted)}]
+The self-energies are indeterminates over $\Qz$. On three and four vertices every strongly connected, non-symmetric digraph was treated. On five vertices, self-energies vanishing at infinity enter \cref{lem:asymptotics} like out-degrees, so the back-arc test of \cref{thm:cocycle} is necessary; it leaves $14$ of the $5{,}027$ strongly connected, non-symmetric digraphs. For each digraph the equations $\Gamma(P)=\Gamma(P')$ over paths with equal vertex sets generate an ideal of $\Qz[\eta]$, which is saturated by every numerator and denominator of $\Gamma$ and decomposed into minimal primes; components on which some $\eta$ cannot vanish at infinity are discarded (one for the doubled triangle, with $\eta(s_1)=z$, and one for the bowtie, with $\eta(h)\sim z/2$).
+\end{proof}
+
+The cycles, the books and the doubled $4$-cycle are realized by exits; for instance, the doubled $4$-cycle with sinks at $s_0$ and $s_1$ has a set potential. For the doubled triangle and the bowtie, the admissible self-energy at one vertex class is smaller than at its neighbours by a resolvent, and no exit structure among the $8{,}844$ sums of at most three root resolvents of games on at most four vertices realizes either. With $e=0$ this is forced: a sum of root resolvents has positive leading coefficient.
+
+\begin{corollary}[the census on at most five vertices]\label{cor:census5}
+Every non-SCC-symmetric digraph with a set potential and at most five vertices has exactly one non-symmetric strong component, and its pruned core is a directed cycle or the $2$-page book. On five vertices the $79$ digraphs are: $52$ bare directed triangles (zero exit self-energies), $9$ triangles with self-energy $1/z$ at every vertex, $3$ with $z/(z^2-1)$ at every vertex, one each with $2/z$, $2z/(z^2-1)$ and $1/z+z/(z^2-1)$ at every vertex, one triangle with a pendant vertex and $1/z$ at the other two vertices; $6$ bare directed $4$-cycles, one with $1/z$ at every vertex and one with $1/z$ at two opposite vertices; one bare $5$-cycle; one $2$-page book with $1/z$ at the spine tail and one with a pendant vertex there. On three and four vertices the $1+6$ cases are the directed triangle, bare or with a common sink, a source or an in-pendant, and the directed $4$-cycle.
+\end{corollary}
+\begin{proof}
+\Cref{lem:set-components,lem:branches}, \cref{thm:set-cycles,thm:books,thm:cores5}, applied to the census of \cref{thm:hierarchy}; every entry was confirmed by the exact test.
+\end{proof}
+
+\begin{remark}[the mechanism]\label{rem:mechanism}
+There is no global Eulerian compensation. By \cref{lem:set-components} everything upstream of a component and everything incomparable to it is irrelevant, which is why $52$ of the $79$ are a bare triangle with arbitrary other attachments. Inside a component the mechanism is a balance of effective self-energies, to which exits and pruned branches contribute only through their resolvents. The hidden symmetry is the period-$2$ invariance of these self-energies around a cycle, together with the leaf compensation of twin pages in books; it need not come from an automorphism (in the $2$-page book with a sink at its spine tail no automorphism rotates a page triangle, yet its three rotations have equal $\Gamma$). The Eulerian condition of \cref{thm:cocycle} is the first-order shadow of this balance and is blind to exits, which enter \cref{lem:asymptotics} like out-degrees and cancel; a $4$-cycle with sinks at two adjacent vertices satisfies \cref{thm:cocycle} but has no set potential.
+\end{remark}
+
+\subsection{Blow-ups of directed cycles}
+For sizes $s_0,\dots,s_{m-1}\ge1$ the \emph{blow-up} $C_m(s_0,\dots,s_{m-1})$ replaces $x_i$ by a class $S_i$ of $s_i$ twins, with an arc from every vertex of $S_i$ to every vertex of $S_{i+1}$, indices mod $m$. For $m\ge3$ it is a pruned core. The book $B_r$ is $C_3(r,1,1)$, the doubled $4$-cycle is $C_4(2,1,1,1)$, and the doubled triangle of \cref{thm:cores5} is $C_3(1,2,2)$.
+
+\begin{theorem}[continuant criterion]\label{thm:blowup-criterion}
+Let $D=C_m(s_0,\dots,s_{m-1})$ with $m\ge3$ carry a constant self-energy $e$, and put $y=z-e$. For $j\in\ZZ/m$ let
+\[
+b^{(j)}_k=s_{j+k+1}-\Bigl\lfloor\frac{k+1}{m}\Bigr\rfloor\quad(k\ge0),\qquad L_j=1+\min\{k:b^{(j)}_k=0\},
+\]
+and define the \emph{backward continuants} by $\cont^{(j)}_{L_j}=1$, $\cont^{(j)}_{L_j+1}=0$ and
+\[
+\cont^{(j)}_k=y\,\cont^{(j)}_{k+1}-b^{(j)}_k\cont^{(j)}_{k+2}\qquad(0\le k<L_j).
+\]
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Every directed path $P$ that starts in class $j$ and has $n$ vertices has $\Gamma(P)=\cont^{(j)}_n/\cont^{(j)}_0$.
+\item $D$ has a set potential if and only if, for every $c$ with $1\le c\le\min_is_i$, the ratio $\cont^{(j)}_{cm}/\cont^{(j)}_0$ does not depend on $j$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) Let the play start at a vertex of $S_j$. At depth $k$ the token is in class $j+k$, and the vertices of $S_{j+k+1}$ visited so far are those visited at the depths $d\le k$ with $d\equiv k+1\pmod m$, of which there are $\lfloor(k+1)/m\rfloor$. Since the out-neighbours of every vertex of $S_i$ are exactly the vertices of $S_{i+1}$, every node at depth $k$ of the game tree has exactly $b^{(j)}_k$ children, all with isomorphic subtrees; the tree is spherically symmetric, and the play ends at depth $L_j-1$. With level resolvents $R_k$ this gives $R_k=1/(y-b^{(j)}_kR_{k+1})$ and $R_{L_j-1}=1/y$, so $R_k=\cont^{(j)}_{k+1}/\cont^{(j)}_k$. The $i$-th position of $P$ is a node at depth $i$, so $\Gamma(P)=\prod_{i<n}\cont^{(j)}_{i+1}/\cont^{(j)}_i=\cont^{(j)}_n/\cont^{(j)}_0$.
+
+(2) By (1), $\Gamma(P)$ depends only on the start class and the number of vertices. A path with $n$ vertices from class $j$ meets class $i$ in as many vertices as there are $k<n$ with $j+k\equiv i$. If $m\nmid n$, these counts determine $j$, so two paths with the same vertex set have the same $\Gamma$. If $n=cm$, every class is met in $c$ vertices, which requires $c\le\min_is_i$; conversely, for such $c$ and any set $X$ with $c$ vertices in every class, and for every $j$, listing the vertices of $X$ class by class from $S_j$ gives a directed path with vertex set $X$ that starts in class $j$, because consecutive classes are completely joined. So the set potential exists exactly when $\cont^{(j)}_{cm}/\cont^{(j)}_0$ is independent of $j$ for these $c$.
+\end{proof}
+
+\begin{lemma}[twin identity]\label{lem:twin}
+Let $m\ge4$ be even, $s>t\ge1$, and let $s_i=s$ for even $i$ and $s_i=t$ for odd $i$. Then $L_0=tm+1$, $L_1=tm$, and
+\[
+\cont^{(0)}_k=y\,\cont^{(1)}_k\qquad\text{for every even }k\text{ with }0\le k\le tm.
+\]
+\end{lemma}
+\begin{proof}
+Write $b=b^{(0)}$ and $b'=b^{(1)}$: $b_k=t-\lfloor(k+1)/m\rfloor$ for even $k$ and $s-\lfloor(k+1)/m\rfloor$ for odd $k$, while $b'_k=s-\lfloor(k+1)/m\rfloor$ for even $k$ and $t-\lfloor(k+1)/m\rfloor$ for odd $k$. Since $s>t$, $b_k\ge1$ for $k<tm$ and $b_{tm}=0$, and $b'_k\ge1$ for $k<tm-1$ and $b'_{tm-1}=0$; this gives $L_0,L_1$. Eliminating the odd levels from the backward recursion: for $2\le k\le L-1$,
+\[
+\cont_{k-2}=(y^{2}-b_{k-2}-b_{k-1})\,\cont_k-b_{k-1}b_k\,\cont_{k+2},
+\]
+using $y\cont_{k+1}=\cont_k+b_k\cont_{k+2}$. Put $E_j=\cont^{(0)}_{tm-2j}$ and $E'_j=\cont^{(1)}_{tm-2j}$. For even $k$ the sums $b_{k-2}+b_{k-1}$ and $b'_{k-2}+b'_{k-1}$ both equal $s+t-\lfloor(k-1)/m\rfloor-\lfloor k/m\rfloor$; and since $m$ is even and $k+1$ is odd, $\lfloor(k+1)/m\rfloor=\lfloor k/m\rfloor=:q$, so the products $b_{k-1}b_k$ and $b'_{k-1}b'_k$ both equal $(s-q)(t-q)$. Hence $E$ and $E'$ satisfy the same three-term recursion for $j\ge1$. At the start, $E_0=\cont^{(0)}_{tm}=y$ and $E'_0=\cont^{(1)}_{tm}=1$; and $E_1=(y^{2}-b_{tm-2}-b_{tm-1})\,y=(y^{2}-1-s+t)\,y$, while $\cont^{(1)}_{tm-1}=y$ and $E'_1=y^{2}-b'_{tm-2}=y^{2}-(s-t+1)$. So $E_j=yE'_j$ for $j=0,1$, hence for all $j\le tm/2$.
+\end{proof}
+
+\begin{corollary}[two-periodic blow-ups]\label{cor:two-periodic}
+With a constant self-energy, every blow-up $C_m(s_0,\dots,s_{m-1})$ with $s_{i+2}=s_i$ for all $i$ has a set potential. For odd $m$ these are the balanced blow-ups $C_m(s,\dots,s)$.
+\end{corollary}
+\begin{proof}
+If all sizes are equal, all $b^{(j)}$ coincide. Otherwise $m$ is even and, after a rotation, $s_0=s>t=s_1$; the sequences $b^{(j)}$ depend only on the parity of $j$. For $1\le c\le t$ the index $cm$ is even, so \cref{lem:twin} gives $\cont^{(0)}_{cm}/\cont^{(0)}_0=y\cont^{(1)}_{cm}/(y\cont^{(1)}_0)$, and \cref{thm:blowup-criterion} applies.
+\end{proof}
+
+The earlier draft proved the balanced case by an automorphism argument and found set potentials on $C_4(1,2,1,2)$, $C_4(1,3,1,3)$, $C_4(2,3,2,3)$ and $C_6(1,2,1,2,1,2)$ by exact computation, attributing them to a hidden symmetry; \cref{lem:twin} is that symmetry. As a check independent of the proofs, the formula of \cref{thm:blowup-criterion}(1) was compared with the products of resolvents along every directed path of seven blow-ups, the criterion with the direct propagation test on all $115$ blow-ups with at most nine vertices (up to rotation; exactly the $13$ two-periodic ones have a set potential), and \cref{lem:twin} was confirmed symbolically for $m\le10$ (\code{blowups.py}, \code{tests/test_blowups.py}).
+
+\begin{theorem}[one blown-up vertex]\label{thm:one-blown}
+Let $m\ge3$ and $r\ge2$, and let $D=C_m(r,1,\dots,1)$, with twins $t_1,\dots,t_r$ and arcs $t_j\to x_1\to x_2\to\dots\to x_{m-1}\to t_j$. With self-energies vanishing at infinity, $D$ has a set potential if and only if all twins have the same self-energy $e$ and, writing $\eta_i=\eta(x_i)$:
+\begin{itemize}
+\item for $m$ odd, $\eta_{m-1}=e$ and $\eta_i=e+(r-1)/(z-e)$ for $1\le i\le m-2$;
+\item for $m$ even, $\eta_i=\eta_{m-1}+(r-1)/(z-e)$ for odd $i\le m-3$, and $\eta_i=e+(r-1)/(z-\eta_{m-1})$ for even $i$ with $2\le i\le m-2$.
+\end{itemize}
+For $m=3$ this is \cref{thm:books}, and for $m=4$, $r=2$ the doubled $4$-cycle of \cref{thm:cores5}. With $e=\eta_{m-1}=0$ each of $x_1,\dots,x_{m-2}$ needs self-energy $(r-1)/z$, which $r-1$ exits to sinks provide.
+\end{theorem}
+\begin{proof}
+Write $w_v=z-\eta(v)$, $w_i=w(x_i)$ and $v_j=w(t_j)$; every continuant below has a power of $z$ as leading term, so it is nonzero.
+
+\emph{Vertex sets.} A directed path moves forward through the positions $0,1,\dots,m-1$ of the cycle, position $0$ being the twin class; it meets each $x_i$ at most once, and meets two twins only as $t_jx_1\cdots x_{m-1}t_{j'}$. A proper cyclic interval of positions has a unique first position, so a vertex set carried by more than one path contains every position, and the only such sets are $Z_j=\{t_j,x_1,\dots,x_{m-1}\}$, carried by its $m$ rotations, and $Z_j\cup\{t_{j'}\}$, carried by $t_jx_1\cdots x_{m-1}t_{j'}$ and $t_{j'}x_1\cdots x_{m-1}t_j$.
+
+\emph{Products.} Along each of these paths the path tree of every position is a path, except that at $x_{m-1}$ the unvisited twins hang as branches: a single vertex when $x_1$ has been visited, and otherwise, on a path that starts at $x_a$, the path $t_{j'},x_1,\dots,x_{a-1}$. Each branch enters the effective weight of $x_{m-1}$ through its root resolvent, and the products telescope. With $S_j=\sum_{j'\neq j}1/v_{j'}$ and $\Sigma=\sum_{j'}1/v_{j'}$,
+\begin{gather*}
+\Gamma(t_jx_1\cdots x_{m-1})=\frac{1}{\cont(v_j,w_1,\dots,w_{m-2},w_{m-1}-S_j)},\\
+\Gamma(x_1\cdots x_{m-1}t_j)=\frac{1}{v_j\,\cont(w_1,\dots,w_{m-2},w_{m-1}-\Sigma)},
+\end{gather*}
+and $\Gamma(t_jx_1\cdots x_{m-1}t_{j'})=1/\bigl(v_{j'}\cont(v_j,w_1,\dots,w_{m-2},w_{m-1}-S_j)\bigr)$.
+
+\emph{The twins agree.} Put $L=(w_1,\dots,w_{m-2})$, $L'=(w_2,\dots,w_{m-2})$ and $\psi=w_{m-1}-\Sigma$, so that $w_{m-1}-S_j=\psi+1/v_j$. The two rotations of $Z_j$ above agree exactly when $\cont(v_j,L,\psi+1/v_j)=v_j\cont(L,\psi)$; expanding the left side in its last entry and both sides in the first entry turns this into $\cont(L')/v_j=\cont(L)-\cont(L',\psi)$. The right side does not depend on $j$ and $\cont(L')\neq0$, so all $v_j$ are equal to some $w$, and every twin has self-energy $e=z-w$.
+
+\emph{Transfer matrices.} With equal twins the two paths through two twins have equal products, and the remaining condition is that the $m$ rotations of $Z_j$ agree. Consider the cyclic sequence $u_0=w$, $u_i=w_i$ $(1\le i\le m-1)$ with coupling $\beta_0=r$ between $u_{m-1}$ and $u_0$ and $\beta_i=1$ otherwise. The rotation starting at $x_a$ has
+\[
+\Gamma=\frac{1}{\cont(w_a,\dots,w_{m-2},w_{m-1}-r\varrho_a)\,\cont(w,w_1,\dots,w_{a-1})},
+\]
+where $\varrho_a=\cont(w_1,\dots,w_{a-1})/\cont(w,w_1,\dots,w_{a-1})$; by the junction rule this is $1/\cont_a$, where $\cont_a$ is the continuant of the cyclic sequence read from position $a$. The rotation starting at $t_j$ has $\Gamma=1/\cont_t$ with $\cont_t=\cont(w,w_1,\dots,w_{m-2},w_{m-1}-(r-1)/w)$. So $D$ has a set potential exactly when $\cont_1=\dots=\cont_{m-1}=\cont_t$. Let $T_i=\bigl(\begin{smallmatrix}u_i&-\beta_i\\1&0\end{smallmatrix}\bigr)$ and $M_a=T_{a-1}\cdots T_{a+1}T_a$. As in \cref{thm:set-cycles},
+\[
+M_a=\begin{pmatrix}\cont_a&-\beta_aX_a\\Y_a&-\beta_ac_a\end{pmatrix},
+\]
+where $X_a,Y_a,c_a$ are the continuants of the cyclic sequence from $a+1$ to $a-1$, from $a$ to $a-2$, and from $a+1$ to $a-2$. The relation $M_{a+1}T_a=T_aM_a$ gives (i) $Y_{a+1}=X_a$, (ii) $\cont_{a+1}=u_aX_a-\beta_ac_a$, (iii) $u_a(\cont_{a+1}-\cont_a)=\beta_{a+1}X_{a+1}-\beta_aY_a$, and all $M_a$ have the same trace $\cont_a-\beta_ac_a$.
+
+\emph{Necessity.} Suppose $\cont_a=\cont_t=:A$ for $1\le a\le m-1$. For these $a$, $\beta_a=1$, so $c_a=A-\mathrm{tr}=:c$, and (ii) gives $u_aX_a=A+c$ for $1\le a\le m-2$. For $1\le a\le m-2$, (iii) and (i) give $X_{a+1}=Y_a=X_{a-1}$, so $X_a=X_{a+2}$ for $0\le a\le m-3$. Expanding $\cont_t$ in its last entry gives $\cont_0=\cont(w,w_1,\dots,w_{m-1})=A+(r-1)Y_0/w$. Then: (iii) at $a=0$ reads $w(A-\cont_0)=X_1-rY_0$, so $X_1=Y_0=X_{m-1}$ by (i); (ii) at $a=m-1$ reads $\cont_0=w_{m-1}X_{m-1}-c$, so $(w_{m-1}-(r-1)/w)X_{m-1}=A+c$; (ii) and the trace at $a=0$ read $A=wX_0-rc_0$ and $rc_0=\cont_0-A+c$, so $wX_0-(r-1)X_{m-1}/w=A+c$; and (iii) at $a=m-1$ reads $w_{m-1}(r-1)X_{m-1}/w=rX_0-X_{m-2}$. For $m$ odd, $X_1=X_{m-1}$ joins the two parity classes, so $X$ is constant, and the equations give $w_a=w-(r-1)/w$ for $1\le a\le m-2$ and $w_{m-1}=w$. For $m$ even, $X_0=X_2=\dots=X_{m-2}$ and $X_1=X_3=\dots=X_{m-1}$; the last equation gives $w_{m-1}X_1=wX_0$, because $r\neq1$; hence $w_a=(A+c)/X_1=w_{m-1}-(r-1)/w$ for odd $a\le m-3$ and $w_a=(A+c)/X_0=w-(r-1)/w_{m-1}$ for even $a$. In terms of self-energies these are the stated conditions.
+
+\emph{Sufficiency.} For $m$ odd put $q=w-(r-1)/w$. Then $T_i=T_q$ for $1\le i\le m-2$, $T_{m-1}=T_w$, and $T_0T_{m-1}=\bigl(\begin{smallmatrix}w^2-r&-w\\w&-1\end{smallmatrix}\bigr)=wT_q-I$ is a polynomial in $T_q$; hence $M_a=T_q^{m-2}(wT_q-I)$ for every $1\le a\le m-1$, and the $\cont_a$ agree. Moreover $\cont_t=\cont(w,q,\dots,q)$ with $m-1$ entries $q$, and expanding gives $\cont_t=(wq-1)\cont(q^{m-2})-w\cont(q^{m-3})$ and $\cont_1=(w^2-r)\cont(q^{m-2})-w\cont(q^{m-3})$, which agree because $wq=w^2-r+1$. For $m$ even put $p=w_{m-1}$, $u=p-(r-1)/w$ and $u'=w-(r-1)/p$, so that $wu=pu'=wp-r+1$. Let $S=T_{u'}T_u$, $S'=T_uT_{u'}$ and $\beta=w/u'$. Then $T_0T_{m-1}=\bigl(\begin{smallmatrix}wp-r&-w\\p&-1\end{smallmatrix}\bigr)=(\beta-1)I+\beta S$ and $T_1T_0T_{m-1}T_{m-2}=(\beta-1)S'+\beta S'^2$. Grouping the factors of $M_a$ in pairs, with $k=(m-2)/2$, gives $M_a=(\beta-1)S^{k}+\beta S^{k+1}$ for odd $a$ and $M_a=(\beta-1)S'^{k}+\beta S'^{k+1}$ for even $a$. Now $[S^{j}]_{11}=\cont((u,u')^{j})$ and $[S'^{j}]_{11}=\cont((u',u)^{j})$ are equal by reversal, so all $\cont_a$ agree. Finally, with $Q=\cont((u,u')^{k})$ and $Q'=\cont((u,u')^{k-1},u)$, expansion gives $\cont_t=\cont(w,(u,u')^{k},u)=(wu-1)Q-wQ'$ and $\cont_1=w\cont((u,u')^{k},p)-rQ=(wp-r)Q-wQ'$, which agree because $wu=wp-r+1$.
+\end{proof}
+
+With zero self-energies \cref{thm:one-blown} excludes $C_m(r,1,\dots,1)$ for every $r\ge2$, in accordance with \cref{conj:blowups}.
+
+\subsection{Directed cacti}
+A \emph{directed cactus} is a strongly connected digraph in which every block of the underlying graph is a chordless directed cycle of length at least $3$. Two cycles share at most one vertex, and the cycles and cut vertices form a tree. For a cycle $C$ and a vertex $v$ of $C$, every other cycle $C'$ through $v$ determines a \emph{branch} $B$ at $v$ off $C$: the component of $D-v$ that contains $C'-v$. The token enters $B$ only by the arc of $C'$ that leaves $v$, to a vertex $b$, and once $v$ is visited it cannot leave $B$. Write $R_B=R(B,b)$ for the root resolvent of the game on $D[B]$ started at $b$, and
+\[
+\varepsilon_C(v)=\eta(v)+\sum_{B\text{ a branch at }v\text{ off }C}R_B .
+\]
+
+\begin{theorem}[directed cacti]\label{thm:cacti}
+A directed cactus with self-energies vanishing at infinity has a set potential if and only if, for every cycle $C$, the function $\varepsilon_C$ has period $2$ around $C$.
+\end{theorem}
+\begin{proof}
+\emph{Vertex sets.} Consecutive vertices of a directed path $P$ are joined by an arc of a unique cycle. $P$ cannot return to a cycle it has left, since it would have to pass again through the cut vertex by which it left. So $P$ uses arcs of cycles $C_1,\dots,C_t$ that form a path in the block tree: it runs along a final segment of $C_1$ ending at the cut vertex $c_1=C_1\cap C_2$, along the segment of $C_s$ from $c_{s-1}$ to $c_s$ for $1<s<t$, and along an initial segment of $C_t$ starting at $c_{t-1}$. The cycles containing two vertices of $X=V(P)$ are exactly $C_1,\dots,C_t$, since another such cycle would close a circuit in the block tree. So a second path $P'$ with $V(P')=X$ uses cycles among $C_1,\dots,C_t$, and for $t\ge2$ it uses all of them, because $X\cap C_1$ contains a vertex other than $c_1$ that lies on no other $C_s$, and likewise for $C_t$; these cycles form a path in the block tree, so $P'$ uses them in the same or in the reverse order. In the same order, the segments of $P'$ are the sets $X\cap C_s$, so $P'=P$ unless $t=1$ and $X=C_1$, when $P,P'$ are rotations of $C_1$. In the reverse order, $P'$ runs through each middle cycle from $c_s$ to $c_{s-1}$; that segment has a different vertex set from the segment from $c_{s-1}$ to $c_s$, because the cycle has length at least $3$, so $t=2$. Then $X\cap C_1$ is both a segment ending at $c_1$ and a segment starting at $c_1$, which forces $X\cap C_1=C_1$, and likewise $X\cap C_2=C_2$. So the vertex sets carried by several paths are the cycles, carried by their rotations, and the unions $C\cup C'$ of two cycles sharing a vertex $v$, carried by $(C-v,v,C'-v)$ and $(C'-v,v,C-v)$, where $C-v$ is traversed from the successor of $v$.
+
+\emph{Rotations.} Along a rotation of $C$ the token stays on $C$, so every branch off $C$ is unvisited while the token stands at its attaching vertex; as in the proof of \cref{lem:branches}, a branch $B$ at $v$ contributes exactly $R_B$ to $1/R(W,v)$. So the rotations of $C$ have the products $\Gamma$ of the rotations of the cycle game on $C$ with self-energies $\varepsilon_C$, which vanish at infinity, and by \cref{thm:set-cycles} they agree if and only if $\varepsilon_C$ has period $2$.
+
+\emph{Two cycles.} Let $C,C'$ share $v$, and let $\sigma,\sigma'$ be the sequences of weights $z-\varepsilon_C$ along $C-v$ and $z-\varepsilon_{C'}$ along $C'-v$, each read from the successor of $v$. Let $\varepsilon^{*}(v)=\eta(v)+\sum R_B$ over the branches at $v$ off both $C$ and $C'$. Along $(C-v,v,C'-v)$ every branch hanging off the current cycle is unvisited when the token reaches it; the branch at $v$ through $C'$ has root resolvent $\cont({}^{-}\sigma')/\cont(\sigma')$, and the junction rule gives
+\[
+\Gamma(C-v,v,C'-v)=\frac{1}{\cont\bigl(\sigma,\,z-\varepsilon^{*}(v),\,\sigma'\bigr)},\qquad \Gamma(C'-v,v,C-v)=\frac{1}{\cont\bigl(\sigma',\,z-\varepsilon^{*}(v),\,\sigma\bigr)}.
+\]
+If $\varepsilon_C$ and $\varepsilon_{C'}$ have period $2$, then $\sigma$ and $\sigma'$ are palindromes: constant for an odd cycle, and for an even cycle of length $m$ the $i$-th and the $(m-i)$-th vertices after $v$ have the same parity. Reversing the continuant then shows that the two products agree. So the conditions on rotations imply those on pairs of cycles.
+\end{proof}
+
+\begin{corollary}[uniform cacti]\label{cor:uniform-cacti}
+Let every cycle of a directed cactus have length $m$, let $e$ vanish at infinity, and let $d(v)$ be the number of cycles through $v$. With $y=z-e$ and $f(y)=\mu(P_{m-2})(y)/\mu(P_{m-1})(y)$, the self-energies $\eta(v)=e-(d(v)-1)f(y)$ give a set potential.
+\end{corollary}
+\begin{proof}
+By induction on the number of vertices of a branch, $R_B=f(y)$ for every branch $B$: $B$ is entered through a cycle $C'$ and runs along $C'-v$; at each vertex $u$ of $C'-v$ the $d(u)-1$ branches off $C'$ are smaller than $B$, so they have resolvent $f(y)$ and reduce the weight $z-\eta(u)=y+(d(u)-1)f(y)$ to $y$; so $B$ plays as the path on $m-1$ vertices of weight $y$, whose root resolvent is $f(y)$. Hence $\varepsilon_C(v)=e$ on every cycle, and \cref{thm:cacti} applies.
+\end{proof}
+
+For two triangles this is the bowtie of \cref{thm:cores5}. With $e=0$ a vertex on several cycles has a self-energy with negative leading coefficient, so no set of exits produces it, and no cactus with more than one cycle arises from exits alone.
+
+\subsection{Six and seven vertices}
+
+\begin{proposition}[the census on six and seven vertices]\label{prop:census67}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Among six-vertex digraphs that are not SCC-symmetric, the back-arc test of \cref{thm:cocycle} leaves $9{,}113$, and exactly $2{,}291$ of them have a set potential. Twelve of these have two non-symmetric strong components, both directed triangles, and the others have one. The pruned cores of the $2{,}303$ non-symmetric components are $C_3$ ($2{,}030$ components), $C_4$ ($210$), $B_2=C_3(2,1,1)$ ($50$), $C_5$ ($9$), and $C_4(2,1,1,1)$, $C_6$, $C_3(2,2,2)$, $C_4(1,2,1,2)$ (one each).
+\item Among strongly connected, non-symmetric seven-vertex digraphs the back-arc test leaves $469$, with $107$ pruned cores, $15$ of them blow-ups of cycles. Exactly three of the $469$ have a set potential with zero self-energies: $C_7$, the book $C_3(3,1,1)$ with two pendant vertices at its spine tail, and $C_4(2,1,1,1)$ with pendant vertices at $x_1$ and $x_2$; the pendant vertices supply, through \cref{lem:branches}, the self-energies $(r-1)/z$ of \cref{thm:one-blown}. On six vertices the same test finds $C_6$, $C_3(2,2,2)$ and $C_4(1,2,1,2)$ among the $24$ pruned cores.
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Method \textup{(computer-assisted)}]
+Exact tests over $\Qz$ on all digraphs with six and seven vertices, generated with \code{nauty} (\code{geng}, \code{directg}) and filtered by the back-arc test (\code{verification/legacy}).
+\end{proof}
+
+Every pruned core in the census is a blow-up of a directed cycle, although the $24$ six-vertex pruned cores include $15$ that are not blow-ups, one of them a cactus.
+
+\begin{conjecture}[blow-ups]\label{conj:blowups}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item With zero self-energies, $C_m(s_0,\dots,s_{m-1})$ has a set potential only if $s_{i+2}=s_i$ for all $i$.
+\item If a digraph $D$ has a set potential, then for every non-symmetric strong component $C$ of $D$ the pruned core of $C$, which carries the self-energies induced by the exits of $C$ (\cref{lem:set-components}) and by its pruned branches (\cref{lem:branches}), is a blow-up of a directed cycle.
+\end{enumerate}
+\end{conjecture}
+
+The converse of (1) is \cref{cor:two-periodic}, so (1) asks for the ``only if'' half of the earlier Conjecture~11.27(1). It holds for one blown-up vertex (\cref{thm:one-blown}), and by \cref{thm:blowup-criterion} it is a statement about finitely many continuant identities for each size vector: the criterion confirms it on all $331$ size vectors with $3\le m\le8$ and sizes at most $4,4,3,3,2,2$ for $m=3,\dots,8$ (up to rotation). Part (2) holds on six vertices by \cref{prop:census67}, and it fails for arbitrary self-energies, because cacti are pruned cores with set potentials that are not blow-ups (\cref{cor:uniform-cacti}).

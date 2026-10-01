@@ -1,0 +1,80 @@
+\section{Background: the classical barriers}\label{sec:barriers}
+
+Three classical barriers rule out a polynomial-time $\Phi$ for the class of all arenas, each in a stated model. The query barrier binds every algorithm, classical or quantum, that sees $\pay$ only through queries. The unbounded-horizon barrier is unconditional for deterministic time; its randomized and quantum versions are open. The polynomial-horizon barrier is equivalent to $\Pclass\neq\PSPACE$.
+
+\subsection{The landscape barrier}
+
+\begin{theorem}[query lower bounds]\label{thm:query}
+Let the move structure be the complete binary tree of depth $h$, with Max and Min alternating, and let $\pay$ be available only through an oracle queried at the $2^h$ leaves. In the worst case, computing $\val$ at the root takes the following numbers of queries.
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Model & Queries & Source\\ \midrule
+Deterministic & $2^h$ (every leaf) & proof below\\
+Randomized & $\Theta(2^{\alpha h})$, with $\alpha=\log_2\frac{1+\sqrt{33}}{4}\approx 0.7537$ & \cite{Snir,SaksWigderson} (zero error); \cite{Santha} (bounded error)\\
+Quantum & $\Theta(2^{h/2})$ & lower bound \cite{BarnumSaks}; $O(2^{h/2})$ for balanced formulas \cite{ACRSZ,ReichardtSpalek}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{theorem}
+
+\noindent\emph{Input model.} The move structure is given by circuits of size $\poly(N)$ and $\pay$ only by the oracle. Naming the $2^{h+1}-1$ nodes of the tree needs $N\ge h+1$ bits, so the bounds are super-polynomial in $N$ exactly when $h=\omega(\log N)$; at $h=N-1$ even the quantum bound is $2^{(N-1)/2}$. If the tree were given explicitly, $2^h$ queries would be linear in the input and no barrier would remain. For three-valued leaves the upper bounds double (two Boolean thresholds, $\val\ge 0$ and $\val\ge1$) and the lower bounds apply verbatim to leaves in $\{-1,+1\}$.
+
+\begin{proof}[Proof of the deterministic bound]
+By induction on $h$, an adversary can force every leaf to be queried and can choose the root's value in $\{-1,+1\}$ at the last query. For $h=0$ this is immediate. Let the root be a Max node with subtrees $L$ and $R$ (the Min case is symmetric) and run the inductive adversary separately inside $L$ and $R$. When one subtree has its last leaf queried, give it the value $-1$, which cannot decide a maximum. The root now equals the other subtree's value, which still needs all of its leaves and which the adversary chooses at the very last query.
+\end{proof}
+
+The Hamiltonian-oracle algorithm of Farhi, Goldstone and Gutmann \cite{FGG} probes exactly the zero-energy eigenvector identified in \S\ref{sec:spectral}; discrete-query algorithms reach $2^{(1/2+o(1))h}$ for arbitrary formulas \cite{CCJY,ACRSZ} and $O(2^{h/2})$ for balanced ones \cite{ACRSZ}, and the general adversary bound is tight \cite{Reichardt}. In the query model, spectral or quantum evaluation of minimax therefore gains a square root and no more. Succinct arenas pose a different question: a polynomial-time quantum algorithm for $\val$ at polynomial horizon would place $\PSPACE$ in $\BQP$, which is open.
+
+\subsection{Succinct arenas: alternation and time}
+
+\begin{theorem}[Chandra--Kozen--Stockmeyer; see Hearn--Demaine]\label{thm:alternation}
+For circuit-described arenas, the complexity of computing $\val(\sigma_0)$ is:
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xll@{}}
+\toprule
+Players with real choices & Polynomial horizon & Unbounded horizon\\ \midrule
+None ($T^{+}=T^{-}$ everywhere) & $\Pclass$-complete & $\PSPACE$-complete\\
+One (the other makes only dummy moves) & $\NP$- or $\coNP$-complete & $\PSPACE$-complete\\
+Two & $\PSPACE$-complete & $\EXPTIME$-complete\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Upper bounds: depth-first evaluation of the game tree needs polynomial space when the horizon is polynomial, and computing the fixed points $W_{\pm}$ over all $2^N$ positions takes time $2^{O(N)}$. Lower bounds: configurations of a Turing machine with space bound $s(n)$ are $s(n)$-bit strings, and its one-step relation has circuits of size $\poly(s(n))$. Existential states become Max positions, universal states Min positions, and accepting or rejecting halts become terminals with $\pay=\pm1$; \cref{lem:normal-form} normalizes the rest. $\mathsf{APTIME}=\PSPACE$ and $\mathsf{APSPACE}=\EXPTIME$ \cite{CKS} give the two-player row; deterministic and nondeterministic machines give the other rows \cite{HearnDemaine}. Natural $\EXPTIME$-complete games include generalized chess \cite{FraenkelLichtenstein} and checkers \cite{Robson}, following \cite{StockmeyerChandra}.
+\end{proof}
+
+Two conventions matter in the lower bounds. An alternating machine rejects on an infinite branch, while an infinite play of an arena is a draw worth $0$; the reduction is exact for the threshold question $\val\ge1$, and a step counter that makes every branch halt gives $\val\in\{-1,+1\}$. The polynomial-horizon column uses the horizon promise of \S\ref{ssec:arenas}; clocked arenas give the same bounds.
+
+\begin{corollary}[unbounded play, deterministic time]\label{cor:exp}
+There is $\varepsilon>0$ such that no deterministic algorithm computes $\val$ in time $O(2^{n^{\varepsilon}})$ on succinct arenas of unbounded horizon. In particular no deterministic polynomial-time $\Phi$ exists. Randomized and quantum versions would follow from $\EXP\not\subseteq\BPP$ and $\EXP\not\subseteq\BQP$, which are open.
+\end{corollary}
+
+\begin{proof}
+By the time hierarchy theorem \cite{HartmanisStearns} some language $L$ lies in $\mathsf{DTIME}(2^{n^2})$ but not in $\mathsf{DTIME}(2^{2n})$. \Cref{thm:alternation} reduces $L$ to $\val$ in polynomial time with outputs of size at most $n^c$. An algorithm for $\val$ running in time $2^{m^{1/c}}$ on inputs of size $m$ would decide $L$ in time $\poly(n)+2^{n}$, a contradiction. Take $\varepsilon=1/c$.
+\end{proof}
+
+\begin{corollary}[polynomial horizon]\label{cor:polyhorizon}
+A polynomial-time $\Phi$ exists for succinct arenas of polynomial horizon if and only if $\Pclass=\PSPACE$.
+\end{corollary}
+
+\begin{proposition}[explicit graphs]\label{prop:explicit}
+For explicit $\SG$, $\val$ is computable in time linear in the size of $\SG$ by retrograde analysis, and the problem is $\Pclass$-complete: it is alternating graph accessibility \cite{Immerman,GHR}. So no invariant computable in polylogarithmic parallel time exists unless $\NC=\Pclass$.
+\end{proposition}
+
+\subsection{Connected components of the state graph}
+
+\begin{proposition}\label{prop:components}
+For succinct $\SG$, deciding whether $\sigma_0$ and a given position $\sigma^{*}$ lie in the same connected component of the undirected graph underlying $\SG$ is $\PSPACE$-complete. This is an instance of the succinct-graph phenomenon of \cite{GalperinWigderson,PapadimitriouYannakakis,LozanoBalcazar}; we give a proof inside the arena format.
+\end{proposition}
+
+\begin{proof}
+Membership: undirected reachability among $2^N$ positions is in $\mathsf{DSPACE}(N)$ \cite{Reingold} (already $\mathsf{NSPACE}(N)\subseteq\mathsf{DSPACE}(N^2)$ suffices \cite{Savitch}). Hardness: let a deterministic machine $\mathcal D$ decide $L\in\PSPACE$ in space $s(n)$, erasing its tape before it halts, so that it has a unique accepting configuration $c_{+}$ and a unique rejecting configuration $c_{-}$. Positions are pairs $(c,b)$ with a parity bit $b$; Max moves when $b=0$ and Min when $b=1$. A position whose $c$ is a non-halting configuration has $T^{+}=T^{-}=(\mathrm{next}(c),1-b)$. Add one move $(c_{+},1)\to(c_{+},0)$, and make $(c_{+},0)$, $(c_{-},0)$, $(c_{-},1)$ and every string that encodes no configuration terminal. The circuits have size $\poly(s(n))$. Every non-terminal position has exactly one out-neighbour and terminals have none, so a component with $k$ positions has at most $k$ edges and, being connected with at least $k-1$ edges, at most one terminal; a component containing a terminal is a tree directed towards it. Hence the component of $(c_{+},0)$ is the set of positions whose forward orbit reaches $(c_{+},0)$, and $(c_{\mathrm{start}},0)$ lies in it exactly when $\mathcal D$ accepts.
+\end{proof}
+
+So the components of $\SG$ are $\PSPACE$-hard to compute from a succinct description. Hardness is not the main obstruction, though: by \cref{prop:blind}, components and every other invariant of the undirected graph fail to determine $\val$ even when they are computed for free.
+
+\subsection{Static sparsity is not enough}
+A QBF is an arena whose positions are partial assignments. Atserias and Oliva \cite{AtseriasOliva} proved that QBF stays $\PSPACE$-complete on formulas of constant pathwidth, hence of constant treewidth. A sparse interaction graph does not collapse the minimax tree; \S\ref{ssec:width} shows what does.

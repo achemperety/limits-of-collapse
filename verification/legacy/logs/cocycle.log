@@ -1,0 +1,15 @@
+n=3 SCC-sym=False valuation-potential=False set-potential(z0)=False : 2
+n=3 SCC-sym=False valuation-potential=True set-potential(z0)=True : 1
+n=3 SCC-sym=True valuation-potential=True set-potential(z0)=True : 13
+n=4 SCC-sym=False valuation-potential=False set-potential(z0)=False : 83
+n=4 SCC-sym=False valuation-potential=True set-potential(z0)=False : 25
+n=4 SCC-sym=False valuation-potential=True set-potential(z0)=True : 6
+n=4 SCC-sym=True valuation-potential=True set-potential(z0)=True : 104
+--- non-SCC-symmetric digraphs with a set potential (n<=4):
+3 [(0, 1), (1, 2), (2, 0)]
+4 [(0, 1), (1, 2), (2, 0)]
+4 [(0, 1), (0, 2), (1, 2), (1, 3), (3, 0), (3, 2)]
+4 [(0, 1), (1, 2), (2, 0), (3, 0)]
+4 [(0, 1), (1, 2), (2, 3), (3, 0)]
+4 [(0, 1), (0, 2), (1, 2), (2, 3), (3, 1)]
+4 [(0, 1), (0, 2), (0, 3), (1, 2), (2, 3), (3, 1)]

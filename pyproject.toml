@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dvgcollapse"
+version = "1.1.0"
+description = "Exact tools for directed vertex geography, matching potentials and their limits (companion to 'Alternation, Invariants, and the Limits of Collapse')"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["sympy>=1.12", "networkx>=3.0", "mpmath>=1.3"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+numeric = ["numpy>=1.24", "scipy>=1.10"]
+algebra = ["passagemath-singular", "passagemath-pari"]
+
+[project.scripts]
+dvg-solve = "dvgcollapse.solver:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

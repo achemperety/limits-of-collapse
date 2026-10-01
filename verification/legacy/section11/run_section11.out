@@ -1,0 +1,78 @@
+gen5: 7 s
+    9608 6.24053955078125
+star_a: 44 s
+    seed 1 positions checked 218028 mismatches 0
+star_b: 80 s
+    seed 2 positions checked 423163 mismatches 0
+star_c: 37 s
+    seed 3 positions checked 201434 mismatches 0
+k2_conflicts: 228 s
+    --- class {'common head'} deficit vector (0, 0, 0, 0, 0) ...
+        WIN   n=8 edges=[(0, 5), (0, 6), (1, 5), (1, 6), (2, 6), (2, 7), (3, 5), (4, 6), (4, 7)] arcs=[(1, 4), (0, 4)] start=3
+        LOSS  n=8 edges=[(0, 5), (0, 6), (0, 7), (1, 5), (1, 6), (1, 7), (2, 5), (2, 7), (3, 5), (3, 6), (4, 5), (4, 6), (4, 7)] arcs=[(4, 0), (1, 0)] start=2
+k2_adjacency: 69 s
+      LOSS ('common head', 8, [(0, 5), (0, 6), (0, 7), (1, 5), (1, 6), (1, 7), (2, 5), (2, 7), (3, 5), (3, 6), (4, 5), (4, 6), (4, 7)], [(4, 0), (1, 0)], 2)
+      WIN  ('common head', 11, [(0, 3), (0, 7), (1, 2), (1, 5), (1, 6), (1, 8), (1, 9), (2, 3), (2, 4), (3, 5), (3, 7), (3, 8), (3, 9), (4, 6), (4, 7), (4, 8), (4, 9), (5, 7), (6, 7), (6, 8), (7, 8), (7, 9), (8, 9), (8, 10)], [(2, 0), (9, 0)], 1)
+      LOSS ('common head', 9, [(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (1, 3), (1, 5), (1, 6), (1, 7), (2, 3), (2, 4), (2, 6), (4, 6), (4, 8)], [(3, 5), (6, 5)], 2)
+k2_barrier: 1 s
+    chained (u2 -> w2 = u1 -> w1)    same key data: True | outcomes: win vs loss
+    common head                      same key data: True | outcomes: win vs loss
+    disjoint (Proposition 10.12)     same key data: True | outcomes: win vs loss
+triangle: 0 s
+    frozen identities: True
+    resultant is a constant multiple of the sextic: True | resultant = a^6*Z^2 - 4*a^6 + 12*a^4 + 4*a^3*Z - 12*a^2 + 8
+    sextic = (z a^3 + 2)^2 + 4 (1 - a^2)^3: True
+cycles: 50 s
+       m = 6: any branch with all weights real: False | fitted exponent of max|beta|: -0.66169 (predicted -0.66667)
+       m = 7: any branch with all weights real: False | fitted exponent of max|beta|: -0.70645 (predicted -0.71429)
+       m = 8: any branch with all weights real: False | fitted exponent of max|beta|: -0.73912 (predicted -0.75)
+minenv_4_1: 2 s
+    m 4 f 1 orbits tested 276 with a frozen potential 0 1 s
+minenv_4_2: 25 s
+    m 4 f 2 orbits tested 4496 with a frozen potential 0 24 s
+minenv_5_1: 46 s
+    m 5 f 1 orbits tested 6560 with a frozen potential 0 45 s
+band: 78 s
+    m = 5: fraction of in-band z with an all-real branch: 0.512; branches used: [1]
+    m = 6: fraction of in-band z with an all-real branch: 0.000; branches used: []
+    m = 7: fraction of in-band z with an all-real branch: 0.000; branches used: []
+band_intervals: 78 s
+       z >= -1.9990 : ()
+       z >= -1.0240 : (1,)
+       z >= 1.0250 : ()
+components: 31 s
+    5 [(4, 'cycle', ((0, 1), (1, 2), (2, 3), (3, 0)))] 8
+    5 [(5, 'NONCYCLE', ((0, 1), (0, 2), (1, 0), (2, 3), (2, 4), (3, 0), (4, 0)))] 1
+    5 [(5, 'cycle', ((0, 1), (1, 2), (2, 3), (3, 4), (4, 0)))] 1
+census: 0 s
+    1 ('C5', '0')
+    1 ('triangle + pendant', "{0: '0', 1: '1/z', 2: '1/z', 3: '0'}")
+    79
+families: 1 s
+    C4 blow-up (1,1,1,2) with sinks at the vertices of S0 and S1 (predicted True): True
+    C4 blow-up (1,1,1,2) with sinks at S0 only (predicted False): False
+    2-page book, sinks at y, p, q; at x a sink and a pendant that has its own sink (predicted True): True
+book_formulas: 1 s
+    explicit Gamma formulas of Theorem 11.11 hold for the 3-page book: True
+cores_3: 1 s
+    arcs [(0, 1), (1, 2), (2, 0)] dim 1
+        component dim 1 : ['e1 - e2', 'e0 - e2']
+    strongly connected non-symmetric digraphs with no admissible eta: 2
+cores_4: 80 s
+    arcs [(0, 1), (1, 2), (2, 3), (3, 0)] dim 2
+        component dim 2 : ['e1 - e3', 'e0 - e2']
+    strongly connected non-symmetric digraphs with no admissible eta: 74
+cores_5_filter: 1 s
+    strongly connected non-symmetric: 5027 | back-arc invariant: 14
+cores_5: 116 s
+        component dim 1 : ['e3 - e4', 'e2 - e4', 'e1 - e4', 'e0 - e4']
+    arcs [(0, 1), (0, 2), (0, 3), (1, 0), (1, 3), (2, 4), (3, 0), (3, 1), (4, 0)] dim 3
+        component dim 3 : ['e0*e1*e3 - e1*e3*e4 + (-z)*e0*e1 + (-z)*e0*e3 + z*e1*e4 + z*e3*e4 + (z^2 - 1)*e0 - e1 - e3 + (-z^2 + 1)*e4 + (2*z)', 'e2 - e4']
+predictions: 1 s
+    6-cycle, sinks at 0, 2, 4                                                        predicted True  exact True  
+    6-cycle, sinks at 0, 2, 3                                                        predicted False exact False 
+    17 of 17 predictions confirmed
+realizability: 4 s
+    bowtie, first component: realizable pairs found: 0
+    (1,2,2) blow-up: realizable pairs found: 0
+    control, 2-page book: realizable pairs found: 22

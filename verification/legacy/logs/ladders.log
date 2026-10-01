@@ -1,0 +1,20 @@
+ladder (rails opposite, rungs symmetric):
+  n= 4  deg R =    4   positions = 5
+  n= 6  deg R =    8   positions = 9
+  n= 8  deg R =   12   positions = 14
+  n=10  deg R =   16   positions = 20
+  n=12  deg R =   24   positions = 27
+  n=14  deg R =   32   positions = 35
+ladder (rails same direction, rungs symmetric):
+  n= 4  deg R =    6   positions = 6
+  n= 6  deg R =   14   positions = 14
+  n= 8  deg R =   30   positions = 30
+  n=10  deg R =   62   positions = 62
+  n=12  deg R =  126   positions = 126
+  n=14  deg R =  254   positions = 254
+random treewidth-2 digraphs (max over starts):
+  n= 6  max deg R =   18
+  n= 8  max deg R =   38
+  n=10  max deg R =   56
+  n=12  max deg R =   90
+  n=14  max deg R =   83

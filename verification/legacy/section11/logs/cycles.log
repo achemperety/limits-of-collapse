@@ -1,0 +1,20 @@
+(1) F_m(alpha) = 0 identically, with z = 2T_m(t/2), alpha = U_m(t/2):
+   m = 3: True
+   m = 4: True
+   m = 5: True
+   m = 6: True
+   m = 7: True
+   m = 8: True
+(2) frozen identity at every reachable position, random complex z, every branch t:
+   m = 3: 3 branches, max residual 1.3e-61
+   m = 4: 4 branches, max residual 5.87e-61
+   m = 5: 5 branches, max residual 1.93e-59
+   m = 6: 6 branches, max residual 8.86e-58
+   m = 7: 7 branches, max residual 1.41e-56
+(3) large real z: scaling of the environment weights and reality
+   m = 3: any branch with all weights real: False | fitted exponent of max|beta|: -0.33322 (predicted -0.33333)
+   m = 4: any branch with all weights real: False | fitted exponent of max|beta|: -0.49913 (predicted -0.5)
+   m = 5: any branch with all weights real: False | fitted exponent of max|beta|: -0.59745 (predicted -0.6)
+   m = 6: any branch with all weights real: False | fitted exponent of max|beta|: -0.66169 (predicted -0.66667)
+   m = 7: any branch with all weights real: False | fitted exponent of max|beta|: -0.70645 (predicted -0.71429)
+   m = 8: any branch with all weights real: False | fitted exponent of max|beta|: -0.73912 (predicted -0.75)

@@ -1,0 +1,12 @@
+solution set dimension: 0
+  weight a0 (cycle): minimal polynomial of degree 3
+  weight a1 (cycle): minimal polynomial of degree 3
+  weight a2 (cycle): minimal polynomial of degree 3
+  weight a3 (environment): minimal polynomial of degree 6 | equals the sextic up to a unit: True
+  weight a4 (environment): minimal polynomial of degree 6 | equals the sextic up to a unit: True
+sum-of-squares identity holds: True
+  z =    4: real roots (Sturm count) = 0
+  z =    5: real roots (Sturm count) = 0
+  z =   10: real roots (Sturm count) = 0
+  z =  100: real roots (Sturm count) = 0
+  z = 1000: real roots (Sturm count) = 0
