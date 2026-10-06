@@ -21,7 +21,7 @@ Every file in the archive, what it contains, and which results of the paper it s
 | `sections/app.tex` | Appendices: computational verification, notation, concordance with the earlier drafts |
 | `sections/bib.tex` | bibliography |
 | `limits_of_collapse_siam.tex`, `limits_of_collapse_amsart.tex` | the same paper as single self-contained files (all sections inlined) |
-| `main_siam.pdf`, `main_amsart.pdf` | compiled builds (75 and 69 pages) |
+| `main_siam.pdf`, `main_amsart.pdf` | compiled builds (76 and 70 pages) |
 | `Makefile` | `make amsart`, `make siam SIAMDIR=...` |
 
 ## Referee report (`review/`)

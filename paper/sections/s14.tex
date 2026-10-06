@@ -62,7 +62,7 @@ The outcome at every such position is the same \textup{(}the player to move at $
 
 (2) A play from $p_0$ reaches $q$ only as $p_0c_0p_1c_1\cdots c_{m-1}p_mq$ with $c_i\in\{a_i,b_i\}$, since entering a tail ends the play in it. At the resulting position $(W_c,q)$ the options are the unvisited $x_i\in\{a_i,b_i\}\setminus\{c_i\}$, and from $x_i$ the only continuation is its tail, because $p_{i+1}$ is visited; so the subgame from $x_i$ is a directed path with $L(x_i)$ vertices and
 \[
-R(W_c,q)=\frac{1}{z-S_c},\qquad S_c=\sum_{i<m}f_{L(x_i)},\qquad f_L=\frac{\mu(P_{L-1})}{\mu(P_L)} .
+R(W_c,q)=\frac{1}{z-S_c},\qquad S_c=\sum_{i<m}f_{L(x_i)},\qquad f_L=\frac{\mu(P_{L-1})}{\mu(P_L)}.
 \]
 The poles of $f_L$ are the zeros $2\cos(k\pi/(L+1))$, $1\le k\le L$, of $\mu(P_L)=U_L(z/2)$; they are simple, and they are not zeros of the coprime numerator $\mu(P_{L-1})$. For distinct primes $p=L+1$ and $p'=L'+1$ the pole sets are disjoint, since $k/p=k'/p'$ with $0<k<p$, $0<k'<p'$ is impossible. So the poles of $S_c$ are exactly the union of the pole sets of the chosen $f_{L(x_i)}$, which determines $c$; distinct $c$ give distinct $S_c$ and distinct $R(W_c,q)$.
 

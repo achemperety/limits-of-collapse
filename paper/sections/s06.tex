@@ -19,7 +19,7 @@ Without restrictions on $A$ and $B$ every family satisfies \cref{lem:transfer}: 
 \end{remark*}
 
 \subsection{Undirected vertex geography}\label{ssec:uvg}
-In undirected vertex geography (UVG) a token sits on a vertex $v$ of a graph $H$; the player to move slides it to a neighbour $w$ and $v$ is deleted; a player who cannot move loses. The game tree from $(G,u)$ is Godsil's path tree $T(G,u)$, whose nodes are the simple paths of $G$ that start at $u$. The matching polynomial is $\mu(H,z)=\sum_k(-1)^km_k(H)z^{|H|-2k}$, where $m_k(H)$ counts matchings with $k$ edges. Sorting matchings by whether and how they cover $v$ gives the vertex recurrence
+In undirected vertex geography (UVG) a token sits on a vertex $v$ of a graph $H$; the player to move slides it to a neighbor $w$ and $v$ is deleted; a player who cannot move loses. The game tree from $(G,u)$ is Godsil's path tree $T(G,u)$, whose nodes are the simple paths of $G$ that start at $u$. The matching polynomial is $\mu(H,z)=\sum_k(-1)^km_k(H)z^{|H|-2k}$, where $m_k(H)$ counts matchings with $k$ edges. Sorting matchings by whether and how they cover $v$ gives the vertex recurrence
 \begin{equation}\label{eq:vertex-recurrence}
 \mu(H,z)=z\,\mu(H-v,z)-\sum_{w\sim_Hv}\mu(H-v-w,z).
 \end{equation}
@@ -33,7 +33,7 @@ So the player to move wins UVG at $(G,u)$ if and only if $\nu(G-u)=\nu(G)-1$, th
 \end{theorem}
 
 \begin{proof}
-For the position $(H,v)$ take $A=\mu(H)$ and $B=\mu(H-v)$. The options of $(H,v)$ are $(H-v,w)$ for the neighbours $w$ of $v$, so the right side of the transfer identity is $z-\sum_w\mu(H-v-w)/\mu(H-v)$, which equals $\mu(H)/\mu(H-v)$ by \eqref{eq:vertex-recurrence}; \cref{lem:transfer} gives $R=\mu(G-u)/\mu(G)$. The lowest-order term of $\mu(H)$ is $\pm(\text{number of maximum matchings})\,z^{|H|-2\nu(H)}$, so $\ord_0\mu(H)=|H|-2\nu(H)$, and the formula for $\ord_0R$ follows; \cref{thm:resolvent-outcome} turns it into the outcome.
+For the position $(H,v)$ take $A=\mu(H)$ and $B=\mu(H-v)$. The options of $(H,v)$ are $(H-v,w)$ for the neighbors $w$ of $v$, so the right side of the transfer identity is $z-\sum_w\mu(H-v-w)/\mu(H-v)$, which equals $\mu(H)/\mu(H-v)$ by \eqref{eq:vertex-recurrence}; \cref{lem:transfer} gives $R=\mu(G-u)/\mu(G)$. The lowest-order term of $\mu(H)$ is $\pm(\text{number of maximum matchings})\,z^{|H|-2\nu(H)}$, so $\ord_0\mu(H)=|H|-2\nu(H)$, and the formula for $\ord_0R$ follows; \cref{thm:resolvent-outcome} turns it into the outcome.
 For the Tutte statement, let $Q$ be the Tutte matrix: for each edge $e=vw$ with $v$ before $w$ it has $x_e$ in position $(v,w)$ and $-x_e$ in position $(w,v)$. $Q$ is skew-symmetric of rank $2\nu(G)$ over $\QQ(x_e)$ \cite{Tutte,Lovasz}. If some kernel vector is nonzero at $u$, then row $u$ and column $u$ are combinations of the others, and deleting both keeps the rank. If every kernel vector vanishes at $u$, deleting column $u$ lowers the rank; skew-symmetric ranks are even, so deleting row $u$ as well lowers it by exactly $2$. Hence $\nu(G-u)=\nu(G)-1$ exactly when $e_u\perp\ker Q$, that is, $e_u\in\operatorname{Im}Q$.
 \end{proof}
 
@@ -69,7 +69,7 @@ The last two rows are the sharpest. The valuation $\ord_0$ records outcomes but 
 The zero-energy eigenvector of \cref{thm:resolvent-outcome} can be probed by a quantum walk on the tree. That is the Farhi--Goldstone--Gutmann algorithm, which evaluates a NAND tree with $L$ leaves in time about $\sqrt L$ in the Hamiltonian-oracle model; discrete-query algorithms reach $O(\sqrt L)$ for balanced trees \cite{ACRSZ}. By \cref{thm:query} this is optimal when the leaves are an oracle. The bound says nothing about succinctly described arenas, where a polynomial-time quantum algorithm would place $\PSPACE$ in $\BQP$.
 
 \subsection{Directed resolvent collapse}\label{ssec:directed}
-In directed vertex geography (DVG) on a digraph $D$ the token moves along an out-arc $v\to w$ to an unvisited vertex $w$, and $v$ is deleted. Positions are pairs $(W,v)$ with $W$ the unvisited set, $v\in W$, and the options of $(W,v)$ are $(W-v,w)$ for out-neighbours $w\in W$. A position is \emph{reachable} if some play from some start $(V(D),s)$ reaches it. The game tree is the directed path tree, and \cref{thm:resolvent-outcome} applies to it verbatim; write $R(W,v)$ for its root resolvent.
+In directed vertex geography (DVG) on a digraph $D$ the token moves along an out-arc $v\to w$ to an unvisited vertex $w$, and $v$ is deleted. Positions are pairs $(W,v)$ with $W$ the unvisited set, $v\in W$, and the options of $(W,v)$ are $(W-v,w)$ for out-neighbors $w\in W$. A position is \emph{reachable} if some play from some start $(V(D),s)$ reaches it. The game tree is the directed path tree, and \cref{thm:resolvent-outcome} applies to it verbatim; write $R(W,v)$ for its root resolvent.
 
 \begin{theorem}[unweighted potentials see no orientation]\label{thm:unweighted}
 Let $\mathcal D$ be a class of digraphs closed under induced subdigraphs, and let $F$ assign to each $D\in\mathcal D$ an element $F(D)$ of a field $\mathbb K\supseteq\Qz$ with $F(\emptyset)\ne0$ and
@@ -79,7 +79,7 @@ F(D)=z\,F(D-v)-\sum_{w\in\nplus_D(v)}F(D-v-w)\qquad\text{for every }D\in\mathcal
 Then every digraph in $\mathcal D$ is symmetric, and $F(D)=F(\emptyset)\,\mu(D,z)$, with $\mu$ the matching polynomial of the underlying graph.
 \end{theorem}
 \begin{proof}
-For a single vertex the recurrence gives $F(\{x\})=zF(\emptyset)$. Suppose some $D\in\mathcal D$ has an arc $u\to v$ without $v\to u$, so that $D[\{u,v\}]\in\mathcal D$. The recurrence at $u$ gives $F(D[\{u,v\}])=(z^2-1)F(\emptyset)$, while at $v$, which has no out-neighbour there, it gives $z^2F(\emptyset)$, a contradiction. So every arc is symmetric, out-neighbourhoods are neighbourhoods, and $F/F(\emptyset)$ obeys \eqref{eq:vertex-recurrence} with the same initial value.
+For a single vertex the recurrence gives $F(\{x\})=zF(\emptyset)$. Suppose some $D\in\mathcal D$ has an arc $u\to v$ without $v\to u$, so that $D[\{u,v\}]\in\mathcal D$. The recurrence at $u$ gives $F(D[\{u,v\}])=(z^2-1)F(\emptyset)$, while at $v$, which has no out-neighbor there, it gives $z^2F(\emptyset)$, a contradiction. So every arc is symmetric, out-neighborhoods are neighborhoods, and $F/F(\emptyset)$ obeys \eqref{eq:vertex-recurrence} with the same initial value.
 \end{proof}
 
 \Cref{thm:unweighted} applies to every hereditary class with a one-way arc, acyclic digraphs included, where DVG takes linear time, so it does not separate easy classes from hard ones. It says that a recurrence with the bare weight $z$ at every vertex cannot see orientation, and that one-way arcs must enter a potential through vertex weights. \Cref{thm:directed-collapse} shows how.
@@ -120,7 +120,7 @@ The self-energies are computed component by component, in reverse topological or
 \end{theorem}
 
 \begin{proof}
-$U$ has no edges between components, so $\mu_a(U[S])$ is the product of the factors $\mu_a(G(C)[S\cap C])$ over the components, and every factor except that of $C$ cancels in the ratio (they are nonzero by \cref{prop:no-cancel}). By \cref{lem:entry} every exit target of a vertex of $C$ is unvisited while the token is in $C$, so the options of a reachable position $(W,v)$ are the positions $(W-v,w)$ for neighbours $w$ of $v$ in $G(C)[W\cap C]$, together with fresh entries into later components at the exit targets $y$, whose resolvents are $\Rdown(y)$. The recursion \eqref{eq:schur} therefore reads $1/R(W,v)=z-\eta(v)-\sum_wR(W-v,w)$. Sorting matchings by whether and how they cover $v$ gives the weighted vertex recurrence $\mu_a(H)=a_v\mu_a(H-v)-\sum_w\mu_a(H-v-w)$ over neighbours $w$ of $v$. Dividing by $\mu_a(H-v)$ shows that the claimed ratio satisfies the same recursion, with the same value $1/a_v$ when $v$ has no neighbour in $W\cap C$. Induction on $|W\cap C|$ gives equality.
+$U$ has no edges between components, so $\mu_a(U[S])$ is the product of the factors $\mu_a(G(C)[S\cap C])$ over the components, and every factor except that of $C$ cancels in the ratio (they are nonzero by \cref{prop:no-cancel}). By \cref{lem:entry} every exit target of a vertex of $C$ is unvisited while the token is in $C$, so the options of a reachable position $(W,v)$ are the positions $(W-v,w)$ for neighbors $w$ of $v$ in $G(C)[W\cap C]$, together with fresh entries into later components at the exit targets $y$, whose resolvents are $\Rdown(y)$. The recursion \eqref{eq:schur} therefore reads $1/R(W,v)=z-\eta(v)-\sum_wR(W-v,w)$. Sorting matchings by whether and how they cover $v$ gives the weighted vertex recurrence $\mu_a(H)=a_v\mu_a(H-v)-\sum_w\mu_a(H-v-w)$ over neighbors $w$ of $v$. Dividing by $\mu_a(H-v)$ shows that the claimed ratio satisfies the same recursion, with the same value $1/a_v$ when $v$ has no neighbor in $W\cap C$. Induction on $|W\cap C|$ gives equality.
 \end{proof}
 
 \begin{proposition}[valuation without cancellation]\label{prop:no-cancel}
@@ -134,7 +134,7 @@ By \cref{thm:resolvent-outcome} each $\Rdown(y)$ has either a simple pole at $0$
 \end{proof}
 
 \begin{corollary}[outcomes in polynomial time]\label{cor:dvg-poly}
-The player to move at a reachable position $(W,v)$ with $v$ in $C$ wins if and only if $v$ is covered by every maximum matching of $G(C)[W\cap C]^{+}$. So the explicit potential is $\mu_a$, with valuation $\Lambda(S)=|S|-2\nu(G(C)[S]^{+})$. Processing the components in reverse topological order decides DVG on SCC-symmetric digraphs with one Gallai--Edmonds decomposition per component: each entry vertex $w$ is classified by whether every maximum matching of $G(C)^{+}$ covers it, and that outcome decides whether $w$'s in-neighbours upstream belong to $X_{\Pw}$.
+The player to move at a reachable position $(W,v)$ with $v$ in $C$ wins if and only if $v$ is covered by every maximum matching of $G(C)[W\cap C]^{+}$. So the explicit potential is $\mu_a$, with valuation $\Lambda(S)=|S|-2\nu(G(C)[S]^{+})$. Processing the components in reverse topological order decides DVG on SCC-symmetric digraphs with one Gallai--Edmonds decomposition per component: each entry vertex $w$ is classified by whether every maximum matching of $G(C)^{+}$ covers it, and that outcome decides whether $w$'s in-neighbors upstream belong to $X_{\Pw}$.
 \end{corollary}
 \begin{proof}
 Put $S=W\cap C$. By \cref{thm:directed-collapse,prop:no-cancel}, $\ord_0R(W,v)=\Lambda(S-v)-\Lambda(S)=2(\nu(G(C)[S]^{+})-\nu(G(C)[S]^{+}-v))-1$, because the leaf of $v$ becomes isolated. \Cref{thm:resolvent-outcome} turns the sign into the outcome.
@@ -238,7 +238,7 @@ Let $\mathfrak C$ consist of impartial games and let $\varphi\colon\mathfrak C\t
 \end{theorem}
 \begin{proof}
 $G+G$ is a P-position, so $2\varphi(G)=\varphi(G+G)=0$. Then $\varphi(G)-\varphi(H)=\varphi(G)+\varphi(H)=\varphi(G+H)$ vanishes exactly when $G+H$ is a P-position, that is, when $g(G)=g(H)$; this injects Grundy values into $A[2]$, and (1) follows because $\ZZ$ has no element of order $2$.
-For (2) let $L\le\ZZ$ be generated by the values $2\varphi(G)$. Adding a game $G+G$ never changes an outcome, so if $\varphi(H_1)\equiv\varphi(H_2)\pmod L$, adding suitable nonnegative multiples of such games to each makes the values equal without changing outcomes; hence the outcome depends only on $\varphi\bmod L$. The reduced invariant is additive, outcome-determining and killed by $2$, so by \cref{thm:compositional} it injects Grundy values into $(\ZZ/L)[2]$, which has at most two elements (if $L=0$ then $\varphi\equiv0$ cannot separate $0$ from $*1$). The games $0,*1,*2,*3$ need four.
+For (2) let $L\le\ZZ$ be generated by the values $2\varphi(G)$. Adding a game $G+G$ never changes an outcome, so if $\varphi(H_1)\equiv\varphi(H_2)\pmod L$, adding suitable nonnegative multiples of such games to each makes the values equal without changing outcomes; hence the outcome depends only on $\varphi\bmod L$. The reduced invariant is additive, outcome-determining and killed by $2$, so by \cref{thm:compositional} it injects Grundy values into $(\ZZ/L)[2]$, which has at most two elements (if $L=0$ then $\varphi\equiv0$ cannot separate $0$ from $*1$). The games $0,*1,*2$ need three.
 For (3), $\operatorname{Pic}^0$ of a finite graph is the discriminant group of its lattice of integral flows, a lattice of rank $g$, so it is generated by $g$ elements \cite{BHN}; $\operatorname{Pic}^0$ of a metric graph is a $g$-dimensional real torus \cite{MikhalkinZharkov}. In both cases $|A[2]|\le 2^g$.
 \end{proof}
 

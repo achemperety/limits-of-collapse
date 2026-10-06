@@ -113,7 +113,6 @@
 
 \begin{abstract}
 For succinctly described two-player games the minimax value has no invariant computable in deterministic polynomial time when play can be exponentially long; for play of polynomial length such an invariant exists exactly when $\Pclass=\PSPACE$; and an evaluator that sees payoffs only through queries needs exponentially many queries in the depth. We restate these classical limits in one model and then study what collapses exactly. The value is a signed spectral index of the unfolded game tree. For undirected vertex geography the index is a ratio of matching polynomials of the input graph, and for directed vertex geography it is a ratio of weighted matching polynomials of one fixed graph whenever every strong component is symmetric. We prove the converse for real weights: a digraph admits such a local weighted matching potential with weights in $\Qz$, in $\Rz$ or in real Puiseux series if and only if every strong component is symmetric. The proof applies Br\"and\'en's criterion for real stability to first order at $z=\infty$, and it also excludes Hermitian determinantal potentials and frozen environments. Over the algebraic closure of $\Qz$ the statement is false: a directed $m$-cycle together with $m+1$ isolated vertices carries a potential whose environment weights are the roots of an explicit polynomial, with full symmetric monodromy for $m\le6$. We also decide directed geography in polynomial time when the one-way arcs of every strong component share a tail and show that matching data decide no other two-arc geometry; prove that every two-periodic blow-up of a directed cycle carries a set potential; and show that exact resolvents on digraphs of small width need exponential degree and non-local memory, while circuits over component states have linear size.
-
 \end{abstract}
 
 \begin{keywords}
@@ -123,7 +122,6 @@ minimax, combinatorial games, geography, matching polynomial, real stable polyno
 \begin{AMS}
 91A46, 68Q17, 68Q15, 05C50, 05C57, 05C70, 32A60
 \end{AMS}
-
 \begin{figure}[t]
 \centering
 \begin{adjustbox}{max width=\linewidth}
@@ -261,7 +259,7 @@ An \emph{invariant} for a family of arenas is a map $\Phi$ from instances (an ar
 
 \begin{proposition}[landscape invariants are blind]\label{prop:blind}
 \begin{enumerate}[label=\textup{(\arabic*)}]
-\item $\val$ is not a function of the labelled undirected state graph, so no invariant is defined on it, whatever its cost. Here the graph underlying $\SG$ carries the labels $p$, the terminal set $\tau$ and the payoffs $\pay$, with $\sigma_0$ marked; connected components, spectra and homology are functions of it.
+\item $\val$ is not a function of the labeled undirected state graph, so no invariant is defined on it, whatever its cost. Here the graph underlying $\SG$ carries the labels $p$, the terminal set $\tau$ and the payoffs $\pay$, with $\sigma_0$ marked; connected components, spectra and homology are functions of it.
 \item At finite horizon the part of $\SG$ reachable from $\sigma_0$ is acyclic, so its adjacency matrix is nilpotent and its strong components are single positions. Neither the spectrum nor the strong components of $\SG$ determine $\val(\sigma_0)$.
 \end{enumerate}
 \end{proposition}
@@ -384,7 +382,7 @@ For succinct $\SG$, deciding whether $\sigma_0$ and a given position $\sigma^{*}
 \end{proposition}
 
 \begin{proof}
-Membership: undirected reachability among $2^N$ positions is in $\mathsf{DSPACE}(N)$ \cite{Reingold} (already $\mathsf{NSPACE}(N)\subseteq\mathsf{DSPACE}(N^2)$ suffices \cite{Savitch}). Hardness: let a deterministic machine $\mathcal D$ decide $L\in\PSPACE$ in space $s(n)$, erasing its tape before it halts, so that it has a unique accepting configuration $c_{+}$ and a unique rejecting configuration $c_{-}$. Positions are pairs $(c,b)$ with a parity bit $b$; Max moves when $b=0$ and Min when $b=1$. A position whose $c$ is a non-halting configuration has $T^{+}=T^{-}=(\mathrm{next}(c),1-b)$. Add one move $(c_{+},1)\to(c_{+},0)$, and make $(c_{+},0)$, $(c_{-},0)$, $(c_{-},1)$ and every string that encodes no configuration terminal. The circuits have size $\poly(s(n))$. Every non-terminal position has exactly one out-neighbour and terminals have none, so a component with $k$ positions has at most $k$ edges and, being connected with at least $k-1$ edges, at most one terminal; a component containing a terminal is a tree directed towards it. Hence the component of $(c_{+},0)$ is the set of positions whose forward orbit reaches $(c_{+},0)$, and $(c_{\mathrm{start}},0)$ lies in it exactly when $\mathcal D$ accepts.
+Membership: undirected reachability among $2^N$ positions is in $\mathsf{DSPACE}(N)$ \cite{Reingold} (already $\mathsf{NSPACE}(N)\subseteq\mathsf{DSPACE}(N^2)$ suffices \cite{Savitch}). Hardness: let a deterministic machine $\mathcal D$ decide $L\in\PSPACE$ in space $s(n)$, erasing its tape before it halts, so that it has a unique accepting configuration $c_{+}$ and a unique rejecting configuration $c_{-}$. Positions are pairs $(c,b)$ with a parity bit $b$; Max moves when $b=0$ and Min when $b=1$. A position whose $c$ is a non-halting configuration has $T^{+}=T^{-}=(\mathrm{next}(c),1-b)$. Add one move $(c_{+},1)\to(c_{+},0)$, and make $(c_{+},0)$, $(c_{-},0)$, $(c_{-},1)$ and every string that encodes no configuration terminal. The circuits have size $\poly(s(n))$. Every non-terminal position has exactly one out-neighbor and terminals have none, so a component with $k$ positions has at most $k$ edges and, being connected with at least $k-1$ edges, at most one terminal; a component containing a terminal is a tree directed toward it. Hence the component of $(c_{+},0)$ is the set of positions whose forward orbit reaches $(c_{+},0)$, and $(c_{\mathrm{start}},0)$ lies in it exactly when $\mathcal D$ accepts.
 \end{proof}
 
 So the components of $\SG$ are $\PSPACE$-hard to compute from a succinct description. Hardness is not the main obstruction, though: by \cref{prop:blind}, components and every other invariant of the undirected graph fail to determine $\val$ even when they are computed for free.
@@ -545,7 +543,7 @@ Without restrictions on $A$ and $B$ every family satisfies \cref{lem:transfer}: 
 \end{remark*}
 
 \subsection{Undirected vertex geography}\label{ssec:uvg}
-In undirected vertex geography (UVG) a token sits on a vertex $v$ of a graph $H$; the player to move slides it to a neighbour $w$ and $v$ is deleted; a player who cannot move loses. The game tree from $(G,u)$ is Godsil's path tree $T(G,u)$, whose nodes are the simple paths of $G$ that start at $u$. The matching polynomial is $\mu(H,z)=\sum_k(-1)^km_k(H)z^{|H|-2k}$, where $m_k(H)$ counts matchings with $k$ edges. Sorting matchings by whether and how they cover $v$ gives the vertex recurrence
+In undirected vertex geography (UVG) a token sits on a vertex $v$ of a graph $H$; the player to move slides it to a neighbor $w$ and $v$ is deleted; a player who cannot move loses. The game tree from $(G,u)$ is Godsil's path tree $T(G,u)$, whose nodes are the simple paths of $G$ that start at $u$. The matching polynomial is $\mu(H,z)=\sum_k(-1)^km_k(H)z^{|H|-2k}$, where $m_k(H)$ counts matchings with $k$ edges. Sorting matchings by whether and how they cover $v$ gives the vertex recurrence
 \begin{equation}\label{eq:vertex-recurrence}
 \mu(H,z)=z\,\mu(H-v,z)-\sum_{w\sim_Hv}\mu(H-v-w,z).
 \end{equation}
@@ -559,7 +557,7 @@ So the player to move wins UVG at $(G,u)$ if and only if $\nu(G-u)=\nu(G)-1$, th
 \end{theorem}
 
 \begin{proof}
-For the position $(H,v)$ take $A=\mu(H)$ and $B=\mu(H-v)$. The options of $(H,v)$ are $(H-v,w)$ for the neighbours $w$ of $v$, so the right side of the transfer identity is $z-\sum_w\mu(H-v-w)/\mu(H-v)$, which equals $\mu(H)/\mu(H-v)$ by \eqref{eq:vertex-recurrence}; \cref{lem:transfer} gives $R=\mu(G-u)/\mu(G)$. The lowest-order term of $\mu(H)$ is $\pm(\text{number of maximum matchings})\,z^{|H|-2\nu(H)}$, so $\ord_0\mu(H)=|H|-2\nu(H)$, and the formula for $\ord_0R$ follows; \cref{thm:resolvent-outcome} turns it into the outcome.
+For the position $(H,v)$ take $A=\mu(H)$ and $B=\mu(H-v)$. The options of $(H,v)$ are $(H-v,w)$ for the neighbors $w$ of $v$, so the right side of the transfer identity is $z-\sum_w\mu(H-v-w)/\mu(H-v)$, which equals $\mu(H)/\mu(H-v)$ by \eqref{eq:vertex-recurrence}; \cref{lem:transfer} gives $R=\mu(G-u)/\mu(G)$. The lowest-order term of $\mu(H)$ is $\pm(\text{number of maximum matchings})\,z^{|H|-2\nu(H)}$, so $\ord_0\mu(H)=|H|-2\nu(H)$, and the formula for $\ord_0R$ follows; \cref{thm:resolvent-outcome} turns it into the outcome.
 For the Tutte statement, let $Q$ be the Tutte matrix: for each edge $e=vw$ with $v$ before $w$ it has $x_e$ in position $(v,w)$ and $-x_e$ in position $(w,v)$. $Q$ is skew-symmetric of rank $2\nu(G)$ over $\QQ(x_e)$ \cite{Tutte,Lovasz}. If some kernel vector is nonzero at $u$, then row $u$ and column $u$ are combinations of the others, and deleting both keeps the rank. If every kernel vector vanishes at $u$, deleting column $u$ lowers the rank; skew-symmetric ranks are even, so deleting row $u$ as well lowers it by exactly $2$. Hence $\nu(G-u)=\nu(G)-1$ exactly when $e_u\perp\ker Q$, that is, $e_u\in\operatorname{Im}Q$.
 \end{proof}
 
@@ -595,7 +593,7 @@ The last two rows are the sharpest. The valuation $\ord_0$ records outcomes but 
 The zero-energy eigenvector of \cref{thm:resolvent-outcome} can be probed by a quantum walk on the tree. That is the Farhi--Goldstone--Gutmann algorithm, which evaluates a NAND tree with $L$ leaves in time about $\sqrt L$ in the Hamiltonian-oracle model; discrete-query algorithms reach $O(\sqrt L)$ for balanced trees \cite{ACRSZ}. By \cref{thm:query} this is optimal when the leaves are an oracle. The bound says nothing about succinctly described arenas, where a polynomial-time quantum algorithm would place $\PSPACE$ in $\BQP$.
 
 \subsection{Directed resolvent collapse}\label{ssec:directed}
-In directed vertex geography (DVG) on a digraph $D$ the token moves along an out-arc $v\to w$ to an unvisited vertex $w$, and $v$ is deleted. Positions are pairs $(W,v)$ with $W$ the unvisited set, $v\in W$, and the options of $(W,v)$ are $(W-v,w)$ for out-neighbours $w\in W$. A position is \emph{reachable} if some play from some start $(V(D),s)$ reaches it. The game tree is the directed path tree, and \cref{thm:resolvent-outcome} applies to it verbatim; write $R(W,v)$ for its root resolvent.
+In directed vertex geography (DVG) on a digraph $D$ the token moves along an out-arc $v\to w$ to an unvisited vertex $w$, and $v$ is deleted. Positions are pairs $(W,v)$ with $W$ the unvisited set, $v\in W$, and the options of $(W,v)$ are $(W-v,w)$ for out-neighbors $w\in W$. A position is \emph{reachable} if some play from some start $(V(D),s)$ reaches it. The game tree is the directed path tree, and \cref{thm:resolvent-outcome} applies to it verbatim; write $R(W,v)$ for its root resolvent.
 
 \begin{theorem}[unweighted potentials see no orientation]\label{thm:unweighted}
 Let $\mathcal D$ be a class of digraphs closed under induced subdigraphs, and let $F$ assign to each $D\in\mathcal D$ an element $F(D)$ of a field $\mathbb K\supseteq\Qz$ with $F(\emptyset)\ne0$ and
@@ -605,7 +603,7 @@ F(D)=z\,F(D-v)-\sum_{w\in\nplus_D(v)}F(D-v-w)\qquad\text{for every }D\in\mathcal
 Then every digraph in $\mathcal D$ is symmetric, and $F(D)=F(\emptyset)\,\mu(D,z)$, with $\mu$ the matching polynomial of the underlying graph.
 \end{theorem}
 \begin{proof}
-For a single vertex the recurrence gives $F(\{x\})=zF(\emptyset)$. Suppose some $D\in\mathcal D$ has an arc $u\to v$ without $v\to u$, so that $D[\{u,v\}]\in\mathcal D$. The recurrence at $u$ gives $F(D[\{u,v\}])=(z^2-1)F(\emptyset)$, while at $v$, which has no out-neighbour there, it gives $z^2F(\emptyset)$, a contradiction. So every arc is symmetric, out-neighbourhoods are neighbourhoods, and $F/F(\emptyset)$ obeys \eqref{eq:vertex-recurrence} with the same initial value.
+For a single vertex the recurrence gives $F(\{x\})=zF(\emptyset)$. Suppose some $D\in\mathcal D$ has an arc $u\to v$ without $v\to u$, so that $D[\{u,v\}]\in\mathcal D$. The recurrence at $u$ gives $F(D[\{u,v\}])=(z^2-1)F(\emptyset)$, while at $v$, which has no out-neighbor there, it gives $z^2F(\emptyset)$, a contradiction. So every arc is symmetric, out-neighborhoods are neighborhoods, and $F/F(\emptyset)$ obeys \eqref{eq:vertex-recurrence} with the same initial value.
 \end{proof}
 
 \Cref{thm:unweighted} applies to every hereditary class with a one-way arc, acyclic digraphs included, where DVG takes linear time, so it does not separate easy classes from hard ones. It says that a recurrence with the bare weight $z$ at every vertex cannot see orientation, and that one-way arcs must enter a potential through vertex weights. \Cref{thm:directed-collapse} shows how.
@@ -646,7 +644,7 @@ The self-energies are computed component by component, in reverse topological or
 \end{theorem}
 
 \begin{proof}
-$U$ has no edges between components, so $\mu_a(U[S])$ is the product of the factors $\mu_a(G(C)[S\cap C])$ over the components, and every factor except that of $C$ cancels in the ratio (they are nonzero by \cref{prop:no-cancel}). By \cref{lem:entry} every exit target of a vertex of $C$ is unvisited while the token is in $C$, so the options of a reachable position $(W,v)$ are the positions $(W-v,w)$ for neighbours $w$ of $v$ in $G(C)[W\cap C]$, together with fresh entries into later components at the exit targets $y$, whose resolvents are $\Rdown(y)$. The recursion \eqref{eq:schur} therefore reads $1/R(W,v)=z-\eta(v)-\sum_wR(W-v,w)$. Sorting matchings by whether and how they cover $v$ gives the weighted vertex recurrence $\mu_a(H)=a_v\mu_a(H-v)-\sum_w\mu_a(H-v-w)$ over neighbours $w$ of $v$. Dividing by $\mu_a(H-v)$ shows that the claimed ratio satisfies the same recursion, with the same value $1/a_v$ when $v$ has no neighbour in $W\cap C$. Induction on $|W\cap C|$ gives equality.
+$U$ has no edges between components, so $\mu_a(U[S])$ is the product of the factors $\mu_a(G(C)[S\cap C])$ over the components, and every factor except that of $C$ cancels in the ratio (they are nonzero by \cref{prop:no-cancel}). By \cref{lem:entry} every exit target of a vertex of $C$ is unvisited while the token is in $C$, so the options of a reachable position $(W,v)$ are the positions $(W-v,w)$ for neighbors $w$ of $v$ in $G(C)[W\cap C]$, together with fresh entries into later components at the exit targets $y$, whose resolvents are $\Rdown(y)$. The recursion \eqref{eq:schur} therefore reads $1/R(W,v)=z-\eta(v)-\sum_wR(W-v,w)$. Sorting matchings by whether and how they cover $v$ gives the weighted vertex recurrence $\mu_a(H)=a_v\mu_a(H-v)-\sum_w\mu_a(H-v-w)$ over neighbors $w$ of $v$. Dividing by $\mu_a(H-v)$ shows that the claimed ratio satisfies the same recursion, with the same value $1/a_v$ when $v$ has no neighbor in $W\cap C$. Induction on $|W\cap C|$ gives equality.
 \end{proof}
 
 \begin{proposition}[valuation without cancellation]\label{prop:no-cancel}
@@ -660,7 +658,7 @@ By \cref{thm:resolvent-outcome} each $\Rdown(y)$ has either a simple pole at $0$
 \end{proof}
 
 \begin{corollary}[outcomes in polynomial time]\label{cor:dvg-poly}
-The player to move at a reachable position $(W,v)$ with $v$ in $C$ wins if and only if $v$ is covered by every maximum matching of $G(C)[W\cap C]^{+}$. So the explicit potential is $\mu_a$, with valuation $\Lambda(S)=|S|-2\nu(G(C)[S]^{+})$. Processing the components in reverse topological order decides DVG on SCC-symmetric digraphs with one Gallai--Edmonds decomposition per component: each entry vertex $w$ is classified by whether every maximum matching of $G(C)^{+}$ covers it, and that outcome decides whether $w$'s in-neighbours upstream belong to $X_{\Pw}$.
+The player to move at a reachable position $(W,v)$ with $v$ in $C$ wins if and only if $v$ is covered by every maximum matching of $G(C)[W\cap C]^{+}$. So the explicit potential is $\mu_a$, with valuation $\Lambda(S)=|S|-2\nu(G(C)[S]^{+})$. Processing the components in reverse topological order decides DVG on SCC-symmetric digraphs with one Gallai--Edmonds decomposition per component: each entry vertex $w$ is classified by whether every maximum matching of $G(C)^{+}$ covers it, and that outcome decides whether $w$'s in-neighbors upstream belong to $X_{\Pw}$.
 \end{corollary}
 \begin{proof}
 Put $S=W\cap C$. By \cref{thm:directed-collapse,prop:no-cancel}, $\ord_0R(W,v)=\Lambda(S-v)-\Lambda(S)=2(\nu(G(C)[S]^{+})-\nu(G(C)[S]^{+}-v))-1$, because the leaf of $v$ becomes isolated. \Cref{thm:resolvent-outcome} turns the sign into the outcome.
@@ -764,7 +762,7 @@ Let $\mathfrak C$ consist of impartial games and let $\varphi\colon\mathfrak C\t
 \end{theorem}
 \begin{proof}
 $G+G$ is a P-position, so $2\varphi(G)=\varphi(G+G)=0$. Then $\varphi(G)-\varphi(H)=\varphi(G)+\varphi(H)=\varphi(G+H)$ vanishes exactly when $G+H$ is a P-position, that is, when $g(G)=g(H)$; this injects Grundy values into $A[2]$, and (1) follows because $\ZZ$ has no element of order $2$.
-For (2) let $L\le\ZZ$ be generated by the values $2\varphi(G)$. Adding a game $G+G$ never changes an outcome, so if $\varphi(H_1)\equiv\varphi(H_2)\pmod L$, adding suitable nonnegative multiples of such games to each makes the values equal without changing outcomes; hence the outcome depends only on $\varphi\bmod L$. The reduced invariant is additive, outcome-determining and killed by $2$, so by \cref{thm:compositional} it injects Grundy values into $(\ZZ/L)[2]$, which has at most two elements (if $L=0$ then $\varphi\equiv0$ cannot separate $0$ from $*1$). The games $0,*1,*2,*3$ need four.
+For (2) let $L\le\ZZ$ be generated by the values $2\varphi(G)$. Adding a game $G+G$ never changes an outcome, so if $\varphi(H_1)\equiv\varphi(H_2)\pmod L$, adding suitable nonnegative multiples of such games to each makes the values equal without changing outcomes; hence the outcome depends only on $\varphi\bmod L$. The reduced invariant is additive, outcome-determining and killed by $2$, so by \cref{thm:compositional} it injects Grundy values into $(\ZZ/L)[2]$, which has at most two elements (if $L=0$ then $\varphi\equiv0$ cannot separate $0$ from $*1$). The games $0,*1,*2$ need three.
 For (3), $\operatorname{Pic}^0$ of a finite graph is the discriminant group of its lattice of integral flows, a lattice of rank $g$, so it is generated by $g$ elements \cite{BHN}; $\operatorname{Pic}^0$ of a metric graph is a $g$-dimensional real torus \cite{MikhalkinZharkov}. In both cases $|A[2]|\le 2^g$.
 \end{proof}
 
@@ -1058,7 +1056,7 @@ z^{|V(P)|}\,\Gamma(P)=1+\ell(P)\,z^{-2}+o(z^{-2}),\qquad \ell(P)=\sum_{t\in V(P)
 \]
 \end{lemma}
 \begin{proof}
-By induction on $|W|$ every child resolvent is $z^{-1}+O(z^{-3})$, and $\eta_v=e_vz^{-1}+o(z^{-1})$, so $1/R(W,v)=z-(d^{+}_W(v)+e_v)z^{-1}+o(z^{-1})$, which inverts to the claim. (Self-energies in $\Puis$ may contain exponents between $1$ and $2$, so the error terms cannot be improved to $O(z^{-4})$ and $O(z^{-3})$ in general; for $\eta\equiv0$ they can, see \S\ref{ssec:fields-setting}.) In the product, the $i$-th factor has $d^{+}_{W_i}(t_i)$ equal to $d^{+}(t_i)$ minus the number of out-neighbours of $t_i$ among $t_0,\dots,t_{i-1}$; summing gives $\ell(P)$.
+By induction on $|W|$ every child resolvent is $z^{-1}+O(z^{-3})$, and $\eta_v=e_vz^{-1}+o(z^{-1})$, so $1/R(W,v)=z-(d^{+}_W(v)+e_v)z^{-1}+o(z^{-1})$, which inverts to the claim. (Self-energies in $\Puis$ may contain exponents between $1$ and $2$, so the error terms cannot be improved to $O(z^{-4})$ and $O(z^{-3})$ in general; for $\eta\equiv0$ they can, see \S\ref{ssec:fields-setting}.) In the product, the $i$-th factor has $d^{+}_{W_i}(t_i)$ equal to $d^{+}(t_i)$ minus the number of out-neighbors of $t_i$ among $t_0,\dots,t_{i-1}$; summing gives $\ell(P)$.
 \end{proof}
 
 Let $Z$ be a directed cycle $q_0\to q_1\to\dots\to q_{m-1}\to q_0$ with vertex set $T$, $m\ge3$. A \emph{cyclic interval} of $Z$ is a set of consecutive vertices of $Z$, including $\emptyset$ and $T$.
@@ -1166,7 +1164,7 @@ and at $t=-\frac12$ this equals $(4-z^2)/(4(z^2-2)^2)<0$. By \cref{lem:branden} 
 
 \section{Potentials over arbitrary fields}\label{sec:fields}
 
-\Cref{thm:main-real} settles real weights. This section collects what holds over an arbitrary field $\mathbb K\supseteq\Qz$, in particular over $\Qzbar$, where \S\ref{sec:complex} shows that the conclusion of \cref{thm:conj610} fails. Four mechanisms are available over every field: a balance law at $z=\infty$, a cocycle carried by the game alone, locality in $U$, and the cavity identity. Three further obstructions use real weights through sums of squares or Rayleigh differences at a few points. For weights in $\Puis$ they are special cases of \cref{thm:main-real}; we keep their short proofs because each isolates one mechanism and shows exactly where reality enters, which is what \S\ref{sec:complex} exploits.
+\Cref{thm:main-real} settles real weights. This section collects what holds over an arbitrary field $\mathbb K\supseteq\Qz$, in particular over $\Qzbar$, where \S\ref{sec:complex} shows that the conclusion of \cref{thm:conj610} fails. Four mechanisms are available over every field: a balance law at $z=\infty$, a cocycle carried by the game alone, locality in $U$, and the cavity identity. Further obstructions use real weights through sums of squares or Rayleigh differences at a few points. For weights in $\Puis$ they are special cases of \cref{thm:main-real}; we keep their short proofs because each isolates one mechanism and shows exactly where reality enters, which is what \S\ref{sec:complex} exploits.
 
 \subsection{Setting}\label{ssec:fields-setting}
 Throughout, $D$ is a digraph on $V$ with $\eta\equiv0$ unless said otherwise, $(U,a)$ is a local weighted matching potential over a field $\mathbb K\supseteq\Qz$, and
@@ -1174,7 +1172,7 @@ Throughout, $D$ is a digraph on $V$ with $\eta\equiv0$ unless said otherwise, $(
 \Mpot(S)=\mu_a(U[S])\quad(S\subseteq V),\qquad c(X)=\frac{\Mpot(V\setminus X)}{\Mpot(V)},
 \]
 and $\rho(S,s)=\Mpot(S-s)/\Mpot(S)$ when $\Mpot(S)\neq0$.
-We call $\rho$ the \emph{Green's function} of the potential; at reachable positions $\rho=R$. For a vertex $v$ its \emph{exits} are $\Delta^{+}(v)=\nplus(v)\setminus N_U(v)$ and its \emph{phantom neighbours} are $\Delta^{-}(v)=N_U(v)\setminus\nplus(v)$. Two vertices are \emph{comparable} if one reaches the other, and $D$ is \emph{unilateral} if any two of its vertices are comparable. As in \S\ref{sec:realstab}, $\Gamma(P)$ is the product of resolvents along a play $P$ started at $(V,t_0)$, and $\back(P)$ counts the arcs $t_j\to t_i$ with $i<j$.
+We call $\rho$ the \emph{Green's function} of the potential; at reachable positions $\rho=R$. For a vertex $v$ its \emph{exits} are $\Delta^{+}(v)=\nplus(v)\setminus N_U(v)$ and its \emph{phantom neighbors} are $\Delta^{-}(v)=N_U(v)\setminus\nplus(v)$. Two vertices are \emph{comparable} if one reaches the other, and $D$ is \emph{unilateral} if any two of its vertices are comparable. As in \S\ref{sec:realstab}, $\Gamma(P)$ is the product of resolvents along a play $P$ started at $(V,t_0)$, and $\back(P)$ counts the arcs $t_j\to t_i$ with $i<j$.
 
 \begin{lemma}[field independence]\label{lem:field-independence}
 For a digraph $D$ and a graph $U$ on $V(D)$ the following are equivalent: \textup{(i)} $D$ has a potential $(U,a)$ over some field $\mathbb K\supseteq\Qz$; \textup{(ii)} it has one over $\Qzbar$; \textup{(iii)} it has one with weights in the field $\CC\{\!\{z^{-1}\}\!\}$ of complex Puiseux series in $z^{-1}$ that converge for all large $|z|$.
@@ -1183,7 +1181,7 @@ For a digraph $D$ and a graph $U$ on $V(D)$ the following are equivalent: \textu
 Introduce unknowns $a_x$ $(x\in V)$ and $t$. The polynomials $\Mpot(W-v)-R(W,v)\Mpot(W)$ over the reachable positions $(W,v)$, together with $t\prod_W\Mpot(W)-1$, lie in $\Qz[a,t]$, and their common zeros in $\mathbb K^{V}\times\mathbb K$ are exactly the potentials over $\mathbb K$ with graph $U$. If they have a common zero in some $\mathbb K\supseteq\Qz$, the ideal they generate in $\Qz[a,t]$ does not contain $1$, and by Hilbert's Nullstellensatz it has a zero over $\Qzbar$. So (i) implies (ii). By the Newton--Puiseux theorem $\Qzbar$ embeds into $\CC\{\!\{z^{-1}\}\!\}$ (every algebraic function has convergent Puiseux expansions at $z=\infty$), so (ii) implies (iii), and (iii) implies (i) trivially.
 \end{proof}
 
-So ``a potential over $\Qzbar$'', ``a potential over $\CC(z)$'s algebraic closure'' and ``a potential over some field'' mean the same thing, and the existence question for fixed $U$ is decided by one Gr\"obner basis over $\Qz$ (\cref{thm:exact5}). For a nonzero Puiseux series $f$ we write $\deg f$ for the exponent of its leading term at $z=\infty$ (so $\deg z=1$), and $f=O(z^{-q})$ as in \S\ref{ssec:real-setting}; when the weights lie in $\Qzbar$ these notions refer to a fixed embedding into $\CC\{\!\{z^{-1}\}\!\}$, and every statement below holds for each embedding. \Cref{lem:asymptotics} holds verbatim for self-energies that are complex Puiseux series, with the same $o(\cdot)$ error terms; for $\eta\equiv0$ each $R(W,v)$ is an odd function of $z$, so its error terms improve to $R(W,v)=z^{-1}+d^{+}_W(v)z^{-3}+O(z^{-5})$ and $z^{|V(P)|}\Gamma(P)=1+\ell(P)z^{-2}+O(z^{-4})$ with $\ell(P)=\sum_{t\in V(P)}d^{+}(t)-\back(P)$.
+So ``a potential over $\Qzbar$'', ``a potential over the algebraic closure of $\CC(z)$'' and ``a potential over some field'' mean the same thing, and the existence question for fixed $U$ is decided by one Gr\"obner basis over $\Qz$ (\cref{thm:exact5}). For a nonzero Puiseux series $f$ we write $\deg f$ for the exponent of its leading term at $z=\infty$ (so $\deg z=1$), and $f=O(z^{-q})$ as in \S\ref{ssec:real-setting}; when the weights lie in $\Qzbar$ these notions refer to a fixed embedding into $\CC\{\!\{z^{-1}\}\!\}$, and every statement below holds for each embedding. \Cref{lem:asymptotics} holds verbatim for self-energies that are complex Puiseux series, with the same $o(\cdot)$ error terms; for $\eta\equiv0$ each $R(W,v)$ is an odd function of $z$, so its error terms improve to $R(W,v)=z^{-1}+d^{+}_W(v)z^{-3}+O(z^{-5})$ and $z^{|V(P)|}\Gamma(P)=1+\ell(P)z^{-2}+O(z^{-4})$ with $\ell(P)=\sum_{t\in V(P)}d^{+}(t)-\back(P)$.
 
 \begin{lemma}[telescoping]\label{lem:telescoping}
 If $P$ is a directed path of $D$, then $c(V(P))=\Gamma(P)$. In particular $\Gamma(P)$ depends only on the vertex set of $P$.
@@ -1201,7 +1199,7 @@ a_v-z=\sum_{w\in\Delta^{-}(v)\cap W}\rho(W-v,w)\;-\sum_{t\in\Delta^{+}(v)\cap W}
 \]
 \end{lemma}
 \begin{proof}
-$\Mpot(W-v)=R(W,v)\Mpot(W)\neq0$, because resolvents of positions are nonzero rational functions. Sorting matchings by how they cover $v$ gives $\Mpot(W)=a_v\Mpot(W-v)-\sum_{w}\Mpot(W-v-w)$ over the $U$-neighbours $w\in W$ of $v$; dividing by $\Mpot(W-v)$ gives $1/R(W,v)=a_v-\sum_w\rho(W-v,w)$. The game recursion gives $1/R(W,v)=z-\sum_tR(W-v,t)$ over the out-neighbours $t\in W$ of $v$. If $w$ is both a $U$-neighbour and an out-neighbour, $(W-v,w)$ is reachable, so $\rho(W-v,w)=R(W-v,w)$ and the two terms cancel.
+$\Mpot(W-v)=R(W,v)\Mpot(W)\neq0$, because resolvents of positions are nonzero rational functions. Sorting matchings by how they cover $v$ gives $\Mpot(W)=a_v\Mpot(W-v)-\sum_{w}\Mpot(W-v-w)$ over the $U$-neighbors $w\in W$ of $v$; dividing by $\Mpot(W-v)$ gives $1/R(W,v)=a_v-\sum_w\rho(W-v,w)$. The game recursion gives $1/R(W,v)=z-\sum_tR(W-v,t)$ over the out-neighbors $t\in W$ of $v$. If $w$ is both a $U$-neighbor and an out-neighbor, $(W-v,w)$ is reachable, so $\rho(W-v,w)=R(W-v,w)$ and the two terms cancel.
 \end{proof}
 
 \begin{lemma}[weighted two-point identity]\label{lem:two-point}
@@ -1212,7 +1210,7 @@ For every graph $U$, all vertex weights in a commutative ring, every $S\subseteq
 the sum running over the paths $P$ of $U[S]$ from $x$ to $y$.
 \end{lemma}
 \begin{proof}
-Induction on $|S|$. Expand $\Mpot(S)$ and $\Mpot(S-y)$ by the vertex recurrence at $x$; the terms with $a_x$ cancel. What remains is $\Mpot(S-x-y)^2$ when $xy\in U$, plus, for each $U$-neighbour $w\neq y$ of $x$, the left side of the identity for $S-x$ and the pair $(w,y)$. By induction that is the sum over paths from $w$ to $y$ avoiding $x$, and prefixing $x$ gives every other path from $x$ to $y$.
+Induction on $|S|$. Expand $\Mpot(S)$ and $\Mpot(S-y)$ by the vertex recurrence at $x$; the terms with $a_x$ cancel. What remains is $\Mpot(S-x-y)^2$ when $xy\in U$, plus, for each $U$-neighbor $w\neq y$ of $x$, the left side of the identity for $S-x$ and the pair $(w,y)$. By induction that is the sum over paths from $w$ to $y$ avoiding $x$, and prefixing $x$ gives every other path from $x$ to $y$.
 \end{proof}
 
 This is the identity of Heilmann--Lieb and Godsil \cite{HeilmannLieb,GodsilBook}; the proof uses only the vertex recurrence. Write $\tau(S;x,y)$ for the left side divided by $\Mpot(S)^2$. When $\Mpot(S)$ and $\Mpot(S-x)$ are nonzero,
@@ -1237,27 +1235,27 @@ Let $(U,a)$ be a potential for $D$ with weights in $\CC\{\!\{z^{-1}\}\!\}$ and $
 \emph{Step 3.} Let $x\to y$ be an arc and let $y$ reach $x$. Take a shortest path $y=p_0\to p_1\to\dots\to p_k=x$. For $0\le j\le k$ the position $(V\setminus\{p_j,\dots,p_{k-1}\},x)$ is reachable from $p_j$, so subtracting the balance laws for $j$ and $j+1$ gives $[p_j\in\nplus(x)]=[p_j\in N_U(x)]$; at $j=0$ this gives $xy\in U$. If $y\not\to x$, the position $(V-x,y)$ is reachable from $x$, and the balance law at $y$ with $X=\{x\}$ reads $0=[xy\in U]=1$. So every arc inside a strong component lies in $U$ and has its reverse. The same suffix argument applied to a $U$-edge $xw$ with $w$ reaching $x$ gives $x\to w$, so $x,w$ lie in one strong component and form a symmetric pair; by symmetry of $U$ the same holds when $x$ reaches $w$.
 \end{proof}
 
-\begin{theorem}[no phantom neighbour]\label{thm:no-phantom}
-Let the weights lie in any field. If a vertex $v$ has no phantom neighbour, then $a_v=z-\sum_{t\in\Delta^{+}(v)\cap W}R(W-v,t)$ at every reachable position $(W,v)$, and no exit of $v$ reaches $v$.
+\begin{theorem}[no phantom neighbor]\label{thm:no-phantom}
+Let the weights lie in any field. If a vertex $v$ has no phantom neighbor, then $a_v=z-\sum_{t\in\Delta^{+}(v)\cap W}R(W-v,t)$ at every reachable position $(W,v)$, and no exit of $v$ reaches $v$.
 \end{theorem}
 \begin{proof}
 The formula is \cref{lem:cavity} with $\Delta^{-}(v)=\emptyset$. By \cref{lem:asymptotics} its right side is $z-|\Delta^{+}(v)\cap W|\,z^{-1}+O(z^{-3})$, and $a_v$ does not depend on the position, so $|\Delta^{+}(v)\cap W|$ is the same at every reachable position $(W,v)$; at the start $(V,v)$ it equals $|\Delta^{+}(v)|$. If an exit $t$ of $v$ reached $v$, a shortest path from $t$ to $v$ would give a reachable position $(W',v)$ with $t\notin W'$, and then $|\Delta^{+}(v)\cap W'|<|\Delta^{+}(v)|$.
 \end{proof}
 
 \begin{theorem}[back-arc cocycle]\label{thm:cocycle}
-Let the weights lie in any field, or more generally let $\Mpot$ be any \emph{set potential}: a function on the unvisited sets of reachable positions, with values in a field containing $\Qz$, such that $\Mpot(W)\neq0$ and $\Mpot(W-v)=R(W,v)\Mpot(W)$ at every reachable $(W,v)$. Then any two directed paths with the same vertex set have the same number of back arcs. In particular, if $D[X]$ has a directed Hamiltonian cycle, then $D[X]$ is Eulerian: every vertex of $X$ has as many out-neighbours as in-neighbours in $X$.
+Let the weights lie in any field, or more generally let $\Mpot$ be any \emph{set potential}: a function on the unvisited sets of reachable positions, with values in a field containing $\Qz$, such that $\Mpot(W)\neq0$ and $\Mpot(W-v)=R(W,v)\Mpot(W)$ at every reachable $(W,v)$. Then any two directed paths with the same vertex set have the same number of back arcs. In particular, if $D[X]$ has a directed Hamiltonian cycle, then $D[X]$ is Eulerian: every vertex of $X$ has as many out-neighbors as in-neighbors in $X$.
 \end{theorem}
 \begin{proof}
 By \cref{lem:telescoping} both paths give $\Gamma=c(X)$, so their $z^{-2}$ terms in \cref{lem:asymptotics} agree, and the out-degree sums are equal. Moving the first vertex $x_i$ of a rotation of the Hamiltonian cycle to the end changes the back count by $d^{+}_X(x_i)-d^{-}_X(x_i)$.
 \end{proof}
 
-This settles \cref{prop:fails}(2) with no reference to $U$: both non-cycle digraphs there have the Hamiltonian cycle $0\to1\to2\to0$ and a vertex with two out-neighbours and one in-neighbour. Directed cycles are Eulerian and need the argument of \cref{prop:fails}(1).
+This settles \cref{prop:fails}(2) with no reference to $U$: both non-cycle digraphs there have the Hamiltonian cycle $0\to1\to2\to0$ and a vertex with two out-neighbors and one in-neighbor. Directed cycles are Eulerian and need the argument of \cref{prop:fails}(1).
 
 \begin{theorem}[locality]\label{thm:locality}
 Let the weights lie in any field. For every arc $u\to v$ inside a strong component, $u$ and $v$ lie in one component of $U$. Hence every strong component lies inside one component of $U$.
 \end{theorem}
 \begin{proof}
-Since $\mu_a$ factorizes over the components of $U[W]$, and every factor is nonzero when $\Mpot(W)\neq0$, $\rho(W,u)$ depends only on the component of $u$ in $U[W]$. Suppose that $u$ and $v$ lie in different components of $U$. Take a shortest path $v=p_0\to\dots\to p_k=u$, put $W_1=V\setminus\{p_1,\dots,p_{k-1}\}$ and $W_0=W_1-v$. The positions $(W_1,u)$ and $(W_0,u)$ are reachable, from $p_1$ and from $v$ respectively, and the components of $u$ in $U[W_1]$ and $U[W_0]$ coincide, so their Green's functions agree. Their resolvents differ: $1/R(W_1,u)-1/R(W_0,u)=-R(W_1-u,v)=-z^{-1}+O(z^{-3})$.
+Since $\mu_a$ factorizes over the components of $U[W]$, and every factor is nonzero when $\Mpot(W)\neq0$, $\rho(W,u)$ depends only on the component of $u$ in $U[W]$. Suppose that $u$ and $v$ lie in different components of $U$. Take a shortest path $v=p_0\to\dots\to p_k=u$, put $W_1=V\setminus\{p_1,\dots,p_{k-1}\}$ and $W_0=W_1-v$. The positions $(W_1,u)$ and $(W_0,u)$ are reachable, from $p_1$ and from $v$ respectively, and the components of $u$ in $U[W_1]$ and $U[W_0]$ coincide, so their Green's functions agree. Their resolvents differ: by \cref{lem:asymptotics}, $1/R(W_1,u)-1/R(W_0,u)=-\bigl(d^{+}_{W_1}(u)-d^{+}_{W_0}(u)\bigr)z^{-1}+O(z^{-3})=-z^{-1}+O(z^{-3})$, because $v$ is an out-neighbor of $u$ that lies in $W_1-u$ but not in $W_0-u$.
 \end{proof}
 
 \subsection{Obstructions that use real weights}
@@ -1283,10 +1281,10 @@ If $x$ reaches $w$ and $xw\in U$, \cref{prop:path-lemma} applied to a path from 
 \end{proof}
 
 \begin{corollary}[unilateral digraphs]\label{cor:unilateral}
-Let the weights lie in $\Puis$. In every potential each tail $x$ of a one-way arc inside a strong component has a $U$-neighbour incomparable to $x$. Hence a unilateral digraph, in particular a strongly connected digraph or one with a directed Hamiltonian path, has a potential only if it is SCC-symmetric.
+Let the weights lie in $\Puis$. In every potential each tail $x$ of a one-way arc inside a strong component has a $U$-neighbor incomparable to $x$. Hence a unilateral digraph, in particular a strongly connected digraph or one with a directed Hamiltonian path, has a potential only if it is SCC-symmetric.
 \end{corollary}
 \begin{proof}
-Let $x\to y$ be one-way inside a strong component $C$, and suppose every $U$-neighbour of $x$ is comparable to $x$. By \cref{cor:u-edges} they are symmetric partners, hence out-neighbours, so $x$ has no phantom neighbour. By \cref{thm:no-phantom} no exit of $x$ reaches $x$, so $y$ is not an exit and $xy\in U$, contradicting \cref{cor:u-edges}.
+Let $x\to y$ be one-way inside a strong component $C$, and suppose every $U$-neighbor of $x$ is comparable to $x$. By \cref{cor:u-edges} they are symmetric partners, hence out-neighbors, so $x$ has no phantom neighbor. By \cref{thm:no-phantom} no exit of $x$ reaches $x$, so $y$ is not an exit and $xy\in U$, contradicting \cref{cor:u-edges}.
 \end{proof}
 
 \begin{corollary}[sign-coherent potentials]\label{cor:sign-coherent}
@@ -1342,7 +1340,7 @@ A digraph with at most five vertices has a local weighted matching potential ove
 For fixed $D$ and $U$ the weights are the unknowns. The polynomials $\Mpot(W-v)-R(W,v)\Mpot(W)$ over reachable positions generate an ideal of $\Qz[a_1,\dots,a_n]$; saturating it by every $\Mpot(W)$ discards solutions with a vanishing denominator. By \cref{lem:field-independence} the saturated ideal is the unit ideal exactly when no potential with graph $U$ exists over any field, so no test point is involved.
 \begin{itemize}
 \item Three and four vertices: all $16$ and $218$ digraphs against all $8$ and $64$ graphs $U$. The $13$ and $104$ SCC-symmetric digraphs have potentials; for the $3$ and $114$ others every saturated ideal is the unit ideal.
-\item Five vertices: $8{,}055$ of the $9{,}608$ digraphs are not SCC-symmetric. A potential over any field gives a set potential in the sense of \cref{thm:cocycle}, and whether a set potential exists is decided exactly over $\Qz$ by propagating $\Mpot$ from $V$ along the reachable positions; $7{,}976$ of the $8{,}055$ have none. For the other $79$ every graph $U$ contained in the symmetric part of $D$ is excluded by \cref{thm:no-phantom} (a tail $x$ of a one-way arc $x\to y$ inside a strong component would have no phantom neighbour and the exit $y$ reaching it), and all $80{,}798$ remaining saturated ideals are the unit ideal.
+\item Five vertices: $8{,}055$ of the $9{,}608$ digraphs are not SCC-symmetric. A potential over any field gives a set potential in the sense of \cref{thm:cocycle}, and whether a set potential exists is decided exactly over $\Qz$ by propagating $\Mpot$ from $V$ along the reachable positions; $7{,}976$ of the $8{,}055$ have none. For the other $79$ every graph $U$ contained in the symmetric part of $D$ is excluded by \cref{thm:no-phantom} (a tail $x$ of a one-way arc $x\to y$ inside a strong component would have no phantom neighbor and the exit $y$ reaching it), and all $80{,}798$ remaining saturated ideals are the unit ideal.
 \end{itemize}
 The computations are those of the original verification package, reproduced in \code{verification/legacy} (\cref{app:verification}).
 \end{proof}
@@ -1356,7 +1354,7 @@ Let $D$ be a digraph that is not SCC-symmetric and has a potential $(U,a)$ over 
 \item any two directed paths with the same vertex set have the same back count, and every vertex set spanning a directed Hamiltonian cycle induces an Eulerian subdigraph \textup{(\cref{thm:cocycle})};
 \item every strong component lies inside one component of $U$ \textup{(\cref{thm:locality})};
 \item for no embedding of the weights into $\CC\{\!\{z^{-1}\}\!\}$ do all weights have degree at least $1$ \textup{(\cref{thm:normal})};
-\item if $x\to y$ is a one-way arc inside a strong component and $xy\notin U$, then $x$ has a phantom neighbour \textup{(\cref{thm:no-phantom})};
+\item if $x\to y$ is a one-way arc inside a strong component and $xy\notin U$, then $x$ has a phantom neighbor \textup{(\cref{thm:no-phantom})};
 \item for every strong component $C$, $(U,a)$ is a frozen potential for $(D[C],\eta)$ with environment $V\setminus C$ and the exit self-energies $\eta$ of \cref{thm:directed-collapse} \textup{(\cref{prop:restriction}, whose proof uses no property of the field)};
 \item $D$ has no potential with all weights in $\Puis$ \textup{(\cref{thm:conj610})}.
 \end{enumerate}
@@ -1371,7 +1369,7 @@ By \cref{lem:field-independence}, ``over $\Qzbar$'', ``over the algebraic closur
 \subsection{Frozen potentials over an arbitrary field}
 
 \begin{definition}\label{def:frozen}
-Let $C$ be a digraph with self-energies $\eta\colon V(C)\to\mathbb K$, where $\mathbb K\supseteq\Qz$ is a field; the game $(C,\eta)$ has the positions of DVG on $C$ and the resolvents $1/R(W,v)=z-\eta_v-\sum_{w}R(W-v,w)$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ (a finite set disjoint from $V(C)$) is a graph $U$ on $V(C)\sqcup F$ with weights $a\colon V(C)\sqcup F\to K$ such that $\Mpot_F(W)=\mu_a(U[W\cup F])$ satisfies $\Mpot_F(W)\neq0$ and $\Mpot_F(W-v)=R(W,v)\Mpot_F(W)$ at every reachable position $(W,v)$ of $(C,\eta)$.
+Let $C$ be a digraph with self-energies $\eta\colon V(C)\to\mathbb K$, where $\mathbb K\supseteq\Qz$ is a field; the game $(C,\eta)$ has the positions of DVG on $C$ and the resolvents $1/R(W,v)=z-\eta_v-\sum_{w}R(W-v,w)$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ (a finite set disjoint from $V(C)$) is a graph $U$ on $V(C)\sqcup F$ with weights $a\colon V(C)\sqcup F\to\mathbb K$ such that $\Mpot_F(W)=\mu_a(U[W\cup F])$ satisfies $\Mpot_F(W)\neq0$ and $\Mpot_F(W-v)=R(W,v)\Mpot_F(W)$ at every reachable position $(W,v)$ of $(C,\eta)$.
 \end{definition}
 
 The environment is never visited and acts only through $U$. By \cref{prop:restriction}, whose proof uses no property of the field, a potential for $D$ restricts to a frozen potential for each strong component with environment the rest of $D$. For a directed cycle $C$ with $\eta=0$ the reachable unvisited sets are the cyclic intervals, and $R(W,v)=\mu(P_{\ell-1})/\mu(P_\ell)$ on an interval of length $\ell$ that begins at $v$ (proof of \cref{prop:fails}(1)); so a frozen potential is exactly a function $\Mpot_F$ with $\Mpot_F(I)=\lambda\,\mu(P_{|I|})(z)$ on every cyclic interval $I$, for a constant $\lambda=\Mpot_F(\emptyset)\neq0$.
@@ -1533,12 +1531,12 @@ Saturated Gr\"obner bases over $\Qz$ for every $U$ up to the symmetries of the c
 \end{proof}
 
 \begin{proposition}[symmetric environments]\label{prop:symmetric-env}
-Let the weights lie in $\Qzbar$, $\eta=0$, and let $U$ be invariant under every permutation of $C=C_m$ that fixes $F$ pointwise; equivalently all cycle vertices have the same set $N$ of $U$-neighbours in $F$, and $U[C]$ is empty or complete. If a frozen potential exists, then $|N|\ge m-1$ when $U[C]$ is empty, for every $m\ge3$, and when $U[C]$ is complete, for $3\le m\le10$. \Cref{thm:every-cycle} attains $|F|=|N|=m-1$ with $U[C]$ empty, and the frozen potential that $D_m$ induces on its cycle \textup{(}\cref{prop:restriction}\textup{)} has $|N|=m+1$.
+Let the weights lie in $\Qzbar$, $\eta=0$, and let $U$ be invariant under every permutation of $C=C_m$ that fixes $F$ pointwise; equivalently all cycle vertices have the same set $N$ of $U$-neighbors in $F$, and $U[C]$ is empty or complete. If a frozen potential exists, then $|N|\ge m-1$ when $U[C]$ is empty, for every $m\ge3$, and when $U[C]$ is complete, for $3\le m\le10$. \Cref{thm:every-cycle} attains $|F|=|N|=m-1$ with $U[C]$ empty, and the frozen potential that $D_m$ induces on its cycle \textup{(}\cref{prop:restriction}\textup{)} has $|N|=m+1$.
 \end{proposition}
 \begin{proof}
 On a singleton interval $\{c\}$ no other cycle vertex is present, and the vertex recurrence at $c$ with the frozen identity $\Mpot(\{c\})=z\lambda$ gives every cycle vertex the weight $\alpha=z+\sum_{f\in N}\rho(F,f)$, where $\rho(F,f)=\mu_a(U[F-f])/\mu_a(U[F])$. Let $\kappa=1$ if $U[C]$ is complete and $\kappa=0$ otherwise. Sorting matchings as in the proof of \cref{thm:every-cycle}, with the factor $e^{-x^2/2}$ counting matchings inside a complete graph, gives $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x-\kappa x^{2}/2}Q(x)$, where $Q$ is a polynomial of degree at most $|N|$. Write $z=w+w^{-1}$; then $w$ is transcendental over $\QQ$. The frozen identities $\Mpot_k=\lambda\mu(P_k)(z)$ for $k\le m$ give
 \[
-Q(x)\equiv\lambda\,e^{\kappa x^{2}/2}\,\frac{w\,e^{Ax}-w^{-1}e^{Bx}}{w-w^{-1}}\pmod{x^{m+1}},\qquad A=w-\alpha,\quad B=w^{-1}-\alpha .
+Q(x)\equiv\lambda\,e^{\kappa x^{2}/2}\,\frac{w\,e^{Ax}-w^{-1}e^{Bx}}{w-w^{-1}}\pmod{x^{m+1}},\qquad A=w-\alpha,\quad B=w^{-1}-\alpha.
 \]
 If $|N|\le m-2$, the coefficients of $x^{m-1}$ and $x^{m}$ on the right vanish. For $\kappa=0$ this says $wA^{m-1}=w^{-1}B^{m-1}$ and $wA^{m}=w^{-1}B^{m}$. If $A=0$ then $B=0$ and $w-w^{-1}=A-B=0$; otherwise dividing gives $A=B$, hence again $w^{2}=1$, impossible for transcendental $w$. For $\kappa=1$ the two coefficients, multiplied by $(m-1)!/\lambda$ and $m!/\lambda$, are polynomials in $\alpha$ with leading coefficients $\pm1$, and for each $m\le10$ their resultant in $\alpha$ is a nonzero Laurent polynomial in $w$ (exact computation), which does not vanish at a transcendental $w$.
 \end{proof}
@@ -1571,7 +1569,7 @@ over the $U$-paths $P$ from $x$ to $y$ in $U[I\cup F]$. The left side is $\lambd
 \end{proof}
 
 \begin{lemma}[the environment seen from the cycle]\label{lem:env-seen}
-Suppose $U[C]=\emptyset$; the weights may lie in any field. For every cycle vertex $c$, with $N(c)$ its set of $U$-neighbours in $F$,
+Suppose $U[C]=\emptyset$; the weights may lie in any field. For every cycle vertex $c$, with $N(c)$ its set of $U$-neighbors in $F$,
 \[
 a_c=z-\eta_c+\sum_{f\in N(c)}\rho(F,f),\qquad \rho(F,f)=\frac{\mu_a(U[F-f])}{\mu_a(U[F])}.
 \]
@@ -1582,7 +1580,7 @@ The frozen identity on $\{c\}$ gives $\Mpot(\{c\})=\lambda(z-\eta_c)$, and the v
 \end{proof}
 
 \begin{theorem}[no real mean-field rescue outside the band]\label{thm:meanfield}
-Let $\eta=0$ and let every vertex of $C$ have the same set $N\subseteq F$ of $U$-neighbours in $F$. At no real $z$ with $|z|>2$ do real weights satisfy the frozen identities. The band edge is sharp: for $m=3$ the environments of \cref{thm:triangle-solved} are of this kind and are real at every $z$ in the band except $0,\pm1,\pm\sqrt2$. A constant self-energy $e$ shifts $z$ to $z-e$, so the same holds for $\eta\equiv e$ at every real $z$ with $|z-e|>2$.
+Let $\eta=0$ and let every vertex of $C$ have the same set $N\subseteq F$ of $U$-neighbors in $F$. At no real $z$ with $|z|>2$ do real weights satisfy the frozen identities. The band edge is sharp: for $m=3$ the environments of \cref{thm:triangle-solved} are of this kind and are real at every $z$ in the band except $0,\pm1,\pm\sqrt2$. A constant self-energy $e$ shifts $z$ to $z-e$, so the same holds for $\eta\equiv e$ at every real $z$ with $|z-e|>2$.
 \end{theorem}
 \begin{proof}
 Fix a real $z$ with $|z|>2$ and real weights satisfying the frozen identities at $z$, and write $z=w+w^{-1}$ with $w$ real, $|w|>1$. By \cref{lem:frozen-path}, $U[C]=\emptyset$, and by \cref{lem:env-seen} every cycle weight equals the real number $\alpha=z+\sum_{f\in N}\rho(F,f)$. Sorting matchings of $U[W\cup F]$ by the set of cycle vertices matched into $F$ gives $\Mpot(W)=\Mpot_k$ with $k=|W|$ and $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x}Q(x)$, where
@@ -1619,7 +1617,7 @@ Characterize the digraphs that have a local weighted matching potential over $\Q
 By \cref{lem:entry} and the elementary proof of \cref{cor:dvg-poly}, a strong component $C$ is played from a fresh entry vertex. Exits to N-positions are losing moves and are deleted; exits to P-positions win at once and become one pendant leaf at their tail. So the game inside $C$ is $\game(H;\arcs)$: $H$ is the graph of the symmetric pairs of $C$ plus these pendant leaves, $\arcs$ is the set of one-way arcs of $C$ (each $u\to w$ with $u,w$ non-adjacent in $H$), and the token moves along edges of $H$, or along an arc of $\arcs$ whose head is unvisited. At a position with current graph $K$ (the subgraph of $H$ induced by the unvisited vertices) and token on $s$, an arc is \emph{live} if both ends are unvisited. DVG from a position $(W,v)$ is DVG on $D[W]$ started at $v$, so a rule for fresh starts decides every position. Write $\nu$ for the matching number; a vertex is \emph{essential} in a graph if every maximum matching covers it and \emph{inessential} otherwise, and by \cref{thm:matching-collapse} the player to move in undirected vertex geography wins exactly from essential vertices.
 
 \begin{definition}\label{def:key-local}
-At a position of $\game(H;\arcs)$ with current graph $K$ and token on $s$, the \emph{key points} are $s$ and the ends of the live arcs. The \emph{key-local data} are the coincidence pattern of the key points, the deficiencies $\nu(K)-\nu(K-X)$ for all sets $X$ of key points, and the adjacency in $K$ among the key points. The \emph{GE-local data} add, for every set $X$ of key points, the Gallai--Edmonds class ($\mathsf D$, $\mathsf A$ or $\mathsf C$) in $K-X$ of every key point outside $X$; here $\mathsf D(L)$ is the set of vertices missed by some maximum matching of $L$, $\mathsf A(L)$ the set of vertices outside $\mathsf D(L)$ with a neighbour in $\mathsf D(L)$, and $\mathsf C(L)$ the rest \cite{LovaszPlummer}.
+At a position of $\game(H;\arcs)$ with current graph $K$ and token on $s$, the \emph{key points} are $s$ and the ends of the live arcs. The \emph{key-local data} are the coincidence pattern of the key points, the deficiencies $\nu(K)-\nu(K-X)$ for all sets $X$ of key points, and the adjacency in $K$ among the key points. The \emph{GE-local data} add, for every set $X$ of key points, the Gallai--Edmonds class ($\mathsf D$, $\mathsf A$ or $\mathsf C$) in $K-X$ of every key point outside $X$; here $\mathsf D(L)$ is the set of vertices missed by some maximum matching of $L$, $\mathsf A(L)$ the set of vertices outside $\mathsf D(L)$ with a neighbor in $\mathsf D(L)$, and $\mathsf C(L)$ the rest \cite{LovaszPlummer}.
 \end{definition}
 
 \subsection{Arcs with a common tail}
@@ -1649,13 +1647,13 @@ Two responder strategies drive the proof. Let the token be on $x$ in the current
 \begin{proof}[Proof of \cref{thm:common-tail}]
 Induction on $|V(K)|$.
 
-\emph{Item 1.} Every move from $u$ kills all arcs. Each option, a neighbour of $u$ in $K$ or a live head, is followed by undirected geography on $K-u=(K+uW')-u$, so \cref{thm:matching-collapse} for $K+uW'$ at $u$ gives the claim.
+\emph{Item 1.} Every move from $u$ kills all arcs. Each option, a neighbor of $u$ in $K$ or a live head, is followed by undirected geography on $K-u=(K+uW')-u$, so \cref{thm:matching-collapse} for $K+uW'$ at $u$ gives the claim.
 
-\emph{Item 2: $s$ essential in $K$.} If $K-s$ is split, move to a neighbour $t$ inessential in $K-s$ (it exists by \cref{thm:matching-collapse}). For $t=u$, a maximum matching of $K-s$ missing $u$ is maximum in $(K-s)+uW'$, so $u$ is inessential there and item 1 makes the opponent lose; otherwise (T3$'$) applies to $K-s$ with $x=t$. If $u$ is inessential in $K$, then $s$ is essential in $K-u$, and \cref{thm:matching-collapse} gives a neighbour $t\neq u$ of $s$ inessential in $K-s-u$; since $\nu(K-s-u)=\nu(K-s)$, some maximum matching of $K-s$ misses both $t$ and $u$, and after the move to $t$, (T2$'$) applies.
+\emph{Item 2: $s$ essential in $K$.} If $K-s$ is split, move to a neighbor $t$ inessential in $K-s$ (it exists by \cref{thm:matching-collapse}). For $t=u$, a maximum matching of $K-s$ missing $u$ is maximum in $(K-s)+uW'$, so $u$ is inessential there and item 1 makes the opponent lose; otherwise (T3$'$) applies to $K-s$ with $x=t$. If $u$ is inessential in $K$, then $s$ is essential in $K-u$, and \cref{thm:matching-collapse} gives a neighbor $t\neq u$ of $s$ inessential in $K-s-u$; since $\nu(K-s-u)=\nu(K-s)$, some maximum matching of $K-s$ misses both $t$ and $u$, and after the move to $t$, (T2$'$) applies.
 
-Otherwise $K-s$ is joined and $u$ is essential in $K$, and every move loses. Call a live head $w$ \emph{joinable} if some maximum matching $N$ of $K-s$ misses $u$ and $w$; then $s$ is not adjacent to $w$, since $N+sw$ would be a maximum matching of $K$ missing $u$. A move to $u$ loses by item 1, because $\nu((K-s)+uW')=\nu(K)>\nu(K-s-u)$. Let $t$ be any other neighbour and $K'=K-s$. Since $t$ is not a joinable head, $K'$ stays joined after $t$ is visited. If $t$ is inessential in $K'$, the move loses by item 3 for $K'$: no maximum matching of $K'$ misses $t$ and $u$, since adding $st$ would give a maximum matching of $K$ missing $u$. If $t$ is essential in $K'$, the move loses by item 2 for $K'$, because $u$ is inessential in the joined graph $K'$.
+Otherwise $K-s$ is joined and $u$ is essential in $K$, and every move loses. Call a live head $w$ \emph{joinable} if some maximum matching $N$ of $K-s$ misses $u$ and $w$; then $s$ is not adjacent to $w$, since $N+sw$ would be a maximum matching of $K$ missing $u$. A move to $u$ loses by item 1, because $\nu((K-s)+uW')=\nu(K)>\nu(K-s-u)$. Let $t$ be any other neighbor and $K'=K-s$. Since $t$ is not a joinable head, $K'$ stays joined after $t$ is visited. If $t$ is inessential in $K'$, the move loses by item 3 for $K'$: no maximum matching of $K'$ misses $t$ and $u$, since adding $st$ would give a maximum matching of $K$ missing $u$. If $t$ is essential in $K'$, the move loses by item 2 for $K'$, because $u$ is inessential in the joined graph $K'$.
 
-\emph{Item 3: $s$ inessential in $K$.} If $K$ is split, (T3$'$) applies with a maximum matching missing $s$, and the mover loses. If some maximum matching misses $s$ and $u$, (T2$'$) applies and the mover loses. Otherwise $K$ is joined, so some maximum matching misses $u$ and a live head $w$, and $\nu(K-s-u)=\nu(K)-1$. Then $\nu(K-s-u-w)=\nu(K)-1=\nu(K-u-w)-1$, so $s$ is essential in $L=K-u-w$, and \cref{thm:matching-collapse} gives a neighbour $t\notin\{u,w\}$ of $s$ inessential in $L-s$. Move to $t$. In $K'=K-s$ the vertex $t$ is essential, because $s$ is inessential in $K$; the graph $K'-t$ is joined, because a maximum matching of $L-s-t$ has $\nu(K)-1=\nu(K'-t)$ edges and misses $u$ and $w$; and $u$ is essential in $K'$, because $\nu(K'-u)=\nu(K)-1<\nu(K')$. By item 2 for $K'$ the opponent loses.
+\emph{Item 3: $s$ inessential in $K$.} If $K$ is split, (T3$'$) applies with a maximum matching missing $s$, and the mover loses. If some maximum matching misses $s$ and $u$, (T2$'$) applies and the mover loses. Otherwise $K$ is joined, so some maximum matching misses $u$ and a live head $w$, and $\nu(K-s-u)=\nu(K)-1$. Then $\nu(K-s-u-w)=\nu(K)-1=\nu(K-u-w)-1$, so $s$ is essential in $L=K-u-w$, and \cref{thm:matching-collapse} gives a neighbor $t\notin\{u,w\}$ of $s$ inessential in $L-s$. Move to $t$. In $K'=K-s$ the vertex $t$ is essential, because $s$ is inessential in $K$; the graph $K'-t$ is joined, because a maximum matching of $L-s-t$ has $\nu(K)-1=\nu(K'-t)$ edges and misses $u$ and $w$; and $u$ is essential in $K'$, because $\nu(K'-u)=\nu(K)-1<\nu(K')$. By item 2 for $K'$ the opponent loses.
 \end{proof}
 
 With a single arc $u\to w$ the rule reads as follows; this settles the case $k=1$ of Open Problem~7 of the earlier draft.
@@ -1702,7 +1700,7 @@ Key-local data decide every position of $\game(H;\{a_1,a_2\})$, for all graphs $
 For a common tail the rule of \cref{thm:common-tail} uses only key-local quantities, by \eqref{eq:star-nu}. The other geometries are \cref{prop:barrier}.
 \end{proof}
 
-A common tail is special because all its arcs can be used only while the token stands on $u$, so the arc system acts at one moment, and at that moment the game is undirected geography on $K+uW'$. With a common head, a chain or disjoint arcs, one play can use arcs at two different moments, and whether the first player can arrange a favourable second crossing depends on the play in between. A sampled search over $26{,}633$ starts with two arcs, classified by key-local data into $4{,}220$ classes, found conflicting classes only for chained and co-headed arcs (none for a common tail), and a five-vertex chained conflict already exists: on $K_{2,3}$ with parts $\{0,1\}$ and $\{2,3,4\}$ and arcs $3\to2\to4$ the first player wins from $0$, while after deleting the edge $0\text{--}3$ and reversing the chain to $4\to2\to3$ the first player loses from $0$, with the same matching numbers for every key-point deletion.
+A common tail is special because all its arcs can be used only while the token stands on $u$, so the arc system acts at one moment, and at that moment the game is undirected geography on $K+uW'$. With a common head, a chain or disjoint arcs, one play can use arcs at two different moments, and whether the first player can arrange a favorable second crossing depends on the play in between. A sampled search over $26{,}633$ starts with two arcs, classified by key-local data into $4{,}220$ classes, found conflicting classes only for chained and co-headed arcs (none for a common tail). Already on five vertices the deficiencies of key-point deletions alone do not decide a chained position: on $K_{2,3}$ with parts $\{0,1\}$ and $\{2,3,4\}$ and arcs $3\to2\to4$ the first player wins from $0$, while after deleting the edge $0\text{--}3$ and reversing the chain to $4\to2\to3$ the first player loses from $0$, with the same matching numbers for every key-point deletion. These two positions differ in the adjacency of the key points $0$ and $3$, so they are not a conflict of key-local data in the sense of \cref{def:key-local}; an exhaustive search finds no such conflict for chained arcs on five vertices, and the smallest ones are those of \cref{prop:barrier}.
 
 \subsection{Several tails}
 
@@ -1715,7 +1713,7 @@ Let the arcs of $\arcs$ have exactly $p$ distinct tails $u_1,\dots,u_p$, and let
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-An arc of $\arcs_i$ is used only by a move from $u_i$, and a play leaves $u_i$ at most once, which is (1). For (2), the moves from $u_i$ go to its neighbours in $K'$ and to the heads in $H_i$, which are exactly its neighbours in $K'+u_iH_i$. After any such move $u_i$ is visited, so the added edges, every arc of $\arcs_i$ and every arc with head $u_i$ are dead, and from then on both games are $\game(K'-u_i;\arcs')$ with the same live arcs; the two game trees coincide. The arcs of $\arcs'$ avoid $u_i$, and every added edge contains $u_i$, so they still join non-adjacent vertices of $K'+u_iH_i$, as the definition of $\game$ requires; and they have at most $p-1$ tails, none equal to $u_i$. For (3), no arc leaves a vertex that is not a tail.
+An arc of $\arcs_i$ is used only by a move from $u_i$, and a play leaves $u_i$ at most once, which is (1). For (2), the moves from $u_i$ go to its neighbors in $K'$ and to the heads in $H_i$, which are exactly its neighbors in $K'+u_iH_i$. After any such move $u_i$ is visited, so the added edges, every arc of $\arcs_i$ and every arc with head $u_i$ are dead, and from then on both games are $\game(K'-u_i;\arcs')$ with the same live arcs; the two game trees coincide. The arcs of $\arcs'$ avoid $u_i$, and every added edge contains $u_i$, so they still join non-adjacent vertices of $K'+u_iH_i$, as the definition of $\game$ requires; and they have at most $p-1$ tails, none equal to $u_i$. For (3), no arc leaves a vertex that is not a tail.
 \end{proof}
 
 For $p=2$ every position at or after the first crossing is decided by at most six maximum-matching computations, and the difficulty is confined to the undirected phase before it. Gallai--Edmonds data at the key points do not decide that phase.
@@ -1753,7 +1751,7 @@ Every set in $\mathcal W$ has the form $V\setminus V(P)$ for a directed path $P$
 A matching potential gives a set potential, $\Mpot=\mu_a(U[\cdot])$, and a set potential gives a valuation potential, $\Lambda=\ord_0\Mpot$. All three exist on SCC-symmetric digraphs. Both implications are strict: a directed cycle has a set potential but no matching potential, and the digraph with arcs $0\rightleftarrows1$, $0\to2$, $2\to1$, $2\to3$ has a valuation potential but no set potential. The digraph $T$ with arcs $0\rightleftarrows1$, $0\rightleftarrows2$, $1\to2$ has none of the three.
 \end{theorem}
 \begin{proof}
-On a directed cycle every nonempty unvisited set other than $V$ is a cyclic interval reached by a unique play, and $\emptyset$ is reached from all $k$ starts, each play with product $1/\mu(P_k)$; so a set potential exists, and \cref{prop:fails}(1) excludes a matching potential. The four-vertex digraph has the Hamiltonian cycle $0\to2\to1\to0$ on $\{0,1,2\}$, where vertex $0$ has two out-neighbours and one in-neighbour, so \cref{thm:cocycle} excludes a set potential; a valuation potential exists by direct computation. For $T$ put $\Lambda(V)=0$. The position $(V,0)$ is an N-position (moving to $2$ leaves the opponent stuck), so $\Lambda(\{1,2\})=1$; $(\{1,2\},1)$ is N, so $\Lambda(\{2\})=2$; $(V,1)$ is P, since both options are N, so $\Lambda(\{0,2\})=-1$; and $(\{0,2\},0)$ is N, so $\Lambda(\{2\})=0$, a contradiction.
+On a directed cycle every nonempty unvisited set other than $V$ is a cyclic interval reached by a unique play, and $\emptyset$ is reached from all $k$ starts, each play with product $1/\mu(P_k)$; so a set potential exists, and \cref{prop:fails}(1) excludes a matching potential. The four-vertex digraph has the Hamiltonian cycle $0\to2\to1\to0$ on $\{0,1,2\}$, where vertex $0$ has two out-neighbors and one in-neighbor, so \cref{thm:cocycle} excludes a set potential; a valuation potential exists by direct computation. For $T$ put $\Lambda(V)=0$. The position $(V,0)$ is an N-position (moving to $2$ leaves the opponent stuck), so $\Lambda(\{1,2\})=1$; $(\{1,2\},1)$ is N, so $\Lambda(\{2\})=2$; $(V,1)$ is P, since both options are N, so $\Lambda(\{0,2\})=-1$; and $(\{0,2\},0)$ is N, so $\Lambda(\{2\})=0$, a contradiction.
 \end{proof}
 
 \begin{center}\small
@@ -1773,7 +1771,7 @@ Since $T$ has three vertices, the obstruction to valuation potentials is local a
 Games with self-energies are as in \S\ref{sec:realstab}. A self-energy \emph{vanishes at infinity} if it lies in $\Qz$ (or $\Puis$) and tends to $0$ as $z\to\infty$; those produced by exits and by symmetric branches do.
 
 \begin{lemma}[components]\label{lem:set-components}
-For a strong component $C$ and $x\in C$ let $\eta_x$ be the sum of $\Rdown(t)$ over the out-neighbours $t$ of $x$ outside $C$. Then $D$ has a set potential if and only if every non-symmetric strong component $C$, played alone with the self-energies $\eta$, has one.
+For a strong component $C$ and $x\in C$ let $\eta_x$ be the sum of $\Rdown(t)$ over the out-neighbors $t$ of $x$ outside $C$. Then $D$ has a set potential if and only if every non-symmetric strong component $C$, played alone with the self-energies $\eta$, has one.
 \end{lemma}
 \begin{proof}
 A directed path meets the strong components in topological order and never returns to one. While the token is in $C$, every vertex it can reach outside $C$ lies strictly below $C$ and is unvisited (\cref{lem:entry}), so an exit to $t$ contributes exactly $\Rdown(t)$. Hence $\Gamma(P)$ is the product, over the components met by $P$, of $\Gamma$ of its segment in the component game with self-energies $\eta$, and a segment inside $C$ is itself a directed path of $D$. Two paths with the same vertex set meet the same components in the same vertex sets, so $D$ passes if every component game does, and a failing pair inside one component is a failing pair of $D$. A symmetric component always passes: by Godsil's identity with vertex weights $z-\eta$, each factor is $\mu(G[W]-v)/\mu(G[W])$ and the product telescopes.
@@ -1786,10 +1784,10 @@ Let $C$ carry self-energies $\eta$, let $h\in C$, and let $B\subseteq C\setminus
 \[
 \sigma=\sum_{t\in N(h)\cap B}\frac{\mu(B-t)}{\mu(B)},
 \]
-the sum of the root resolvents of undirected geography on $B$ at the neighbours of $h$. Then $(C,\eta)$ has a set potential if and only if $(A,\eta')$ has one, where $\eta'_h=\eta_h+\sigma$ and $\eta'=\eta$ elsewhere.
+the sum of the root resolvents of undirected geography on $B$ at the neighbors of $h$. Then $(C,\eta)$ has a set potential if and only if $(A,\eta')$ has one, where $\eta'_h=\eta_h+\sigma$ and $\eta'=\eta$ elsewhere.
 \end{lemma}
 \begin{proof}
-Let $\Gamma'$ and $R'$ refer to the game $(A,\eta')$, and let $\tau=\eta_h+\sum_aR_{A-h}(a)$ over the out-neighbours $a$ of $h$ in $A$, where $R_{A-h}$ is the fresh resolvent of the game on $A-h$. Sort the directed paths $P$ of $(C,\eta)$ with vertex set $X$ into four kinds: (0) $X\cap B=\emptyset$; (1) $X\cap B\neq\emptyset$ and $X\subseteq B\cup\{h\}$; (2) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $B$; (3) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $A\setminus\{h\}$. A path of kind (2) or (3) passes through $h$ exactly once, because $B$ is joined to the rest only through $h$; it has the form $\beta\cdot h\cdot\alpha$ or $\alpha\cdot h\cdot\beta$ with $\beta$ in $B$ and $\alpha$ in $A\setminus\{h\}$.
+Let $\Gamma'$ and $R'$ refer to the game $(A,\eta')$, and let $\tau=\eta_h+\sum_aR_{A-h}(a)$ over the out-neighbors $a$ of $h$ in $A$, where $R_{A-h}$ is the fresh resolvent of the game on $A-h$. Sort the directed paths $P$ of $(C,\eta)$ with vertex set $X$ into four kinds: (0) $X\cap B=\emptyset$; (1) $X\cap B\neq\emptyset$ and $X\subseteq B\cup\{h\}$; (2) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $B$; (3) $X$ meets $B$ and $A\setminus\{h\}$, and $P$ starts in $A\setminus\{h\}$. A path of kind (2) or (3) passes through $h$ exactly once, because $B$ is joined to the rest only through $h$; it has the form $\beta\cdot h\cdot\alpha$ or $\alpha\cdot h\cdot\beta$ with $\beta$ in $B$ and $\alpha$ in $A\setminus\{h\}$.
 
 Whenever the token stands in $A$ with $B$ unvisited, a move from $h$ into $B$ starts undirected geography on the fresh set $B$, so $B$ contributes exactly $\sigma$ to $1/R(W,h)$; by induction on the game tree every such position has the resolvent of $(A,\eta')$. Hence $\Gamma(P)=\Gamma'(P)$ for kind (0). While $A\setminus\{h\}$ is untouched, the token in $B\cup\{h\}$ plays undirected geography on $G=D[B\cup\{h\}]$ with weights $z-\eta$ on $B$ and $z-\tau$ on $h$, and once $h$ is visited it plays on $B$ alone. Therefore, by Godsil's identity,
 \begin{itemize}
@@ -1857,7 +1855,7 @@ Every other strongly connected, non-symmetric digraph with at most five vertices
 The self-energies are indeterminates over $\Qz$. On three and four vertices every strongly connected, non-symmetric digraph was treated. On five vertices, self-energies vanishing at infinity enter \cref{lem:asymptotics} like out-degrees, so the back-arc test of \cref{thm:cocycle} is necessary; it leaves $14$ of the $5{,}027$ strongly connected, non-symmetric digraphs. For each digraph the equations $\Gamma(P)=\Gamma(P')$ over paths with equal vertex sets generate an ideal of $\Qz[\eta]$, which is saturated by every numerator and denominator of $\Gamma$ and decomposed into minimal primes; components on which some $\eta$ cannot vanish at infinity are discarded (one for the doubled triangle, with $\eta(s_1)=z$, and one for the bowtie, with $\eta(h)\sim z/2$).
 \end{proof}
 
-The cycles, the books and the doubled $4$-cycle are realized by exits; for instance, the doubled $4$-cycle with sinks at $s_0$ and $s_1$ has a set potential. For the doubled triangle and the bowtie, the admissible self-energy at one vertex class is smaller than at its neighbours by a resolvent, and no exit structure among the $8{,}844$ sums of at most three root resolvents of games on at most four vertices realizes either. With $e=0$ this is forced: a sum of root resolvents has positive leading coefficient.
+The cycles, the books and the doubled $4$-cycle are realized by exits; for instance, the doubled $4$-cycle with sinks at $s_0$ and $s_1$ has a set potential. For the doubled triangle and the bowtie, the admissible self-energy at one vertex class is smaller than at its neighbors by a resolvent, and no exit structure among the $8{,}844$ sums of at most three root resolvents of games on at most four vertices realizes either. With $e=0$ this is forced: a sum of root resolvents has positive leading coefficient.
 
 \begin{corollary}[the census on at most five vertices]\label{cor:census5}
 Every non-SCC-symmetric digraph with a set potential and at most five vertices has exactly one non-symmetric strong component, and its pruned core is a directed cycle or the $2$-page book. On five vertices the $79$ digraphs are: $52$ bare directed triangles (zero exit self-energies), $9$ triangles with self-energy $1/z$ at every vertex, $3$ with $z/(z^2-1)$ at every vertex, one each with $2/z$, $2z/(z^2-1)$ and $1/z+z/(z^2-1)$ at every vertex, one triangle with a pendant vertex and $1/z$ at the other two vertices; $6$ bare directed $4$-cycles, one with $1/z$ at every vertex and one with $1/z$ at two opposite vertices; one bare $5$-cycle; one $2$-page book with $1/z$ at the spine tail and one with a pendant vertex there. On three and four vertices the $1+6$ cases are the directed triangle, bare or with a common sink, a source or an in-pendant, and the directed $4$-cycle.
@@ -1888,7 +1886,7 @@ and define the \emph{backward continuants} by $\cont^{(j)}_{L_j}=1$, $\cont^{(j)
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-(1) Let the play start at a vertex of $S_j$. At depth $k$ the token is in class $j+k$, and the vertices of $S_{j+k+1}$ visited so far are those visited at the depths $d\le k$ with $d\equiv k+1\pmod m$, of which there are $\lfloor(k+1)/m\rfloor$. Since the out-neighbours of every vertex of $S_i$ are exactly the vertices of $S_{i+1}$, every node at depth $k$ of the game tree has exactly $b^{(j)}_k$ children, all with isomorphic subtrees; the tree is spherically symmetric, and the play ends at depth $L_j-1$. With level resolvents $R_k$ this gives $R_k=1/(y-b^{(j)}_kR_{k+1})$ and $R_{L_j-1}=1/y$, so $R_k=\cont^{(j)}_{k+1}/\cont^{(j)}_k$. The $i$-th position of $P$ is a node at depth $i$, so $\Gamma(P)=\prod_{i<n}\cont^{(j)}_{i+1}/\cont^{(j)}_i=\cont^{(j)}_n/\cont^{(j)}_0$.
+(1) Let the play start at a vertex of $S_j$. At depth $k$ the token is in class $j+k$, and the vertices of $S_{j+k+1}$ visited so far are those visited at the depths $d\le k$ with $d\equiv k+1\pmod m$, of which there are $\lfloor(k+1)/m\rfloor$. Since the out-neighbors of every vertex of $S_i$ are exactly the vertices of $S_{i+1}$, every node at depth $k$ of the game tree has exactly $b^{(j)}_k$ children, all with isomorphic subtrees; the tree is spherically symmetric, and the play ends at depth $L_j-1$. With level resolvents $R_k$ this gives $R_k=1/(y-b^{(j)}_kR_{k+1})$ and $R_{L_j-1}=1/y$, so $R_k=\cont^{(j)}_{k+1}/\cont^{(j)}_k$. The $i$-th position of $P$ is a node at depth $i$, so $\Gamma(P)=\prod_{i<n}\cont^{(j)}_{i+1}/\cont^{(j)}_i=\cont^{(j)}_n/\cont^{(j)}_0$.
 
 (2) By (1), $\Gamma(P)$ depends only on the start class and the number of vertices. A path with $n$ vertices from class $j$ meets class $i$ in as many vertices as there are $k<n$ with $j+k\equiv i$. If $m\nmid n$, these counts determine $j$, so two paths with the same vertex set have the same $\Gamma$. If $n=cm$, every class is met in $c$ vertices, which requires $c\le\min_is_i$; conversely, for such $c$ and any set $X$ with $c$ vertices in every class, and for every $j$, listing the vertices of $X$ class by class from $S_j$ gives a directed path with vertex set $X$ that starts in class $j$, because consecutive classes are completely joined. So the set potential exists exactly when $\cont^{(j)}_{cm}/\cont^{(j)}_0$ is independent of $j$ for these $c$.
 \end{proof}
@@ -1958,7 +1956,7 @@ With zero self-energies \cref{thm:one-blown} excludes $C_m(r,1,\dots,1)$ for eve
 \subsection{Directed cacti}
 A \emph{directed cactus} is a strongly connected digraph in which every block of the underlying graph is a chordless directed cycle of length at least $3$. Two cycles share at most one vertex, and the cycles and cut vertices form a tree. For a cycle $C$ and a vertex $v$ of $C$, every other cycle $C'$ through $v$ determines a \emph{branch} $B$ at $v$ off $C$: the component of $D-v$ that contains $C'-v$. The token enters $B$ only by the arc of $C'$ that leaves $v$, to a vertex $b$, and once $v$ is visited it cannot leave $B$. Write $R_B=R(B,b)$ for the root resolvent of the game on $D[B]$ started at $b$, and
 \[
-\varepsilon_C(v)=\eta(v)+\sum_{B\text{ a branch at }v\text{ off }C}R_B .
+\varepsilon_C(v)=\eta(v)+\sum_{B\text{ a branch at }v\text{ off }C}R_B.
 \]
 
 \begin{theorem}[directed cacti]\label{thm:cacti}
@@ -1970,9 +1968,10 @@ A directed cactus with self-energies vanishing at infinity has a set potential i
 \emph{Rotations.} Along a rotation of $C$ the token stays on $C$, so every branch off $C$ is unvisited while the token stands at its attaching vertex; as in the proof of \cref{lem:branches}, a branch $B$ at $v$ contributes exactly $R_B$ to $1/R(W,v)$. So the rotations of $C$ have the products $\Gamma$ of the rotations of the cycle game on $C$ with self-energies $\varepsilon_C$, which vanish at infinity, and by \cref{thm:set-cycles} they agree if and only if $\varepsilon_C$ has period $2$.
 
 \emph{Two cycles.} Let $C,C'$ share $v$, and let $\sigma,\sigma'$ be the sequences of weights $z-\varepsilon_C$ along $C-v$ and $z-\varepsilon_{C'}$ along $C'-v$, each read from the successor of $v$. Let $\varepsilon^{*}(v)=\eta(v)+\sum R_B$ over the branches at $v$ off both $C$ and $C'$. Along $(C-v,v,C'-v)$ every branch hanging off the current cycle is unvisited when the token reaches it; the branch at $v$ through $C'$ has root resolvent $\cont({}^{-}\sigma')/\cont(\sigma')$, and the junction rule gives
-\[
-\Gamma(C-v,v,C'-v)=\frac{1}{\cont\bigl(\sigma,\,z-\varepsilon^{*}(v),\,\sigma'\bigr)},\qquad \Gamma(C'-v,v,C-v)=\frac{1}{\cont\bigl(\sigma',\,z-\varepsilon^{*}(v),\,\sigma\bigr)}.
-\]
+\begin{gather*}
+\Gamma(C-v,v,C'-v)=\frac{1}{\cont\bigl(\sigma,\,z-\varepsilon^{*}(v),\,\sigma'\bigr)},\\
+\Gamma(C'-v,v,C-v)=\frac{1}{\cont\bigl(\sigma',\,z-\varepsilon^{*}(v),\,\sigma\bigr)}.
+\end{gather*}
 If $\varepsilon_C$ and $\varepsilon_{C'}$ have period $2$, then $\sigma$ and $\sigma'$ are palindromes: constant for an odd cycle, and for an even cycle of length $m$ the $i$-th and the $(m-i)$-th vertices after $v$ have the same parity. Reversing the continuant then shows that the two products agree. So the conditions on rotations imply those on pairs of cycles.
 \end{proof}
 
@@ -2072,7 +2071,7 @@ The outcome at every such position is the same \textup{(}the player to move at $
 
 (2) A play from $p_0$ reaches $q$ only as $p_0c_0p_1c_1\cdots c_{m-1}p_mq$ with $c_i\in\{a_i,b_i\}$, since entering a tail ends the play in it. At the resulting position $(W_c,q)$ the options are the unvisited $x_i\in\{a_i,b_i\}\setminus\{c_i\}$, and from $x_i$ the only continuation is its tail, because $p_{i+1}$ is visited; so the subgame from $x_i$ is a directed path with $L(x_i)$ vertices and
 \[
-R(W_c,q)=\frac{1}{z-S_c},\qquad S_c=\sum_{i<m}f_{L(x_i)},\qquad f_L=\frac{\mu(P_{L-1})}{\mu(P_L)} .
+R(W_c,q)=\frac{1}{z-S_c},\qquad S_c=\sum_{i<m}f_{L(x_i)},\qquad f_L=\frac{\mu(P_{L-1})}{\mu(P_L)}.
 \]
 The poles of $f_L$ are the zeros $2\cos(k\pi/(L+1))$, $1\le k\le L$, of $\mu(P_L)=U_L(z/2)$; they are simple, and they are not zeros of the coprime numerator $\mu(P_{L-1})$. For distinct primes $p=L+1$ and $p'=L'+1$ the pole sets are disjoint, since $k/p=k'/p'$ with $0<k<p$, $0<k'<p'$ is impossible. So the poles of $S_c$ are exactly the union of the pole sets of the chosen $f_{L(x_i)}$, which determines $c$; distinct $c$ give distinct $S_c$ and distinct $R(W_c,q)$.
 
@@ -2226,7 +2225,7 @@ closed ladders (\S\ref{ssec:circuits}) & $m\le7$ & table of \S\ref{ssec:circuits
 Symbol & Meaning\\ \midrule\endhead
 $\arena$, $\SG$, $\val$, $\pay$ & arena, state graph, value, payoff (\S\ref{sec:setting})\\
 $N$, $n$ & dimension of the cube; input size (\S\S\ref{sec:setting}--\ref{sec:extensions}, \ref{sec:boundary}) or number of vertices (from \S\ref{sec:spectral} on)\\
-$D$, $V=V(D)$, $\nplus(v)$ & digraph, its vertex set, out-neighbourhood\\
+$D$, $V=V(D)$, $\nplus(v)$ & digraph, its vertex set, out-neighborhood\\
 $(W,v)$ & position of DVG: unvisited set $W$, token $v\in W$\\
 $R(W,v)$, $\Rdown(w)$ & root resolvent of a position; fresh-entry resolvent $R(V,w)$\\
 $\eta_v$ & self-energy; $1/R(W,v)=z-\eta_v-\sum R(W-v,w)$\\
@@ -2237,7 +2236,7 @@ $\Mpot_F$ & frozen potential with environment $F$ (\cref{def:frozen})\\
 $c(X)$, $\gamma_X$ & $\Mpot(V\setminus X)/\Mpot(V)$; $z^{|X|}c(X)$\\
 $\Gamma(P)$, $\back(P)$, $\ell(P)$ & product of resolvents along a play; back arcs; first-order coefficient (\cref{lem:asymptotics})\\
 $\rho(S,s)$ & Green's function $\Mpot(S-s)/\Mpot(S)$ (\S\ref{sec:fields})\\
-$\Delta^{+}(v)$, $\Delta^{-}(v)$ & exits and phantom neighbours of $v$\\
+$\Delta^{+}(v)$, $\Delta^{-}(v)$ & exits and phantom neighbors of $v$\\
 $\Delta_{ij}P$ & Rayleigh difference\\
 $\Puis$ & real Puiseux series in $z^{-1}$ convergent at $\infty$; $\CC\{\!\{z^{-1}\}\!\}$ its complex analogue\\
 $\mathbb K$ & a field containing $\Qz$\\
@@ -2306,8 +2305,9 @@ Conjecture 11.27 & \cref{conj:blowups} & ``if'' half of (1) proved (\cref{cor:tw
 \end{longtable}
 \end{center}
 
+
 \section*{Acknowledgments}
-The author acts as the AI Research Architect, Lead Strategist, and Principal Investigator for this project, formulating objectives, defining priority research areas, and directing the programmatic verification trajectories. Generative artificial intelligence model, specifically Anthropic's Claude Opus 5.5, was orchestrated strictly under the author's prompt-engineering protocols, serving as high-performance formalization and computational assistants to accelerate algebraic derivations, draft technical expositions, and assemble the comprehensive search scripts. Every theoretical breakthrough, including the deterministic distinct-tails paramatrization, the cyclic Chebyshev stabilization, and the classification of pruned cores, was rigorously cross-checked, audited, and verified via exact symbolic computations (saturated Gr{\"o}bner bases via Singular) within the accompanying \code{limits-of-collapse} open-source repository.
+The author acts as the AI Research Architect, Lead Strategist, and Principal Investigator for this project, formulating objectives, defining priority research areas, and directing the programmatic verification trajectories. A generative artificial intelligence model, specifically Anthropic's Claude Opus 5.5, was orchestrated strictly under the author's prompt-engineering protocols, serving as a high-performance formalization and computational assistant to accelerate algebraic derivations, draft technical expositions, and assemble the comprehensive search scripts. Every theoretical breakthrough, including the deterministic distinct-tails parametrization, the cyclic Chebyshev stabilization, and the classification of pruned cores, was rigorously cross-checked, audited, and verified via exact symbolic computations (saturated Gr{\"o}bner bases via Singular) within the accompanying \code{limits-of-collapse} open-source repository.
 
 \begin{thebibliography}{99}\small
 
@@ -2514,5 +2514,4 @@ The author acts as the AI Research Architect, Lead Strategist, and Principal Inv
 \bibitem{ZhukMartin} D.~Zhuk and B.~Martin, \emph{QCSP monsters and the demise of the Chen conjecture}, J. ACM, 69 (2022), Art.~35.
 
 \end{thebibliography}
-
 \end{document}

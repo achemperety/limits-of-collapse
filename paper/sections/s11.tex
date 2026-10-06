@@ -5,7 +5,7 @@ By \cref{lem:field-independence}, ``over $\Qzbar$'', ``over the algebraic closur
 \subsection{Frozen potentials over an arbitrary field}
 
 \begin{definition}\label{def:frozen}
-Let $C$ be a digraph with self-energies $\eta\colon V(C)\to\mathbb K$, where $\mathbb K\supseteq\Qz$ is a field; the game $(C,\eta)$ has the positions of DVG on $C$ and the resolvents $1/R(W,v)=z-\eta_v-\sum_{w}R(W-v,w)$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ (a finite set disjoint from $V(C)$) is a graph $U$ on $V(C)\sqcup F$ with weights $a\colon V(C)\sqcup F\to K$ such that $\Mpot_F(W)=\mu_a(U[W\cup F])$ satisfies $\Mpot_F(W)\neq0$ and $\Mpot_F(W-v)=R(W,v)\Mpot_F(W)$ at every reachable position $(W,v)$ of $(C,\eta)$.
+Let $C$ be a digraph with self-energies $\eta\colon V(C)\to\mathbb K$, where $\mathbb K\supseteq\Qz$ is a field; the game $(C,\eta)$ has the positions of DVG on $C$ and the resolvents $1/R(W,v)=z-\eta_v-\sum_{w}R(W-v,w)$. A \emph{frozen potential} for $(C,\eta)$ with environment $F$ (a finite set disjoint from $V(C)$) is a graph $U$ on $V(C)\sqcup F$ with weights $a\colon V(C)\sqcup F\to\mathbb K$ such that $\Mpot_F(W)=\mu_a(U[W\cup F])$ satisfies $\Mpot_F(W)\neq0$ and $\Mpot_F(W-v)=R(W,v)\Mpot_F(W)$ at every reachable position $(W,v)$ of $(C,\eta)$.
 \end{definition}
 
 The environment is never visited and acts only through $U$. By \cref{prop:restriction}, whose proof uses no property of the field, a potential for $D$ restricts to a frozen potential for each strong component with environment the rest of $D$. For a directed cycle $C$ with $\eta=0$ the reachable unvisited sets are the cyclic intervals, and $R(W,v)=\mu(P_{\ell-1})/\mu(P_\ell)$ on an interval of length $\ell$ that begins at $v$ (proof of \cref{prop:fails}(1)); so a frozen potential is exactly a function $\Mpot_F$ with $\Mpot_F(I)=\lambda\,\mu(P_{|I|})(z)$ on every cyclic interval $I$, for a constant $\lambda=\Mpot_F(\emptyset)\neq0$.
@@ -167,12 +167,12 @@ Saturated Gr\"obner bases over $\Qz$ for every $U$ up to the symmetries of the c
 \end{proof}
 
 \begin{proposition}[symmetric environments]\label{prop:symmetric-env}
-Let the weights lie in $\Qzbar$, $\eta=0$, and let $U$ be invariant under every permutation of $C=C_m$ that fixes $F$ pointwise; equivalently all cycle vertices have the same set $N$ of $U$-neighbours in $F$, and $U[C]$ is empty or complete. If a frozen potential exists, then $|N|\ge m-1$ when $U[C]$ is empty, for every $m\ge3$, and when $U[C]$ is complete, for $3\le m\le10$. \Cref{thm:every-cycle} attains $|F|=|N|=m-1$ with $U[C]$ empty, and the frozen potential that $D_m$ induces on its cycle \textup{(}\cref{prop:restriction}\textup{)} has $|N|=m+1$.
+Let the weights lie in $\Qzbar$, $\eta=0$, and let $U$ be invariant under every permutation of $C=C_m$ that fixes $F$ pointwise; equivalently all cycle vertices have the same set $N$ of $U$-neighbors in $F$, and $U[C]$ is empty or complete. If a frozen potential exists, then $|N|\ge m-1$ when $U[C]$ is empty, for every $m\ge3$, and when $U[C]$ is complete, for $3\le m\le10$. \Cref{thm:every-cycle} attains $|F|=|N|=m-1$ with $U[C]$ empty, and the frozen potential that $D_m$ induces on its cycle \textup{(}\cref{prop:restriction}\textup{)} has $|N|=m+1$.
 \end{proposition}
 \begin{proof}
 On a singleton interval $\{c\}$ no other cycle vertex is present, and the vertex recurrence at $c$ with the frozen identity $\Mpot(\{c\})=z\lambda$ gives every cycle vertex the weight $\alpha=z+\sum_{f\in N}\rho(F,f)$, where $\rho(F,f)=\mu_a(U[F-f])/\mu_a(U[F])$. Let $\kappa=1$ if $U[C]$ is complete and $\kappa=0$ otherwise. Sorting matchings as in the proof of \cref{thm:every-cycle}, with the factor $e^{-x^2/2}$ counting matchings inside a complete graph, gives $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x-\kappa x^{2}/2}Q(x)$, where $Q$ is a polynomial of degree at most $|N|$. Write $z=w+w^{-1}$; then $w$ is transcendental over $\QQ$. The frozen identities $\Mpot_k=\lambda\mu(P_k)(z)$ for $k\le m$ give
 \[
-Q(x)\equiv\lambda\,e^{\kappa x^{2}/2}\,\frac{w\,e^{Ax}-w^{-1}e^{Bx}}{w-w^{-1}}\pmod{x^{m+1}},\qquad A=w-\alpha,\quad B=w^{-1}-\alpha .
+Q(x)\equiv\lambda\,e^{\kappa x^{2}/2}\,\frac{w\,e^{Ax}-w^{-1}e^{Bx}}{w-w^{-1}}\pmod{x^{m+1}},\qquad A=w-\alpha,\quad B=w^{-1}-\alpha.
 \]
 If $|N|\le m-2$, the coefficients of $x^{m-1}$ and $x^{m}$ on the right vanish. For $\kappa=0$ this says $wA^{m-1}=w^{-1}B^{m-1}$ and $wA^{m}=w^{-1}B^{m}$. If $A=0$ then $B=0$ and $w-w^{-1}=A-B=0$; otherwise dividing gives $A=B$, hence again $w^{2}=1$, impossible for transcendental $w$. For $\kappa=1$ the two coefficients, multiplied by $(m-1)!/\lambda$ and $m!/\lambda$, are polynomials in $\alpha$ with leading coefficients $\pm1$, and for each $m\le10$ their resultant in $\alpha$ is a nonzero Laurent polynomial in $w$ (exact computation), which does not vanish at a transcendental $w$.
 \end{proof}
@@ -205,7 +205,7 @@ over the $U$-paths $P$ from $x$ to $y$ in $U[I\cup F]$. The left side is $\lambd
 \end{proof}
 
 \begin{lemma}[the environment seen from the cycle]\label{lem:env-seen}
-Suppose $U[C]=\emptyset$; the weights may lie in any field. For every cycle vertex $c$, with $N(c)$ its set of $U$-neighbours in $F$,
+Suppose $U[C]=\emptyset$; the weights may lie in any field. For every cycle vertex $c$, with $N(c)$ its set of $U$-neighbors in $F$,
 \[
 a_c=z-\eta_c+\sum_{f\in N(c)}\rho(F,f),\qquad \rho(F,f)=\frac{\mu_a(U[F-f])}{\mu_a(U[F])}.
 \]
@@ -216,7 +216,7 @@ The frozen identity on $\{c\}$ gives $\Mpot(\{c\})=\lambda(z-\eta_c)$, and the v
 \end{proof}
 
 \begin{theorem}[no real mean-field rescue outside the band]\label{thm:meanfield}
-Let $\eta=0$ and let every vertex of $C$ have the same set $N\subseteq F$ of $U$-neighbours in $F$. At no real $z$ with $|z|>2$ do real weights satisfy the frozen identities. The band edge is sharp: for $m=3$ the environments of \cref{thm:triangle-solved} are of this kind and are real at every $z$ in the band except $0,\pm1,\pm\sqrt2$. A constant self-energy $e$ shifts $z$ to $z-e$, so the same holds for $\eta\equiv e$ at every real $z$ with $|z-e|>2$.
+Let $\eta=0$ and let every vertex of $C$ have the same set $N\subseteq F$ of $U$-neighbors in $F$. At no real $z$ with $|z|>2$ do real weights satisfy the frozen identities. The band edge is sharp: for $m=3$ the environments of \cref{thm:triangle-solved} are of this kind and are real at every $z$ in the band except $0,\pm1,\pm\sqrt2$. A constant self-energy $e$ shifts $z$ to $z-e$, so the same holds for $\eta\equiv e$ at every real $z$ with $|z-e|>2$.
 \end{theorem}
 \begin{proof}
 Fix a real $z$ with $|z|>2$ and real weights satisfying the frozen identities at $z$, and write $z=w+w^{-1}$ with $w$ real, $|w|>1$. By \cref{lem:frozen-path}, $U[C]=\emptyset$, and by \cref{lem:env-seen} every cycle weight equals the real number $\alpha=z+\sum_{f\in N}\rho(F,f)$. Sorting matchings of $U[W\cup F]$ by the set of cycle vertices matched into $F$ gives $\Mpot(W)=\Mpot_k$ with $k=|W|$ and $\sum_k\Mpot_kx^{k}/k!=e^{\alpha x}Q(x)$, where

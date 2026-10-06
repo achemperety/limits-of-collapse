@@ -10,7 +10,7 @@ The submission assembles classical limits of minimax evaluation and adds a genui
 
 - **I.1** **\[critical\]** *The field in Conjecture 6.10, and the truth of its complex form.*
 
-  *Location.* Definition in §6.5 (weights in $\mathbb{Q}(z)$); addendum Theorem 10.8 (“weights anywhere in the algebraic closure”); addendum open problem 2 (“A counterexample would have to realise a complex frozen environment by genuine vertices…”); Proposition 10.10 and Theorem 11.5. The conjecture is stated for $\mathbb{Q}(z)$, but the addendum treats $\overline{\mathbb{Q}(z)}$ as the natural setting and reads the absence of small counterexamples as evidence. Over $\overline{\mathbb{Q}(z)}$ the statement is false: the directed $m$-cycle with $m+1$ isolated vertices has a potential whose cycle weights are $0$ and whose environment weights are the roots of an explicit polynomial $Y_m$; the smallest instance has seven vertices.
+  *Location.* Definition in §6.5 (weights in $\mathbb{Q}(z)$); addendum Theorem 10.8 (“weights anywhere in the algebraic closure”); addendum open problem 2 (“A counterexample would have to realize a complex frozen environment by genuine vertices…”); Proposition 10.10 and Theorem 11.5. The conjecture is stated for $\mathbb{Q}(z)$, but the addendum treats $\overline{\mathbb{Q}(z)}$ as the natural setting and reads the absence of small counterexamples as evidence. Over $\overline{\mathbb{Q}(z)}$ the statement is false: the directed $m$-cycle with $m+1$ isolated vertices has a potential whose cycle weights are $0$ and whose environment weights are the roots of an explicit polynomial $Y_m$; the smallest instance has seven vertices.
 
   *Resolution.* Theorem 6.10 now names its fields ($\mathbb{Q}(z)$, $\mathbb{R}(z)$, $\mathcal{P}_{\mathbb{R}}$) and is proved (Theorem 9.5); Lemma 10.1 shows that “some field containing $\mathbb{Q}(z)$” and $\overline{\mathbb{Q}(z)}$ are the same question; Theorem 11.6 and Corollary 11.7 disprove the complex form; Proposition 11.9 computes the arithmetic of the weights; the remaining complex question is Open Problem 11.19.
 
@@ -182,7 +182,7 @@ The submission assembles classical limits of minimax evaluation and adds a genui
 
 - **III.6** *Missing response document.* The treatise’s acknowledgment refers to a “Response to review” that is not included. This report, with the concordance, serves as the response for this round.
 
-- **III.7** *Status labelling.* The addendum’s results table lists Theorem 10.9 (shape of a counterexample) as established “by proof” for real weights, although for real weights it is vacuous once Theorem 6.10 holds.
+- **III.7** *Status labeling.* The addendum’s results table lists Theorem 10.9 (shape of a counterexample) as established “by proof” for real weights, although for real weights it is vacuous once Theorem 6.10 holds.
 
   *Resolution.* Proposition 10.16 restates it over arbitrary fields, where it has content.
 
